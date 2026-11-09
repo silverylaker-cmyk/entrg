@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261109a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261109b">
   <script>try{var a=sessionStorage.getItem("entrg-arrive");if(a){sessionStorage.removeItem("entrg-arrive");document.documentElement.classList.add("arrive","arrive-"+a)}}catch(e){}</script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
@@ -75,6 +75,7 @@
       <a href="/ear/" aria-current="page">귀</a>
       <a href="/nose/">코</a>
       <a href="/throat/">목</a>
+      <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
   </header>
@@ -88,18 +89,18 @@
     <div class="hub-body">
       <ol class="line ear">
         <li class="seg" aria-hidden="true">바깥귀</li>
-        <li class="stop"><span class="soon">외이도염<em>준비 중</em></span><span class="sym">귀 가려움, 통증, 귀를 당기면 아픔</span></li>
+        <li class="stop" id="otitis-externa"><span class="soon">외이도염<em>준비 중</em></span><span class="easy">귀 입구에서 고막까지 이어지는 통로(외이도)의 피부에 생긴 염증입니다. 귀를 자주 후비거나 물이 들어간 뒤에 잘 생깁니다.</span><span class="sym">흔한 증상 · 귀 가려움, 통증, 귀를 당기면 아픔</span></li>
         <li class="seg" aria-hidden="true">고막과 중이</li>
-        <li class="stop"><span class="soon">급성 중이염<em>준비 중</em></span><span class="sym">귀 통증, 발열, 아이가 보챔</span></li>
-        <li class="stop"><span class="soon">삼출성 중이염<em>준비 중</em></span><span class="sym">귀 먹먹함, 아이가 TV 소리를 키움</span></li>
-        <li class="stop"><span class="soon">만성 중이염<em>준비 중</em></span><span class="sym">반복되는 귀 고름, 고막 천공, 청력 저하</span></li>
+        <li class="stop" id="acute-otitis-media"><span class="soon">급성 중이염<em>준비 중</em></span><span class="easy">고막 안쪽 공간(중이)에 갑자기 생긴 염증입니다. 감기 끝에 아이들에게 특히 흔합니다.</span><span class="sym">흔한 증상 · 귀 통증, 발열, 아이가 보챔</span></li>
+        <li class="stop" id="otitis-media-effusion"><span class="soon">삼출성 중이염<em>준비 중</em></span><span class="easy">고막 안쪽에 물이 고여 귀가 먹먹한 상태입니다. 아프지 않아서 아이가 말하지 않으면 모르고 지나가기 쉽습니다.</span><span class="sym">흔한 증상 · 귀 먹먹함, 아이가 TV 소리를 키움</span></li>
+        <li class="stop" id="chronic-otitis-media"><span class="soon">만성 중이염<em>준비 중</em></span><span class="easy">고막에 구멍이 있거나 중이 염증이 오래 이어져, 귀에서 고름이 반복해 나오고 청력이 떨어지는 병입니다.</span><span class="sym">흔한 증상 · 반복되는 귀 고름, 고막 천공, 청력 저하</span></li>
         <li class="seg" aria-hidden="true">달팽이관</li>
-        <li class="stop"><span class="soon">돌발성 난청<em>준비 중</em></span><span class="sym">갑자기 한쪽 귀가 안 들림, 먹먹함, 이명</span></li>
-        <li class="stop"><span class="soon">이명<em>준비 중</em></span><span class="sym">외부 소리 없이 들리는 소리</span></li>
+        <li class="stop" id="sudden-hearing-loss"><span class="soon">돌발성 난청<em>준비 중</em></span><span class="easy">뚜렷한 이유 없이 갑자기 한쪽 귀가 잘 안 들리는 병입니다. 일찍 치료할수록 회복 가능성이 높아 며칠을 기다리면 안 됩니다.</span><span class="sym">흔한 증상 · 갑자기 한쪽 귀가 안 들림, 먹먹함, 이명</span></li>
+        <li class="stop" id="tinnitus"><span class="soon">이명<em>준비 중</em></span><span class="easy">바깥에서 나는 소리가 없는데 귀나 머릿속에서 소리가 들리는 것입니다. 병 이름이라기보다 여러 원인에서 오는 증상입니다.</span><span class="sym">흔한 증상 · 외부 소리 없이 들리는 소리</span></li>
         <li class="seg" aria-hidden="true">전정과 반고리관</li>
-        <li class="stop"><span class="soon">이석증<em>준비 중</em></span><span class="sym">고개를 돌리거나 누울 때 1분 이내 도는 어지럼</span></li>
-        <li class="stop"><span class="soon">전정신경염<em>준비 중</em></span><span class="sym">며칠 이어지는 심한 회전성 어지럼, 구토</span></li>
-        <li class="stop"><span class="soon">메니에르병<em>준비 중</em></span><span class="sym">수십 분에서 수 시간 어지럼과 귀 먹먹함, 이명</span></li>
+        <li class="stop" id="bppv"><span class="soon">이석증<em>준비 중</em></span><span class="easy">귀 속 균형 기관에 있는 아주 작은 돌(이석)이 제자리를 벗어나, 고개를 돌리거나 누울 때 빙글 도는 어지럼이 생기는 병입니다.</span><span class="sym">흔한 증상 · 고개를 돌리거나 누울 때 1분 이내 도는 어지럼</span></li>
+        <li class="stop" id="vestibular-neuritis"><span class="soon">전정신경염<em>준비 중</em></span><span class="easy">균형 정보를 뇌로 보내는 신경에 염증이 생겨 며칠 동안 심하게 어지러운 병입니다. 청력은 대개 그대로입니다.</span><span class="sym">흔한 증상 · 며칠 이어지는 심한 회전성 어지럼, 구토</span></li>
+        <li class="stop" id="menieres-disease"><span class="soon">메니에르병<em>준비 중</em></span><span class="easy">어지럼, 귀 먹먹함, 이명, 청력 저하가 한꺼번에 발작처럼 찾아왔다가 가라앉기를 반복하는 속귀의 병입니다.</span><span class="sym">흔한 증상 · 수십 분에서 수 시간 어지럼과 귀 먹먹함, 이명</span></li>
       </ol>
     </div>
   </main>

@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261109a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261109b">
   <script>try{var a=sessionStorage.getItem("entrg-arrive");if(a){sessionStorage.removeItem("entrg-arrive");document.documentElement.classList.add("arrive","arrive-"+a)}}catch(e){}</script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
@@ -75,6 +75,7 @@
       <a href="/ear/">귀</a>
       <a href="/nose/">코</a>
       <a href="/throat/" aria-current="page">목</a>
+      <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
   </header>
@@ -88,18 +89,18 @@
     <div class="hub-body">
       <ol class="line throat">
         <li class="seg" aria-hidden="true">편도</li>
-        <li class="stop"><span class="soon">편도결석<em>준비 중</em></span><span class="sym">입냄새, 목 이물감, 흰 알갱이</span></li>
-        <li class="stop"><span class="soon">급성 편도염<em>준비 중</em></span><span class="sym">심한 인후통, 고열, 삼키기 어려움</span></li>
+        <li class="stop" id="tonsil-stones"><span class="soon">편도결석<em>준비 중</em></span><span class="easy">편도 표면의 작은 구멍에 음식 찌꺼기와 세균이 뭉쳐 굳은 쌀알 같은 덩어리입니다. 입냄새의 원인이 됩니다.</span><span class="sym">흔한 증상 · 입냄새, 목 이물감, 흰 알갱이</span></li>
+        <li class="stop" id="tonsillitis"><span class="soon">급성 편도염<em>준비 중</em></span><span class="easy">목 양쪽의 편도에 염증이 생겨 침을 삼키기 힘들 만큼 목이 아프고 열이 나는 병입니다.</span><span class="sym">흔한 증상 · 심한 인후통, 고열, 삼키기 어려움</span></li>
         <li class="seg" aria-hidden="true">잠잘 때의 숨길</li>
-        <li class="stop"><span class="soon">코골이<em>준비 중</em></span><span class="sym">수면 중 큰 소리</span></li>
-        <li class="stop"><span class="soon">폐쇄성 수면무호흡<em>준비 중</em></span><span class="sym">숨 멈춤, 낮 졸림, 아침 두통</span></li>
-        <li class="stop"><span class="soon">소아 코골이와 수면무호흡<em>준비 중</em></span><span class="sym">입 벌리고 자기, 코골이, 집중력 저하</span></li>
+        <li class="stop" id="snoring"><span class="soon">코골이<em>준비 중</em></span><span class="easy">잘 때 좁아진 목 숨길로 공기가 빠르게 지나가면서 입천장과 목젖이 떨려 나는 소리입니다.</span><span class="sym">흔한 증상 · 수면 중 큰 소리</span></li>
+        <li class="stop" id="sleep-apnea"><span class="soon">폐쇄성 수면무호흡<em>준비 중</em></span><span class="easy">잘 때 목 숨길이 반복해서 막혀 숨이 멈추는 병입니다. 낮 졸림뿐 아니라 고혈압 같은 병과도 관련됩니다.</span><span class="sym">흔한 증상 · 숨 멈춤, 낮 졸림, 아침 두통</span></li>
+        <li class="stop" id="pediatric-sleep-apnea"><span class="soon">소아 코골이와 수면무호흡<em>준비 중</em></span><span class="easy">아이의 큰 편도와 아데노이드가 숨길을 막아 생깁니다. 잠을 설치면 성장과 집중력에도 영향을 줄 수 있습니다.</span><span class="sym">흔한 증상 · 입 벌리고 자기, 코골이, 집중력 저하</span></li>
         <li class="seg" aria-hidden="true">인두와 후두</li>
-        <li class="stop"><span class="soon">인후두 역류<em>준비 중</em></span><span class="sym">목 이물감, 헛기침, 쉰 목소리</span></li>
-        <li class="stop"><span class="soon">목 이물감<em>준비 중</em></span><span class="sym">목에 뭔가 걸린 느낌</span></li>
-        <li class="stop"><span class="soon">성대결절과 폴립<em>준비 중</em></span><span class="sym">쉬거나 갈라지는 목소리</span></li>
+        <li class="stop" id="laryngopharyngeal-reflux"><span class="soon">인후두 역류<em>준비 중</em></span><span class="easy">위산이나 위 내용물이 목까지 올라와 목 이물감, 헛기침, 쉰 목소리를 만드는 병입니다. 가슴 쓰림이 없을 수도 있습니다.</span><span class="sym">흔한 증상 · 목 이물감, 헛기침, 쉰 목소리</span></li>
+        <li class="stop" id="globus"><span class="soon">목 이물감<em>준비 중</em></span><span class="easy">목에 뭔가 걸린 것 같은데 실제로 막힌 것은 없는 느낌입니다. 역류, 후비루, 긴장 등이 흔한 원인입니다.</span><span class="sym">흔한 증상 · 목에 뭔가 걸린 느낌</span></li>
+        <li class="stop" id="vocal-nodules"><span class="soon">성대결절과 폴립<em>준비 중</em></span><span class="easy">목을 많이 쓰거나 무리하게 써서 성대에 굳은살이나 혹이 생겨 목소리가 쉬는 병입니다.</span><span class="sym">흔한 증상 · 쉬거나 갈라지는 목소리</span></li>
         <li class="seg" aria-hidden="true">목 바깥</li>
-        <li class="stop"><span class="soon">목 멍울<em>준비 중</em></span><span class="sym">만져지는 목 멍울</span></li>
+        <li class="stop" id="neck-lump"><span class="soon">목 멍울<em>준비 중</em></span><span class="easy">목에 만져지는 덩어리입니다. 대부분 염증으로 커진 림프절이지만, 2~3주가 지나도 줄지 않으면 검사가 필요합니다.</span><span class="sym">흔한 증상 · 만져지는 목 멍울</span></li>
       </ol>
     </div>
   </main>

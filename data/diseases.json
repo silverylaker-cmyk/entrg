@@ -9,30 +9,30 @@
         {
           "name": "바깥귀",
           "stops": [
-            { "n": 21, "name": "외이도염", "slug": "otitis-externa", "symptom": "귀 가려움, 통증, 귀를 당기면 아픔" }
+            { "n": 21, "name": "외이도염", "slug": "otitis-externa", "symptom": "귀 가려움, 통증, 귀를 당기면 아픔", "easy": "귀 입구에서 고막까지 이어지는 통로(외이도)의 피부에 생긴 염증입니다. 귀를 자주 후비거나 물이 들어간 뒤에 잘 생깁니다." }
           ]
         },
         {
           "name": "고막과 중이",
           "stops": [
-            { "n": 18, "name": "급성 중이염", "slug": "acute-otitis-media", "symptom": "귀 통증, 발열, 아이가 보챔" },
-            { "n": 19, "name": "삼출성 중이염", "slug": "otitis-media-effusion", "symptom": "귀 먹먹함, 아이가 TV 소리를 키움" },
-            { "n": 20, "name": "만성 중이염", "slug": "chronic-otitis-media", "symptom": "반복되는 귀 고름, 고막 천공, 청력 저하" }
+            { "n": 18, "name": "급성 중이염", "slug": "acute-otitis-media", "symptom": "귀 통증, 발열, 아이가 보챔", "easy": "고막 안쪽 공간(중이)에 갑자기 생긴 염증입니다. 감기 끝에 아이들에게 특히 흔합니다." },
+            { "n": 19, "name": "삼출성 중이염", "slug": "otitis-media-effusion", "symptom": "귀 먹먹함, 아이가 TV 소리를 키움", "easy": "고막 안쪽에 물이 고여 귀가 먹먹한 상태입니다. 아프지 않아서 아이가 말하지 않으면 모르고 지나가기 쉽습니다." },
+            { "n": 20, "name": "만성 중이염", "slug": "chronic-otitis-media", "symptom": "반복되는 귀 고름, 고막 천공, 청력 저하", "easy": "고막에 구멍이 있거나 중이 염증이 오래 이어져, 귀에서 고름이 반복해 나오고 청력이 떨어지는 병입니다." }
           ]
         },
         {
           "name": "달팽이관",
           "stops": [
-            { "n": 16, "name": "돌발성 난청", "slug": "sudden-hearing-loss", "symptom": "갑자기 한쪽 귀가 안 들림, 먹먹함, 이명" },
-            { "n": 17, "name": "이명", "slug": "tinnitus", "symptom": "외부 소리 없이 들리는 소리" }
+            { "n": 16, "name": "돌발성 난청", "slug": "sudden-hearing-loss", "symptom": "갑자기 한쪽 귀가 안 들림, 먹먹함, 이명", "easy": "뚜렷한 이유 없이 갑자기 한쪽 귀가 잘 안 들리는 병입니다. 일찍 치료할수록 회복 가능성이 높아 며칠을 기다리면 안 됩니다." },
+            { "n": 17, "name": "이명", "slug": "tinnitus", "symptom": "외부 소리 없이 들리는 소리", "easy": "바깥에서 나는 소리가 없는데 귀나 머릿속에서 소리가 들리는 것입니다. 병 이름이라기보다 여러 원인에서 오는 증상입니다." }
           ]
         },
         {
           "name": "전정과 반고리관",
           "stops": [
-            { "n": 13, "name": "이석증", "slug": "bppv", "symptom": "고개를 돌리거나 누울 때 1분 이내 도는 어지럼" },
-            { "n": 14, "name": "전정신경염", "slug": "vestibular-neuritis", "symptom": "며칠 이어지는 심한 회전성 어지럼, 구토" },
-            { "n": 15, "name": "메니에르병", "slug": "menieres-disease", "symptom": "수십 분에서 수 시간 어지럼과 귀 먹먹함, 이명" }
+            { "n": 13, "name": "이석증", "slug": "bppv", "symptom": "고개를 돌리거나 누울 때 1분 이내 도는 어지럼", "easy": "귀 속 균형 기관에 있는 아주 작은 돌(이석)이 제자리를 벗어나, 고개를 돌리거나 누울 때 빙글 도는 어지럼이 생기는 병입니다." },
+            { "n": 14, "name": "전정신경염", "slug": "vestibular-neuritis", "symptom": "며칠 이어지는 심한 회전성 어지럼, 구토", "easy": "균형 정보를 뇌로 보내는 신경에 염증이 생겨 며칠 동안 심하게 어지러운 병입니다. 청력은 대개 그대로입니다." },
+            { "n": 15, "name": "메니에르병", "slug": "menieres-disease", "symptom": "수십 분에서 수 시간 어지럼과 귀 먹먹함, 이명", "easy": "어지럼, 귀 먹먹함, 이명, 청력 저하가 한꺼번에 발작처럼 찾아왔다가 가라앉기를 반복하는 속귀의 병입니다." }
           ]
         }
       ]
@@ -46,33 +46,33 @@
         {
           "name": "콧구멍과 비강",
           "stops": [
-            { "n": 11, "name": "코피", "slug": "nosebleed", "symptom": "반복되는 코피, 한쪽 출혈" },
-            { "n": 7, "name": "비중격만곡증", "slug": "deviated-septum", "symptom": "한쪽 또는 양쪽 코막힘, 코골이" },
-            { "n": 8, "name": "하비갑개 비대", "slug": "turbinate-hypertrophy", "symptom": "자세에 따라 바뀌는 코막힘" }
+            { "n": 11, "name": "코피", "slug": "nosebleed", "symptom": "반복되는 코피, 한쪽 출혈", "easy": "코피는 대부분 콧구멍 바로 안쪽 앞부분의 가는 혈관에서 납니다. 고개를 살짝 숙이고 콧방울을 10분쯤 꽉 누르면 대개 멈춥니다." },
+            { "n": 7, "name": "비중격만곡증", "slug": "deviated-septum", "symptom": "한쪽 또는 양쪽 코막힘, 코골이", "easy": "코 한가운데 칸막이(비중격)가 한쪽으로 휘어 숨길이 좁아진 상태입니다. 조금 휜 것은 흔해서 불편할 때만 치료합니다." },
+            { "n": 8, "name": "하비갑개 비대", "slug": "turbinate-hypertrophy", "symptom": "자세에 따라 바뀌는 코막힘", "easy": "코 옆벽에 있는 살(하비갑개)이 부어 커져 숨길을 막는 상태입니다. 비염이 오래되면 잘 생깁니다." }
           ]
         },
         {
           "name": "코 점막",
           "stops": [
-            { "n": 4, "name": "알레르기 비염", "slug": "allergic-rhinitis", "symptom": "재채기, 맑은 콧물, 코막힘, 코 가려움" },
-            { "n": 5, "name": "비알레르기성 비염", "slug": "nonallergic-rhinitis", "symptom": "온도차, 음식, 냄새에 나는 콧물" },
-            { "n": 6, "name": "약물성 비염", "slug": "rhinitis-medicamentosa", "symptom": "코 뿌리는 충혈제를 오래 쓴 뒤 심해지는 코막힘" },
-            { "n": 9, "name": "비용종", "slug": "nasal-polyps", "symptom": "코막힘, 후각 상실" },
-            { "n": 10, "name": "후각 장애", "slug": "smell-loss", "symptom": "냄새가 안 나거나 다르게 남" }
+            { "n": 4, "name": "알레르기 비염", "slug": "allergic-rhinitis", "symptom": "재채기, 맑은 콧물, 코막힘, 코 가려움", "easy": "집먼지진드기나 꽃가루 같은 물질에 코 점막이 과민하게 반응해 재채기, 맑은 콧물, 코막힘이 생기는 병입니다." },
+            { "n": 5, "name": "비알레르기성 비염", "slug": "nonallergic-rhinitis", "symptom": "온도차, 음식, 냄새에 나는 콧물", "easy": "알레르기 검사는 정상인데 찬 공기, 온도 변화, 냄새, 매운 음식에 콧물과 코막힘이 생기는 비염입니다." },
+            { "n": 6, "name": "약물성 비염", "slug": "rhinitis-medicamentosa", "symptom": "코 뿌리는 충혈제를 오래 쓴 뒤 심해지는 코막힘", "easy": "코를 바로 뚫어 주는 스프레이(충혈제거제)를 오래 써서 오히려 코막힘이 심해진 상태입니다." },
+            { "n": 9, "name": "비용종", "slug": "nasal-polyps", "symptom": "코막힘, 후각 상실", "easy": "오래된 염증으로 코와 부비동 점막이 부풀어 생긴 말랑한 물혹입니다. 암은 아니지만 코를 막고 냄새를 못 맡게 합니다." },
+            { "n": 10, "name": "후각 장애", "slug": "smell-loss", "symptom": "냄새가 안 나거나 다르게 남", "easy": "냄새를 잘 못 맡거나 다르게 느끼는 상태입니다. 비염과 부비동염, 감기 바이러스, 머리 외상 등이 원인이 됩니다." }
           ]
         },
         {
           "name": "부비동",
           "stops": [
-            { "n": 2, "name": "급성 부비동염", "slug": "acute-sinusitis", "symptom": "감기 후 10일 넘게 이어지는 누런 콧물, 얼굴 통증" },
-            { "n": 1, "name": "만성 부비동염(축농증)", "slug": "chronic-sinusitis", "symptom": "12주 이상 코막힘, 누런 콧물, 후비루, 후각 저하", "published": "2026-11-09" },
-            { "n": 3, "name": "치성 부비동염", "slug": "odontogenic-sinusitis", "symptom": "한쪽 콧물, 코 속 악취, 치과 치료 후 발생" }
+            { "n": 2, "name": "급성 부비동염", "slug": "acute-sinusitis", "symptom": "감기 후 10일 넘게 이어지는 누런 콧물, 얼굴 통증", "easy": "감기 끝에 부비동까지 염증이 번져 누런 콧물과 얼굴 통증이 열흘 넘게 이어지는 상태입니다." },
+            { "n": 1, "name": "만성 부비동염(축농증)", "slug": "chronic-sinusitis", "symptom": "12주 이상 코막힘, 누런 콧물, 후비루, 후각 저하", "easy": "코와 부비동의 염증이 12주 넘게 이어지는 병입니다. 흔히 축농증이라고 부릅니다.", "published": "2026-11-09" },
+            { "n": 3, "name": "치성 부비동염", "slug": "odontogenic-sinusitis", "symptom": "한쪽 콧물, 코 속 악취, 치과 치료 후 발생", "easy": "위쪽 어금니 뿌리의 염증이나 치과 치료가 원인이 되어 생기는 부비동염입니다. 주로 한쪽에만 생기고 고약한 냄새가 납니다." }
           ]
         },
         {
           "name": "코 뒤쪽",
           "stops": [
-            { "n": 12, "name": "후비루", "slug": "postnasal-drip", "symptom": "목 뒤로 넘어가는 가래, 만성 기침" }
+            { "n": 12, "name": "후비루", "slug": "postnasal-drip", "symptom": "목 뒤로 넘어가는 가래, 만성 기침", "easy": "콧물이 목 뒤로 넘어가는 느낌입니다. 오래가는 헛기침과 가래의 흔한 원인입니다." }
           ]
         }
       ]
@@ -86,31 +86,31 @@
         {
           "name": "편도",
           "stops": [
-            { "n": 26, "name": "편도결석", "slug": "tonsil-stones", "symptom": "입냄새, 목 이물감, 흰 알갱이" },
-            { "n": 25, "name": "급성 편도염", "slug": "tonsillitis", "symptom": "심한 인후통, 고열, 삼키기 어려움" }
+            { "n": 26, "name": "편도결석", "slug": "tonsil-stones", "symptom": "입냄새, 목 이물감, 흰 알갱이", "easy": "편도 표면의 작은 구멍에 음식 찌꺼기와 세균이 뭉쳐 굳은 쌀알 같은 덩어리입니다. 입냄새의 원인이 됩니다." },
+            { "n": 25, "name": "급성 편도염", "slug": "tonsillitis", "symptom": "심한 인후통, 고열, 삼키기 어려움", "easy": "목 양쪽의 편도에 염증이 생겨 침을 삼키기 힘들 만큼 목이 아프고 열이 나는 병입니다." }
           ]
         },
         {
           "name": "잠잘 때의 숨길",
           "base": "sleep",
           "stops": [
-            { "n": 22, "name": "코골이", "slug": "snoring", "symptom": "수면 중 큰 소리" },
-            { "n": 23, "name": "폐쇄성 수면무호흡", "slug": "sleep-apnea", "symptom": "숨 멈춤, 낮 졸림, 아침 두통" },
-            { "n": 24, "name": "소아 코골이와 수면무호흡", "slug": "pediatric-sleep-apnea", "symptom": "입 벌리고 자기, 코골이, 집중력 저하" }
+            { "n": 22, "name": "코골이", "slug": "snoring", "symptom": "수면 중 큰 소리", "easy": "잘 때 좁아진 목 숨길로 공기가 빠르게 지나가면서 입천장과 목젖이 떨려 나는 소리입니다." },
+            { "n": 23, "name": "폐쇄성 수면무호흡", "slug": "sleep-apnea", "symptom": "숨 멈춤, 낮 졸림, 아침 두통", "easy": "잘 때 목 숨길이 반복해서 막혀 숨이 멈추는 병입니다. 낮 졸림뿐 아니라 고혈압 같은 병과도 관련됩니다." },
+            { "n": 24, "name": "소아 코골이와 수면무호흡", "slug": "pediatric-sleep-apnea", "symptom": "입 벌리고 자기, 코골이, 집중력 저하", "easy": "아이의 큰 편도와 아데노이드가 숨길을 막아 생깁니다. 잠을 설치면 성장과 집중력에도 영향을 줄 수 있습니다." }
           ]
         },
         {
           "name": "인두와 후두",
           "stops": [
-            { "n": 27, "name": "인후두 역류", "slug": "laryngopharyngeal-reflux", "symptom": "목 이물감, 헛기침, 쉰 목소리" },
-            { "n": 29, "name": "목 이물감", "slug": "globus", "symptom": "목에 뭔가 걸린 느낌" },
-            { "n": 28, "name": "성대결절과 폴립", "slug": "vocal-nodules", "symptom": "쉬거나 갈라지는 목소리" }
+            { "n": 27, "name": "인후두 역류", "slug": "laryngopharyngeal-reflux", "symptom": "목 이물감, 헛기침, 쉰 목소리", "easy": "위산이나 위 내용물이 목까지 올라와 목 이물감, 헛기침, 쉰 목소리를 만드는 병입니다. 가슴 쓰림이 없을 수도 있습니다." },
+            { "n": 29, "name": "목 이물감", "slug": "globus", "symptom": "목에 뭔가 걸린 느낌", "easy": "목에 뭔가 걸린 것 같은데 실제로 막힌 것은 없는 느낌입니다. 역류, 후비루, 긴장 등이 흔한 원인입니다." },
+            { "n": 28, "name": "성대결절과 폴립", "slug": "vocal-nodules", "symptom": "쉬거나 갈라지는 목소리", "easy": "목을 많이 쓰거나 무리하게 써서 성대에 굳은살이나 혹이 생겨 목소리가 쉬는 병입니다." }
           ]
         },
         {
           "name": "목 바깥",
           "stops": [
-            { "n": 30, "name": "목 멍울", "slug": "neck-lump", "symptom": "만져지는 목 멍울" }
+            { "n": 30, "name": "목 멍울", "slug": "neck-lump", "symptom": "만져지는 목 멍울", "easy": "목에 만져지는 덩어리입니다. 대부분 염증으로 커진 림프절이지만, 2~3주가 지나도 줄지 않으면 검사가 필요합니다." }
           ]
         }
       ]

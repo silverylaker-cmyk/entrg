@@ -1,0 +1,16 @@
+{
+  "intro": "병 이름을 몰라도 괜찮습니다. 지금 겪는 증상에서 출발해 관련 있을 수 있는 질환을 찾아보세요. 여기 적힌 질환은 가능성일 뿐이며, 진단은 진료로 합니다.",
+  "urgent": "갑자기 한쪽 귀가 안 들리면 며칠 안에 진료를 받으세요. 어지럼과 함께 말이 어눌해지거나, 한쪽 팔다리에 힘이 빠지거나, 물체가 둘로 보이면 뇌혈관 문제일 수 있으니 바로 응급실로 가세요.",
+  "items": [
+    { "region": "ear", "q": "빙글빙글 어지러워요", "slugs": ["bppv", "vestibular-neuritis", "menieres-disease"] },
+    { "region": "ear", "q": "귀가 먹먹하거나 잘 안 들려요", "slugs": ["sudden-hearing-loss", "otitis-media-effusion", "menieres-disease"] },
+    { "region": "ear", "q": "귀에서 삐 소리가 나요", "slugs": ["tinnitus", "sudden-hearing-loss"] },
+    { "region": "ear", "q": "귀가 아프거나 진물이 나요", "slugs": ["otitis-externa", "acute-otitis-media", "chronic-otitis-media"] },
+    { "region": "nose", "q": "코가 늘 막혀 있어요", "slugs": ["allergic-rhinitis", "deviated-septum", "turbinate-hypertrophy", "rhinitis-medicamentosa"] },
+    { "region": "nose", "q": "누런 콧물이 오래가요", "slugs": ["acute-sinusitis", "chronic-sinusitis", "odontogenic-sinusitis"] },
+    { "region": "nose", "q": "냄새를 잘 못 맡아요", "slugs": ["smell-loss", "nasal-polyps", "chronic-sinusitis"] },
+    { "region": "throat", "q": "목에 뭐가 걸린 것 같아요", "slugs": ["globus", "laryngopharyngeal-reflux", "postnasal-drip"] },
+    { "region": "throat", "q": "코를 골거나 자다가 숨이 멎어요", "slugs": ["snoring", "sleep-apnea", "pediatric-sleep-apnea"] },
+    { "region": "throat", "q": "목소리가 쉬었어요", "slugs": ["vocal-nodules", "laryngopharyngeal-reflux"] }
+  ]
+}

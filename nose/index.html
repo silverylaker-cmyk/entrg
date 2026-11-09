@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261109a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261109b">
   <script>try{var a=sessionStorage.getItem("entrg-arrive");if(a){sessionStorage.removeItem("entrg-arrive");document.documentElement.classList.add("arrive","arrive-"+a)}}catch(e){}</script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
@@ -92,6 +92,7 @@
       <a href="/ear/">귀</a>
       <a href="/nose/" aria-current="page">코</a>
       <a href="/throat/">목</a>
+      <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
   </header>
@@ -105,21 +106,21 @@
     <div class="hub-body">
       <ol class="line nose">
         <li class="seg" aria-hidden="true">콧구멍과 비강</li>
-        <li class="stop"><span class="soon">코피<em>준비 중</em></span><span class="sym">반복되는 코피, 한쪽 출혈</span></li>
-        <li class="stop"><span class="soon">비중격만곡증<em>준비 중</em></span><span class="sym">한쪽 또는 양쪽 코막힘, 코골이</span></li>
-        <li class="stop"><span class="soon">하비갑개 비대<em>준비 중</em></span><span class="sym">자세에 따라 바뀌는 코막힘</span></li>
+        <li class="stop" id="nosebleed"><span class="soon">코피<em>준비 중</em></span><span class="easy">코피는 대부분 콧구멍 바로 안쪽 앞부분의 가는 혈관에서 납니다. 고개를 살짝 숙이고 콧방울을 10분쯤 꽉 누르면 대개 멈춥니다.</span><span class="sym">흔한 증상 · 반복되는 코피, 한쪽 출혈</span></li>
+        <li class="stop" id="deviated-septum"><span class="soon">비중격만곡증<em>준비 중</em></span><span class="easy">코 한가운데 칸막이(비중격)가 한쪽으로 휘어 숨길이 좁아진 상태입니다. 조금 휜 것은 흔해서 불편할 때만 치료합니다.</span><span class="sym">흔한 증상 · 한쪽 또는 양쪽 코막힘, 코골이</span></li>
+        <li class="stop" id="turbinate-hypertrophy"><span class="soon">하비갑개 비대<em>준비 중</em></span><span class="easy">코 옆벽에 있는 살(하비갑개)이 부어 커져 숨길을 막는 상태입니다. 비염이 오래되면 잘 생깁니다.</span><span class="sym">흔한 증상 · 자세에 따라 바뀌는 코막힘</span></li>
         <li class="seg" aria-hidden="true">코 점막</li>
-        <li class="stop"><span class="soon">알레르기 비염<em>준비 중</em></span><span class="sym">재채기, 맑은 콧물, 코막힘, 코 가려움</span></li>
-        <li class="stop"><span class="soon">비알레르기성 비염<em>준비 중</em></span><span class="sym">온도차, 음식, 냄새에 나는 콧물</span></li>
-        <li class="stop"><span class="soon">약물성 비염<em>준비 중</em></span><span class="sym">코 뿌리는 충혈제를 오래 쓴 뒤 심해지는 코막힘</span></li>
-        <li class="stop"><span class="soon">비용종<em>준비 중</em></span><span class="sym">코막힘, 후각 상실</span></li>
-        <li class="stop"><span class="soon">후각 장애<em>준비 중</em></span><span class="sym">냄새가 안 나거나 다르게 남</span></li>
+        <li class="stop" id="allergic-rhinitis"><span class="soon">알레르기 비염<em>준비 중</em></span><span class="easy">집먼지진드기나 꽃가루 같은 물질에 코 점막이 과민하게 반응해 재채기, 맑은 콧물, 코막힘이 생기는 병입니다.</span><span class="sym">흔한 증상 · 재채기, 맑은 콧물, 코막힘, 코 가려움</span></li>
+        <li class="stop" id="nonallergic-rhinitis"><span class="soon">비알레르기성 비염<em>준비 중</em></span><span class="easy">알레르기 검사는 정상인데 찬 공기, 온도 변화, 냄새, 매운 음식에 콧물과 코막힘이 생기는 비염입니다.</span><span class="sym">흔한 증상 · 온도차, 음식, 냄새에 나는 콧물</span></li>
+        <li class="stop" id="rhinitis-medicamentosa"><span class="soon">약물성 비염<em>준비 중</em></span><span class="easy">코를 바로 뚫어 주는 스프레이(충혈제거제)를 오래 써서 오히려 코막힘이 심해진 상태입니다.</span><span class="sym">흔한 증상 · 코 뿌리는 충혈제를 오래 쓴 뒤 심해지는 코막힘</span></li>
+        <li class="stop" id="nasal-polyps"><span class="soon">비용종<em>준비 중</em></span><span class="easy">오래된 염증으로 코와 부비동 점막이 부풀어 생긴 말랑한 물혹입니다. 암은 아니지만 코를 막고 냄새를 못 맡게 합니다.</span><span class="sym">흔한 증상 · 코막힘, 후각 상실</span></li>
+        <li class="stop" id="smell-loss"><span class="soon">후각 장애<em>준비 중</em></span><span class="easy">냄새를 잘 못 맡거나 다르게 느끼는 상태입니다. 비염과 부비동염, 감기 바이러스, 머리 외상 등이 원인이 됩니다.</span><span class="sym">흔한 증상 · 냄새가 안 나거나 다르게 남</span></li>
         <li class="seg" aria-hidden="true">부비동</li>
-        <li class="stop"><span class="soon">급성 부비동염<em>준비 중</em></span><span class="sym">감기 후 10일 넘게 이어지는 누런 콧물, 얼굴 통증</span></li>
-        <li class="stop open"><a href="/nose/chronic-sinusitis/">만성 부비동염(축농증)</a><span class="sym">12주 이상 코막힘, 누런 콧물, 후비루, 후각 저하</span></li>
-        <li class="stop"><span class="soon">치성 부비동염<em>준비 중</em></span><span class="sym">한쪽 콧물, 코 속 악취, 치과 치료 후 발생</span></li>
+        <li class="stop" id="acute-sinusitis"><span class="soon">급성 부비동염<em>준비 중</em></span><span class="easy">감기 끝에 부비동까지 염증이 번져 누런 콧물과 얼굴 통증이 열흘 넘게 이어지는 상태입니다.</span><span class="sym">흔한 증상 · 감기 후 10일 넘게 이어지는 누런 콧물, 얼굴 통증</span></li>
+        <li class="stop open" id="chronic-sinusitis"><a href="/nose/chronic-sinusitis/">만성 부비동염(축농증)</a><span class="easy">코와 부비동의 염증이 12주 넘게 이어지는 병입니다. 흔히 축농증이라고 부릅니다.</span><span class="sym">흔한 증상 · 12주 이상 코막힘, 누런 콧물, 후비루, 후각 저하</span></li>
+        <li class="stop" id="odontogenic-sinusitis"><span class="soon">치성 부비동염<em>준비 중</em></span><span class="easy">위쪽 어금니 뿌리의 염증이나 치과 치료가 원인이 되어 생기는 부비동염입니다. 주로 한쪽에만 생기고 고약한 냄새가 납니다.</span><span class="sym">흔한 증상 · 한쪽 콧물, 코 속 악취, 치과 치료 후 발생</span></li>
         <li class="seg" aria-hidden="true">코 뒤쪽</li>
-        <li class="stop"><span class="soon">후비루<em>준비 중</em></span><span class="sym">목 뒤로 넘어가는 가래, 만성 기침</span></li>
+        <li class="stop" id="postnasal-drip"><span class="soon">후비루<em>준비 중</em></span><span class="easy">콧물이 목 뒤로 넘어가는 느낌입니다. 오래가는 헛기침과 가래의 흔한 원인입니다.</span><span class="sym">흔한 증상 · 목 뒤로 넘어가는 가래, 만성 기침</span></li>
       </ol>
     </div>
   </main>
