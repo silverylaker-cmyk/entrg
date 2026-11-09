@@ -306,7 +306,6 @@ p { margin: 0 0 1em; }
   text-decoration: none; border: 1.5px solid color-mix(in srgb, var(--c) 55%, transparent); color: var(--ink);
 }
 .chip:hover, .chip:focus-visible { background: color-mix(in srgb, var(--c) 14%, transparent); }
-.chip.open { background: var(--c); border-color: var(--c); color: #fff; }
 .finder-urgent { margin: 16px 0 0; padding: 14px 18px; border-radius: 12px; background: var(--paper-2); font-size: .95rem; max-width: 60rem; }
 .finder-urgent strong { display: block; margin-bottom: 2px; }
 

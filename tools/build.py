@@ -30,7 +30,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://entrg.net"
-CSS_V = "20261109b"
+CSS_V = "20261109c"
 DATA = json.loads((ROOT / "data" / "diseases.json").read_text(encoding="utf-8"))
 SYMPTOMS = json.loads((ROOT / "data" / "symptoms.json").read_text(encoding="utf-8"))
 FACTS = json.loads((ROOT / "data" / "facts.json").read_text(encoding="utf-8"))
@@ -454,6 +454,7 @@ def condition_jsonld(c, r, seg, st, url):
                               for t in cond["treatments"]],
         "possibleComplication": cond["complications"],
     }
+    condition = {k: v for k, v in condition.items() if v not in ([], None, "")}
     faq = {"@type": "FAQPage", "@id": url + "#faq", "isPartOf": {"@id": url + "#webpage"},
            "mainEntity": [{"@type": "Question", "name": strip_tags(f["q"]),
                            "acceptedAnswer": {"@type": "Answer", "text": strip_tags(f["a"])}} for f in c["faq"]]}
