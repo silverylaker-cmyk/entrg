@@ -27,19 +27,31 @@
         "@id": "https://entrg.net/nose/#webpage",
         "url": "https://entrg.net/nose/",
         "name": "코 질환 안내",
+        "description": "코 질환 12가지: 코피, 비중격만곡증, 하비갑개 비대, 알레르기 비염, 비알레르기성 비염, 약물성 비염 등. 증상, 검사, 치료를 이비인후과 전문의가 설명합니다.",
         "inLanguage": "ko-KR",
         "isPartOf": {
           "@id": "https://entrg.net/#website"
         },
+        "breadcrumb": {
+          "@id": "https://entrg.net/nose/#breadcrumb"
+        },
         "about": {
           "@type": "AnatomicalStructure",
-          "name": "코"
+          "name": "코",
+          "alternateName": "Nose"
         },
+        "specialty": "https://schema.org/Otolaryngologic",
         "reviewedBy": {
           "@id": "https://entrg.net/#physician"
         },
+        "hasPart": [
+          {
+            "@id": "https://entrg.net/nose/chronic-sinusitis/#webpage"
+          }
+        ],
         "mainEntity": {
           "@type": "ItemList",
+          "numberOfItems": 1,
           "itemListElement": [
             {
               "@type": "ListItem",
@@ -52,6 +64,7 @@
       },
       {
         "@type": "BreadcrumbList",
+        "@id": "https://entrg.net/nose/#breadcrumb",
         "itemListElement": [
           {
             "@type": "ListItem",

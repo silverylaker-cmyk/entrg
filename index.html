@@ -23,6 +23,7 @@
   } }
   </script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <!-- build:jsonld -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -33,8 +34,11 @@
         "url": "https://entrg.net/",
         "name": "귀코목 알지",
         "alternateName": "ENTRG",
+        "description": "귀, 코, 목 안쪽 길을 따라가며 이비인후과 질환의 증상, 검사, 치료를 이비인후과 전문의가 설명하는 의학정보 사이트.",
         "inLanguage": "ko-KR",
-        "publisher": { "@id": "https://entrg.net/#physician" }
+        "publisher": {
+          "@id": "https://entrg.net/#physician"
+        }
       },
       {
         "@type": "Person",
@@ -42,10 +46,78 @@
         "name": "박종원",
         "jobTitle": "이비인후과 전문의",
         "url": "https://entrg.net/about/"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://entrg.net/#webpage",
+        "url": "https://entrg.net/",
+        "name": "귀코목 알지 | 귀, 코, 목 질환을 이비인후과 전문의가 설명합니다",
+        "description": "귀, 코, 목 안쪽 길을 따라가며 이석증, 축농증, 비염, 이명, 수면무호흡 같은 이비인후과 질환의 증상, 검사, 치료를 이비인후과 전문의가 설명합니다.",
+        "inLanguage": "ko-KR",
+        "isPartOf": {
+          "@id": "https://entrg.net/#website"
+        },
+        "about": [
+          {
+            "@type": "AnatomicalStructure",
+            "name": "귀",
+            "alternateName": "Ear"
+          },
+          {
+            "@type": "AnatomicalStructure",
+            "name": "코",
+            "alternateName": "Nose"
+          },
+          {
+            "@type": "AnatomicalStructure",
+            "name": "목",
+            "alternateName": "Throat"
+          }
+        ],
+        "author": {
+          "@id": "https://entrg.net/#physician"
+        },
+        "hasPart": [
+          {
+            "@id": "https://entrg.net/ear/#webpage"
+          },
+          {
+            "@id": "https://entrg.net/nose/#webpage"
+          },
+          {
+            "@id": "https://entrg.net/throat/#webpage"
+          }
+        ],
+        "mainEntity": {
+          "@type": "ItemList",
+          "name": "귀코목 탐험로",
+          "numberOfItems": 3,
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "귀: 소리와 균형의 길",
+              "url": "https://entrg.net/ear/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "코: 숨과 냄새의 길",
+              "url": "https://entrg.net/nose/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "목: 목소리와 잠의 길",
+              "url": "https://entrg.net/throat/"
+            }
+          ]
+        }
       }
     ]
   }
   </script>
+  <!-- /build:jsonld -->
 </head>
 <body>
   <a class="skip" href="#main">본문으로 건너뛰기</a>
