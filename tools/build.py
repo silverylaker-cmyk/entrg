@@ -35,6 +35,8 @@ DATA = json.loads((ROOT / "data" / "diseases.json").read_text(encoding="utf-8"))
 SYMPTOMS = json.loads((ROOT / "data" / "symptoms.json").read_text(encoding="utf-8"))
 FACTS = json.loads((ROOT / "data" / "facts.json").read_text(encoding="utf-8"))
 COND_DIR = ROOT / "data" / "conditions"
+FIG_DIR = ROOT / "data" / "figures"
+OG_DIR = ROOT / "assets" / "og"
 
 SITE_NAME = "귀코목 알지"
 SITE_DESC = "귀, 코, 목 안쪽 길을 따라가며 이비인후과 질환의 증상, 검사, 치료를 이비인후과 전문의가 설명하는 의학정보 사이트."
@@ -56,7 +58,7 @@ HEAD = """<!doctype html>
   <meta property="og:title" content="{og_title}">
   <meta property="og:description" content="{og_desc}">
   <meta property="og:url" content="{url}">
-  <meta property="og:locale" content="ko_KR">
+  <meta property="og:locale" content="ko_KR">{og_image}
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -105,10 +107,40 @@ def ld(graph, indent="  "):
     return "\n".join(indent + l for l in json.dumps(obj, ensure_ascii=False, indent=2).splitlines())
 
 
-def head(*, title, desc, url, jsonld, nav_current, og_type="website", og_title=None, og_desc=None):
+def og_key_url(key):
+    """assets/og/<key>.jpg 가 있으면 그 주소. 없으면 None (tools/og.py 로 생성)."""
+    f = OG_DIR / f"{key}.jpg"
+    return f"{SITE}/assets/og/{key}.jpg" if f.exists() else None
+
+
+def og_meta(key, alt, indent="\n  "):
+    u = og_key_url(key)
+    if not u:
+        return ""
+    return indent.join(["", f'<meta property="og:image" content="{u}">',
+                        '<meta property="og:image:width" content="1200">',
+                        '<meta property="og:image:height" content="630">',
+                        f'<meta property="og:image:alt" content="{escape(alt)}">',
+                        '<meta name="twitter:card" content="summary_large_image">'])
+
+
+def image_node(key):
+    u = og_key_url(key)
+    return {"@type": "ImageObject", "url": u, "width": 1200, "height": 630} if u else None
+
+
+def head(*, title, desc, url, jsonld, nav_current, og_type="website", og_title=None, og_desc=None, og_key=None):
     return HEAD.format(title=escape(title), desc=escape(desc), url=url, og_type=og_type,
                        og_title=escape(og_title or title), og_desc=escape(og_desc or desc),
+                       og_image=og_meta(og_key, og_title or title) if og_key else "",
                        css_v=CSS_V, jsonld=jsonld, nav=nav(nav_current))
+
+
+def with_image(node, key):
+    img = image_node(key)
+    if img:
+        node["primaryImageOfPage"] = img
+    return node
 
 
 def strip_tags(s):
@@ -212,7 +244,7 @@ def home_jsonld(page_title, page_desc):
                        "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "url": u}
                                            for i, (n, u) in enumerate(hubs)]},
     }
-    return [website_node(), person_stub(), webpage]
+    return [website_node(), person_stub(), with_image(webpage, "home")]
 
 
 def build_home():
@@ -236,6 +268,8 @@ def build_home():
     title = re.search(r"<title>(.*?)</title>", s).group(1)
     desc = re.search(r'<meta name="description" content="(.*?)">', s).group(1)
     js = "  <script type=\"application/ld+json\">\n" + ld(home_jsonld(title, desc)) + "\n  </script>"
+    s = re.sub(r"(<!-- build:og -->)(.*?)(<!-- /build:og -->)",
+               lambda m: m.group(1) + og_meta("home", "귀, 코, 목 안쪽으로 떠나는 탐험") + "\n  " + m.group(3), s, flags=re.S)
     s = re.sub(r"(<!-- build:jsonld -->\n)(.*?)(\n\s*<!-- /build:jsonld -->)",
                lambda m: m.group(1) + js + m.group(3), s, flags=re.S)
     p.write_text(s, encoding="utf-8")
@@ -310,8 +344,8 @@ def build_facts_page():
             "mainEntity": {"@type": "ItemList", "numberOfItems": len(FACTS["items"]),
                            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": f["title"],
                                                 "url": f"{url}#{f['id']}"} for i, f in enumerate(FACTS["items"])]}}
-    graph = [page, person_stub(), breadcrumb(url, [(SITE_NAME, f"{SITE}/"), ("상식", url)])]
-    h = head(title=f"{title} | 귀코목 알지", desc=desc, url=url, jsonld=ld(graph), nav_current="facts")
+    graph = [with_image(page, "facts"), person_stub(), breadcrumb(url, [(SITE_NAME, f"{SITE}/"), ("상식", url)])]
+    h = head(title=f"{title} | 귀코목 알지", desc=desc, url=url, jsonld=ld(graph), nav_current="facts", og_key="facts")
     groups = []
     for r in DATA["regions"]:
         cards = "\n        ".join(fact_card(f, with_id=True, heading="h3") for f in FACTS["items"] if f["region"] == r["id"])
@@ -356,9 +390,9 @@ def build_hub(r):
     if items:
         page["hasPart"] = [{"@id": it["url"] + "#webpage"} for it in items]
         page["mainEntity"] = {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": items}
-    graph = [page, breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (r["name"], url)])]
+    graph = [with_image(page, r["id"]), breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (r["name"], url)])]
     h = head(title=f"{r['name']} 질환 안내 | 귀코목 알지", og_title=f"{r['name']}: {r['route']}",
-             desc=desc, url=url, jsonld=ld(graph), nav_current=r["id"])
+             desc=desc, url=url, jsonld=ld(graph), nav_current=r["id"], og_key=r["id"])
     body = f"""
   <main id="main" class="wrap c-{r['id']}">
     <div class="page-head">
@@ -377,6 +411,31 @@ def build_hub(r):
 
 
 # ---------- 질환 페이지 ----------
+def render_figure(spec, ind):
+    """data/figures/<그림>.svg 를 읽어 강조할 부위에 hl, 가릴 부위에 off 클래스를 붙인다."""
+    svg = (FIG_DIR / f"{spec['fig']}.svg").read_text(encoding="utf-8").strip()
+    hl = set(spec["hl"])
+
+    def tag(m):
+        classes, part, rest = m.group(1).split(), m.group(2), m.group(3)
+        if part in hl:
+            classes.append("hl")
+        hw = re.search(r'data-hide-when="([^"]+)"', rest)
+        if hw and set(hw.group(1).split()) & hl:
+            classes.append("off")
+        return f'<g class="{" ".join(classes)}" data-part="{part}"{rest}>'
+
+    unknown = hl - set(re.findall(r'data-part="([^"]+)"', svg))
+    if unknown:
+        raise ValueError(f"{spec['fig']}.svg 에 없는 부위: {sorted(unknown)}")
+    svg = re.sub(r'<g class="([^"]*)" data-part="([^"]+)"([^>]*)>', tag, svg)
+    svg = svg.replace(' xmlns="http://www.w3.org/2000/svg"', "", 1)
+    svg = svg.replace("<svg ", f'<svg role="img" aria-label="{escape(strip_tags(spec["caption"]))}" ', 1)
+    body = "\n".join(ind + "  " + l for l in svg.splitlines())
+    return (f'\n{ind}<figure class="anat {spec.get("kind", "anat")}">\n{body}\n'
+            f'{ind}  <figcaption>{spec["caption"]}</figcaption>\n{ind}</figure>')
+
+
 def render_blocks(blocks, ind="      "):
     out = []
     for b in blocks:
@@ -405,6 +464,8 @@ def render_blocks(blocks, ind="      "):
             if a.get("p"):
                 out.append(f"{ind}  <p>{a['p']}</p>")
             out.append(f"{ind}</section>")
+        elif "figure" in b:
+            out.append(render_figure(b["figure"], ind))
         else:
             raise ValueError(f"알 수 없는 본문 블록: {b}")
     return "\n".join(out)
@@ -459,7 +520,7 @@ def condition_jsonld(c, r, seg, st, url):
            "mainEntity": [{"@type": "Question", "name": strip_tags(f["q"]),
                            "acceptedAnswer": {"@type": "Answer", "text": strip_tags(f["a"])}} for f in c["faq"]]}
     crumbs = breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (r["name"], f"{SITE}/{r['id']}/"), (cond["name"], url)])
-    return [page, person_stub(), condition, faq, crumbs]
+    return [with_image(page, st["slug"]), person_stub(), condition, faq, crumbs]
 
 
 def build_condition(r, seg, st, c):
@@ -467,7 +528,7 @@ def build_condition(r, seg, st, c):
     url = SITE + path
     h = head(title=f"{c['seoTitle']} | 귀코목 알지", og_title=c["seoTitle"], og_type="article",
              desc=c["metaDescription"], og_desc=c.get("ogDescription"), url=url,
-             jsonld=ld(condition_jsonld(c, r, seg, st, url)), nav_current=r["id"])
+             jsonld=ld(condition_jsonld(c, r, seg, st, url)), nav_current=r["id"], og_key=st["slug"])
     faq = "\n".join(f"""        <details>
           <summary>{f['q']}</summary>
           <p>{f['a']}</p>
@@ -502,6 +563,14 @@ def build_condition(r, seg, st, c):
 
 
 # ---------- sitemap, llms.txt ----------
+def build_about_og():
+    p = ROOT / "about" / "index.html"
+    s = p.read_text(encoding="utf-8")
+    s = re.sub(r"(<!-- build:og -->)(.*?)(<!-- /build:og -->)",
+               lambda m: m.group(1) + og_meta("about", "이비인후과 전문의 박종원") + "\n  " + m.group(3), s, flags=re.S)
+    p.write_text(s, encoding="utf-8")
+
+
 def build_sitemap():
     urls = [(f"{SITE}/", None), (f"{SITE}/facts/", None), (f"{SITE}/about/", None)]
     urls += [(f"{SITE}/{r['id']}/", None) for r in DATA["regions"]]
@@ -548,6 +617,7 @@ if __name__ == "__main__":
     STOPS = stop_index()
     build_home()
     build_facts_page()
+    build_about_og()
     for region in DATA["regions"]:
         build_hub(region)
     built = []

@@ -1,0 +1,28 @@
+<svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg">
+  <path class="fg-base" d="M70 30 C62 60 50 84 44 98 C40 108 50 114 58 114 C62 126 64 140 64 150 C60 162 64 176 74 184 C80 204 94 214 112 220 C150 228 200 220 250 196 C270 182 286 158 298 134"/>
+  <path class="fg-base" d="M120 222 C124 270 130 320 132 370"/>
+  <path class="fg-base" d="M372 40 C380 120 384 250 392 370"/>
+  <path class="fg-soft" d="M296 70 C318 64 334 84 330 110 C328 130 314 142 300 136 C312 120 308 92 296 70 Z"/>
+  <text class="lbl sm" x="340" y="72">귀</text>
+  <path class="fg-band" d="M312 130 C300 200 230 300 170 362 L196 370 C252 310 324 214 340 136 Z"/>
+  <text class="lbl sm" x="268" y="300">목빗근</text>
+  <g class="part" data-part="salivary">
+    <path class="pf" d="M262 92 C282 86 298 98 298 124 C296 148 280 160 266 152 C256 132 254 108 262 92 Z"/>
+    <ellipse class="pf" cx="186" cy="224" rx="26" ry="15"/>
+    <text class="lbl" x="400" y="108">귀밑샘(침샘)</text><path class="lead" d="M296 112 L396 104"/>
+    <text class="lbl" x="20" y="260">턱밑샘(침샘)</text><path class="lead" d="M162 230 L104 252"/>
+  </g>
+  <g class="part" data-part="thyroid">
+    <path class="pf" d="M134 290 C150 280 170 288 170 306 C168 324 150 330 138 320 C130 312 130 298 134 290 Z"/>
+    <text class="lbl" x="20" y="320">갑상선</text><path class="lead" d="M132 312 L70 316"/>
+  </g>
+  <g class="part" data-part="nodes">
+    <ellipse class="pf" cx="250" cy="176" rx="7" ry="5"/><ellipse class="pf" cx="234" cy="210" rx="7" ry="5"/>
+    <ellipse class="pf" cx="218" cy="246" rx="7" ry="5"/><ellipse class="pf" cx="204" cy="280" rx="7" ry="5"/>
+    <ellipse class="pf" cx="320" cy="180" rx="7" ry="5"/><ellipse class="pf" cx="310" cy="222" rx="7" ry="5"/>
+    <ellipse class="pf" cx="296" cy="262" rx="7" ry="5"/><ellipse class="pf" cx="214" cy="200" rx="6" ry="4"/>
+    <text class="lbl" x="400" y="226">림프절</text><path class="lead" d="M318 222 L396 222"/>
+  </g>
+  <path class="fg-base" d="M110 352 C200 340 300 340 420 350"/>
+  <text class="lbl sm" x="430" y="352">쇄골</text>
+</svg>

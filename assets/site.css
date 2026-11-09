@@ -288,6 +288,46 @@ p { margin: 0 0 1em; }
 .c-nose { --c: var(--nose-glow); }
 .c-throat { --c: var(--throat-glow); }
 
+/* 해부 그림 (data/figures/*.svg, build.py가 본문에 삽입) */
+.anat { margin: 1.8em 0 2.2em; max-width: 40rem; }
+.anat svg { display: block; width: 100%; height: auto; font-family: inherit; overflow: visible; }
+.anat figcaption { margin-top: .7em; font-size: .92rem; line-height: 1.6; color: var(--ink-soft); }
+.anat figcaption strong { color: var(--ink); }
+.anat .fg-bone { fill: var(--paper-2); opacity: .55; }
+.anat .fg-soft { fill: var(--paper-2); stroke: var(--line); stroke-width: 1.4; }
+.anat .fg-base { fill: none; stroke: var(--ink-soft); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.anat .fg-band { fill: var(--line); opacity: .45; }
+.anat .fg-scope { fill: var(--paper-2); stroke: var(--line); stroke-width: 2; }
+.anat .glottis { fill: var(--ink-soft); opacity: .3; }
+.anat .lbl { font-size: 15px; font-weight: 600; fill: var(--ink-soft); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
+.anat .lbl.sm { font-size: 13px; }
+.anat .lbl.in { stroke: none; }
+.anat .part.hl .lbl { fill: var(--ink); font-weight: 800; }
+.anat .lead { fill: none; stroke: var(--ink-soft); stroke-width: 1; opacity: .7; }
+.anat .pf { fill: var(--paper); stroke: var(--ink-soft); stroke-width: 1.5; }
+.anat .ps { fill: none; stroke: var(--ink-soft); stroke-width: 2; stroke-linecap: round; }
+.anat .ps.thin { stroke-width: 1.6; }
+.anat .ps.thick { stroke-width: 4; }
+.anat .ps.loop { stroke-width: 6; }
+.anat .ps.nerve { stroke-width: 5; }
+.anat .zone { fill: none; stroke: none; }
+.anat .part.hl .pf { fill: color-mix(in srgb, var(--c) 32%, var(--paper)); stroke: var(--c); stroke-width: 2.4; }
+.anat .part.hl .ps { stroke: var(--c); }
+.anat .part.hl .zone { fill: color-mix(in srgb, var(--c) 20%, transparent); stroke: var(--c); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.anat .pfill { fill: var(--c); opacity: .7; }
+.anat .pblob { fill: color-mix(in srgb, var(--c) 45%, var(--paper)); stroke: var(--c); stroke-width: 1.6; }
+.anat .pstone { fill: #f2e6b8; stroke: #b8962e; stroke-width: 1; }
+.anat .hole { fill: var(--paper); stroke: var(--c); stroke-width: 2; }
+.anat .ring { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-dasharray: 4 4; }
+.anat .arrow { fill: none; stroke: var(--c); stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 2 7; }
+.anat .tool-body { fill: var(--ink-soft); }
+.anat .tool-shaft { fill: none; stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; }
+.anat .tool-light { fill: none; stroke: #e8b93a; stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 3 4; }
+.anat .lbl.tl { fill: var(--ink); font-weight: 800; }
+.anat .opt { display: none; }
+.anat .opt.hl { display: inline; }
+.anat .off { display: none; }
+
 /* 증상으로 찾기 */
 .finder { padding-top: clamp(40px, 6vw, 80px); padding-bottom: clamp(32px, 5vw, 64px); }
 .finder-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
