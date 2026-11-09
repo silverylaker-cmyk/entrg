@@ -12,6 +12,7 @@
 | `/about/` | 원장 소개 (Person JSON-LD 전체본) |
 | `data/diseases.json` | 30개 질환 목록·순서·발행일, 단일 원본 |
 | `tools/build.py` | 대문 탐험로, 허브 3개, sitemap.xml 재생성 |
+| `assets/hero3d.js` · `hero3d-scene.js` | 대문 3D 지도(three.js). 모양은 index.html의 SVG 지도에서 읽음. WebGL 불가·동작 줄이기·데이터 절약 시 SVG 지도(`hero.js`)가 대신 표시 |
 
 ## 새 질환 페이지 발행
 

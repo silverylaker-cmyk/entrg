@@ -127,7 +127,7 @@ p { margin: 0 0 1em; }
   background: var(--c);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, transparent);
 }
-.routes-pick a:hover, .routes-pick a:focus-visible { background: var(--ink); color: var(--paper); }
+.routes-pick a:hover, .routes-pick a:focus-visible, .routes-pick a.is-on { background: var(--ink); color: var(--paper); }
 .routes-pick .r-ear { --c: var(--ear-glow); }
 .routes-pick .r-nose { --c: var(--nose-glow); }
 .routes-pick .r-throat { --c: var(--throat-glow); }
@@ -288,10 +288,122 @@ p { margin: 0 0 1em; }
 .c-nose { --c: var(--nose-glow); }
 .c-throat { --c: var(--throat-glow); }
 
+/* 대문 무대: 빛나는 경로가 읽히도록 두 테마 모두 밤색 지도 위에 둔다 */
+.on-stage {
+  --paper: #0a1521;
+  --paper-2: #122236;
+  --ink: #e4ecf0;
+  --ink-soft: #93a8b9;
+  --line: #1d3247;
+  --contour: #22364a;
+  --ear: #8ea4f5;
+  --ear-glow: #7f98f0;
+  --nose: #4cc7a1;
+  --nose-glow: #3fbf98;
+  --throat: #f2b155;
+  --throat-glow: #f0a947;
+  --focus: #8ea4f5;
+  color: var(--ink);
+  color-scheme: dark;
+}
+.stage-band { background: var(--paper); overflow: hidden; }
+.site-header.on-stage { border-image: linear-gradient(var(--paper), var(--paper)) fill 0 / / 0 100vmax; }
+.hero h1 .acc { background: linear-gradient(90deg, var(--ear-glow), var(--nose-glow) 55%, var(--throat-glow)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.map-hint { margin: 20px 0 0; font-size: .95rem; color: var(--ink-soft); }
+.map-hint b { color: var(--ink); font-weight: 700; }
+.map-3d-on {
+  margin-top: 18px; font: inherit; font-size: .95rem; font-weight: 700; cursor: pointer;
+  color: var(--paper); background: var(--ink); border: 0; border-radius: 999px; padding: 10px 18px;
+}
+
+/* 3D 지도(hero3d-scene.js가 만든 덧층) */
+.map.is-3d svg { visibility: hidden; }
+.map-gl { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 560 / 580; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.map-gl canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .4s; }
+.map.is-3d .map-gl canvas { opacity: 1; }
+.map.is-hot .map-gl canvas { cursor: pointer; }
+.map-labels { position: absolute; inset: 0; pointer-events: none; }
+.map:not(.is-3d) .map-labels { visibility: hidden; }
+.map-lab {
+  position: absolute; left: 0; top: 0; white-space: nowrap;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  text-shadow: 0 0 6px var(--paper), 0 0 12px var(--paper), 0 0 2px var(--paper);
+  opacity: 0; transition: opacity .3s; will-change: transform;
+}
+.map-lab.on { opacity: 1; }
+.map-pin {
+  position: absolute; left: 0; top: 0;
+  width: 42px; height: 42px; margin: -21px 0 0 -21px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: #fff; font-weight: 900; font-size: 17px; line-height: 1; text-decoration: none;
+  pointer-events: auto; opacity: 0; scale: .4;
+  transition: opacity .45s, scale .45s cubic-bezier(.3,1.6,.5,1);
+  will-change: transform;
+}
+.map-pin b { position: relative; z-index: 1; }
+.map-pin::before, .map-pin::after { content: ""; position: absolute; inset: 0; border-radius: 50%; }
+.map-pin::before { background: var(--c); box-shadow: 0 0 18px var(--c), 0 0 0 3px var(--paper); }
+.map-pin::after { border: 2px solid var(--c); animation: pinPing 2.2s cubic-bezier(.2,.6,.3,1) infinite; animation-delay: var(--d, 0s); }
+.map-pin[data-r="ear"] { --c: #4f6ee0; }
+.map-pin[data-r="nose"] { --c: #129a74; --d: .7s; }
+.map-pin[data-r="throat"] { --c: #cf7a12; --d: 1.4s; }
+.map-pin.show { opacity: 1; scale: 1; }
+.map-pin.show:hover, .map-pin.show.is-on { scale: 1.15; }
+.map-pin:focus-visible { outline-offset: 6px; border-radius: 50%; }
+.map.is-still .map-pin::after { animation: none; opacity: 0; }
+@keyframes pinPing { from { transform: scale(1); opacity: .8; } to { transform: scale(2.1); opacity: 0; } }
+.map-card {
+  position: absolute; left: -3%; bottom: 1%;
+  width: min(214px, 40%);
+  padding: 14px 16px; border-radius: 14px;
+  background: rgba(13, 27, 42, .86); border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: var(--ink); pointer-events: none;
+  opacity: 0; transform: translateY(8px); transition: opacity .28s, transform .28s;
+}
+.map-card.on { opacity: 1; transform: none; }
+.map-card p { margin: 0; }
+.mc-route { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--rc); }
+.mc-title { margin: 2px 0 6px !important; font-size: 20px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.2; }
+.map-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; font-size: 13.5px; line-height: 1.5; }
+.map-card li { display: flex; align-items: baseline; gap: 8px; }
+.map-card li::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--rc); translate: 0 -2px; }
+.map-card li.pub::before { background: var(--rc); }
+.map-card li em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--rc); }
+.mc-fact { margin-top: 10px !important; padding-top: 9px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.5; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.mc-cta { margin-top: 8px !important; font-size: 14px; font-weight: 700; color: var(--rc); }
+
+/* 부위 색으로 화면 덮기(대문 → 허브) */
+.page-wipe {
+  position: fixed; inset: 0; z-index: 200; pointer-events: none; visibility: hidden;
+  background: var(--wc, #3452c0);
+  clip-path: circle(0px at var(--x, 50%) var(--y, 50%));
+}
+.page-wipe.go { visibility: visible; clip-path: circle(150vmax at var(--x, 50%) var(--y, 50%)); transition: clip-path .5s cubic-bezier(.75,0,.25,1); }
+
+/* 허브 도착: 같은 색이 걷히며 내용이 올라온다 */
+html.arrive::after {
+  content: ""; position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  background: var(--arrive);
+  animation: arriveOut .6s cubic-bezier(.4,0,.2,1) .05s forwards;
+}
+html.arrive-ear { --arrive: #3452c0; }
+html.arrive-nose { --arrive: #0e7a5e; }
+html.arrive-throat { --arrive: #a65d08; }
+html.arrive main { animation: arriveRise .7s cubic-bezier(.2,.7,.2,1) .15s both; }
+@keyframes arriveOut { to { opacity: 0; visibility: hidden; } }
+@keyframes arriveRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  html.arrive::after { animation-duration: .25s; animation-delay: 0s; }
+  html.arrive main { animation: none; }
+}
+
 /* 반응형 */
 @media (max-width: 880px) {
   .hero { grid-template-columns: 1fr; }
   .hero .map { order: -1; margin: 0 -8px; }
+  .map-card { position: relative; left: auto; bottom: auto; width: auto; margin: 4px 8px 0; display: none; }
+  .map-card.on { display: block; }
   .route-grid { grid-template-columns: 1fr; }
   .connect, .guide { grid-template-columns: 1fr; }
 }

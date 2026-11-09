@@ -12,10 +12,16 @@
   <meta property="og:description" content="귀, 코, 목 안쪽으로 떠나는 탐험. 이비인후과 질환을 전문의가 하나씩 짚어 드립니다.">
   <meta property="og:url" content="https://entrg.net/">
   <meta property="og:locale" content="ko_KR">
-  <meta name="theme-color" content="#edf1ee">
+  <meta name="theme-color" content="#0a1521">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.css?v=20261109a">
+  <script type="importmap">
+  { "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  } }
+  </script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -43,7 +49,7 @@
 </head>
 <body>
   <a class="skip" href="#main">본문으로 건너뛰기</a>
-  <header class="site-header">
+  <header class="site-header on-stage">
     <a class="wordmark" href="/"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>귀코목 알지</a>
     <nav class="site-nav" aria-label="주요 메뉴">
       <a href="/ear/">귀</a>
@@ -54,15 +60,18 @@
   </header>
 
   <main id="main">
+    <div class="stage-band on-stage">
     <section class="hero wrap" aria-labelledby="hero-title">
       <div>
-        <h1 id="hero-title"><span>귀, 코, 목</span><span>안쪽으로 떠나는</span><span>탐험</span></h1>
+        <h1 id="hero-title"><span>귀, 코, 목</span><span>안쪽으로 떠나는</span><span class="acc">탐험</span></h1>
         <p class="lede">소리가 들어오는 길, 숨이 지나는 길, 목소리가 나오는 길. 이비인후과 전문의가 그 길 위에서 생기는 질환을 하나씩 짚어 드립니다.</p>
         <div class="routes-pick">
           <a class="r-ear" href="/ear/" data-route="ear">귀 탐험하기</a>
           <a class="r-nose" href="/nose/" data-route="nose">코 탐험하기</a>
           <a class="r-throat" href="/throat/" data-route="throat">목 탐험하기</a>
         </div>
+        <p class="map-hint" id="map-hint" hidden>얼굴의 <b>귀·코·목</b>을 가리켜 보고, 눌러서 들어가 보세요.</p>
+        <button type="button" class="map-3d-on" id="map-3d-on" hidden>움직이는 3D 지도 보기</button>
       </div>
 
       <div class="map" id="map">
@@ -152,6 +161,7 @@
         </svg>
       </div>
     </section>
+    </div>
 
     <section class="expeditions wrap" aria-labelledby="exp-title">
       <div class="section-head">
@@ -255,6 +265,7 @@
     </div>
   </footer>
 
-  <script src="/assets/hero.js" defer></script>
+  <script src="/assets/hero.js?v=20261109a" defer></script>
+  <script type="module" src="/assets/hero3d.js?v=20261109a"></script>
 </body>
 </html>

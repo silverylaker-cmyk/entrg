@@ -74,6 +74,7 @@
   var running = true, t0 = null;
   function frame(now) {
     if (!running) return;
+    if (map.classList.contains("is-3d")) { running = false; return; }
     if (t0 === null) t0 = now;
     var t = now - t0;
     travelers.forEach(function (tr) {
