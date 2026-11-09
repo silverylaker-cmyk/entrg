@@ -1,0 +1,119 @@
+{
+  "regions": [
+    {
+      "id": "ear",
+      "name": "귀",
+      "route": "소리와 균형의 길",
+      "intro": "바깥귀에서 고막과 중이를 지나, 소리를 듣고 균형을 잡는 속귀까지 들어갑니다.",
+      "segments": [
+        {
+          "name": "바깥귀",
+          "stops": [
+            { "n": 21, "name": "외이도염", "slug": "otitis-externa", "symptom": "귀 가려움, 통증, 귀를 당기면 아픔" }
+          ]
+        },
+        {
+          "name": "고막과 중이",
+          "stops": [
+            { "n": 18, "name": "급성 중이염", "slug": "acute-otitis-media", "symptom": "귀 통증, 발열, 아이가 보챔" },
+            { "n": 19, "name": "삼출성 중이염", "slug": "otitis-media-effusion", "symptom": "귀 먹먹함, 아이가 TV 소리를 키움" },
+            { "n": 20, "name": "만성 중이염", "slug": "chronic-otitis-media", "symptom": "반복되는 귀 고름, 고막 천공, 청력 저하" }
+          ]
+        },
+        {
+          "name": "달팽이관",
+          "stops": [
+            { "n": 16, "name": "돌발성 난청", "slug": "sudden-hearing-loss", "symptom": "갑자기 한쪽 귀가 안 들림, 먹먹함, 이명" },
+            { "n": 17, "name": "이명", "slug": "tinnitus", "symptom": "외부 소리 없이 들리는 소리" }
+          ]
+        },
+        {
+          "name": "전정과 반고리관",
+          "stops": [
+            { "n": 13, "name": "이석증", "slug": "bppv", "symptom": "고개를 돌리거나 누울 때 1분 이내 도는 어지럼" },
+            { "n": 14, "name": "전정신경염", "slug": "vestibular-neuritis", "symptom": "며칠 이어지는 심한 회전성 어지럼, 구토" },
+            { "n": 15, "name": "메니에르병", "slug": "menieres-disease", "symptom": "수십 분에서 수 시간 어지럼과 귀 먹먹함, 이명" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nose",
+      "name": "코",
+      "route": "숨과 냄새의 길",
+      "intro": "콧구멍에서 비강과 부비동을 지나, 목으로 넘어가는 코 뒤쪽까지 따라갑니다.",
+      "segments": [
+        {
+          "name": "콧구멍과 비강",
+          "stops": [
+            { "n": 11, "name": "코피", "slug": "nosebleed", "symptom": "반복되는 코피, 한쪽 출혈" },
+            { "n": 7, "name": "비중격만곡증", "slug": "deviated-septum", "symptom": "한쪽 또는 양쪽 코막힘, 코골이" },
+            { "n": 8, "name": "하비갑개 비대", "slug": "turbinate-hypertrophy", "symptom": "자세에 따라 바뀌는 코막힘" }
+          ]
+        },
+        {
+          "name": "코 점막",
+          "stops": [
+            { "n": 4, "name": "알레르기 비염", "slug": "allergic-rhinitis", "symptom": "재채기, 맑은 콧물, 코막힘, 코 가려움" },
+            { "n": 5, "name": "비알레르기성 비염", "slug": "nonallergic-rhinitis", "symptom": "온도차, 음식, 냄새에 나는 콧물" },
+            { "n": 6, "name": "약물성 비염", "slug": "rhinitis-medicamentosa", "symptom": "코 뿌리는 충혈제를 오래 쓴 뒤 심해지는 코막힘" },
+            { "n": 9, "name": "비용종", "slug": "nasal-polyps", "symptom": "코막힘, 후각 상실" },
+            { "n": 10, "name": "후각 장애", "slug": "smell-loss", "symptom": "냄새가 안 나거나 다르게 남" }
+          ]
+        },
+        {
+          "name": "부비동",
+          "stops": [
+            { "n": 2, "name": "급성 부비동염", "slug": "acute-sinusitis", "symptom": "감기 후 10일 넘게 이어지는 누런 콧물, 얼굴 통증" },
+            { "n": 1, "name": "만성 부비동염(축농증)", "slug": "chronic-sinusitis", "symptom": "12주 이상 코막힘, 누런 콧물, 후비루, 후각 저하", "published": "2026-11-09" },
+            { "n": 3, "name": "치성 부비동염", "slug": "odontogenic-sinusitis", "symptom": "한쪽 콧물, 코 속 악취, 치과 치료 후 발생" }
+          ]
+        },
+        {
+          "name": "코 뒤쪽",
+          "stops": [
+            { "n": 12, "name": "후비루", "slug": "postnasal-drip", "symptom": "목 뒤로 넘어가는 가래, 만성 기침" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "throat",
+      "name": "목",
+      "route": "목소리와 잠의 길",
+      "intro": "편도에서 인두를 지나 성대까지 내려가고, 잠잘 때 좁아지는 숨길도 함께 봅니다.",
+      "segments": [
+        {
+          "name": "편도",
+          "stops": [
+            { "n": 26, "name": "편도결석", "slug": "tonsil-stones", "symptom": "입냄새, 목 이물감, 흰 알갱이" },
+            { "n": 25, "name": "급성 편도염", "slug": "tonsillitis", "symptom": "심한 인후통, 고열, 삼키기 어려움" }
+          ]
+        },
+        {
+          "name": "잠잘 때의 숨길",
+          "base": "sleep",
+          "stops": [
+            { "n": 22, "name": "코골이", "slug": "snoring", "symptom": "수면 중 큰 소리" },
+            { "n": 23, "name": "폐쇄성 수면무호흡", "slug": "sleep-apnea", "symptom": "숨 멈춤, 낮 졸림, 아침 두통" },
+            { "n": 24, "name": "소아 코골이와 수면무호흡", "slug": "pediatric-sleep-apnea", "symptom": "입 벌리고 자기, 코골이, 집중력 저하" }
+          ]
+        },
+        {
+          "name": "인두와 후두",
+          "stops": [
+            { "n": 27, "name": "인후두 역류", "slug": "laryngopharyngeal-reflux", "symptom": "목 이물감, 헛기침, 쉰 목소리" },
+            { "n": 29, "name": "목 이물감", "slug": "globus", "symptom": "목에 뭔가 걸린 느낌" },
+            { "n": 28, "name": "성대결절과 폴립", "slug": "vocal-nodules", "symptom": "쉬거나 갈라지는 목소리" }
+          ]
+        },
+        {
+          "name": "목 바깥",
+          "stops": [
+            { "n": 30, "name": "목 멍울", "slug": "neck-lump", "symptom": "만져지는 목 멍울" }
+          ]
+        }
+      ]
+    }
+  ]
+}
