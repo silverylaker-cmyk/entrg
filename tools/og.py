@@ -27,11 +27,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
 
 OUT = ROOT / "assets" / "og"
-HUB_FIG = {
-    "ear": {"fig": "ear", "hl": ["canal", "middle", "cochlea", "canals"]},
-    "nose": {"fig": "nose-side", "hl": ["it", "mt", "st", "olf"]},
-    "throat": {"fig": "throat-side", "hl": ["tonsil", "palate-soft", "larynx"]},
-}
+OG_CSS = (ROOT / "tools" / "og.css").read_text(encoding="utf-8")
+HUB_FIG = build.REGION_FIG
 
 CSS = """
 html, body { margin: 0; }
@@ -63,10 +60,9 @@ html, body { margin: 0; }
 
 def pages():
     """(key, region, kicker, title, sub, figure_html)"""
-    m = re.search(r'<div class="map" id="map">\s*(<svg.*?</svg>)', (ROOT / "index.html").read_text(encoding="utf-8"), re.S)
-    map_svg = f'<div class="map">{m.group(1)}</div>'
-    lede = "소리가 들어오는 길, 숨이 지나는 길, 목소리가 나오는 길. 이비인후과 전문의가 그 길 위에서 생기는 질환을 하나씩 짚어 드립니다."
-    yield "home", None, "이비인후과 의학정보", "귀, 코, 목<br>안쪽으로 떠나는 탐험", lede, map_svg
+    map_svg = f'<div class="map">{(ROOT / "data" / "figures" / "head-map.svg").read_text(encoding="utf-8")}</div>'
+    lede = "증상이나 병 이름으로 찾는 귀·코·목 질환 30가지와 알고 보면 신기한 상식. 이비인후과 전문의가 쓰고 검수했습니다."
+    yield "home", None, "귀·코·목 의학정보", "어디가<br>불편하세요?", lede, map_svg
     yield "facts", None, "상식", escape(build.FACTS["title"]), build.FACTS["intro"], map_svg
     yield "about", None, "이 지도를 그린 사람", "이비인후과 전문의<br>박종원", \
         "계명대학교 동산병원 이비인후과 전공의 수료, 삼성서울병원 이비인후과 임상강사, 전 계명대학교 의과대학 이비인후과학교실 조교수", map_svg
@@ -94,7 +90,7 @@ def html_for(key, region, kicker, title, sub, fig):
     cls = f"og on-stage c-{region}" if region else "og on-stage"
     return f"""<!doctype html><html lang="ko"><head><meta charset="utf-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="{css_href}"><style>{CSS}</style></head><body>
+<link rel="stylesheet" href="{css_href}"><style>{OG_CSS}{CSS}</style></head><body>
 <div class="{cls}">
   <div class="og-text">
     <p class="og-brand"><span class="dots"><i></i><i></i><i></i></span>귀코목 알지</p>

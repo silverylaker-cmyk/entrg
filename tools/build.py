@@ -30,7 +30,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://entrg.net"
-CSS_V = "20261109c"
+CSS_V = "20261110a"
 DATA = json.loads((ROOT / "data" / "diseases.json").read_text(encoding="utf-8"))
 SYMPTOMS = json.loads((ROOT / "data" / "symptoms.json").read_text(encoding="utf-8"))
 FACTS = json.loads((ROOT / "data" / "facts.json").read_text(encoding="utf-8"))
@@ -44,6 +44,19 @@ PHYSICIAN = f"{SITE}/#physician"
 WEBSITE = f"{SITE}/#website"
 SPECIALTY = "https://schema.org/Otolaryngologic"
 REGION_EN = {"ear": "Ear", "nose": "Nose", "throat": "Throat"}
+# 대문 부위 카드와 미리보기 이미지에 쓰는 그림·강조 부위, 대표 질환
+REGION_FIG = {
+    "ear": {"fig": "ear", "hl": ["canal", "middle", "cochlea", "canals"]},
+    "nose": {"fig": "nose-side", "hl": ["it", "mt", "st", "olf"]},
+    "throat": {"fig": "throat-side", "hl": ["tonsil", "palate-soft", "larynx"]},
+}
+REGION_EG = {
+    "ear": ["bppv", "sudden-hearing-loss", "tinnitus"],
+    "nose": ["allergic-rhinitis", "chronic-sinusitis", "deviated-septum"],
+    "throat": ["sleep-apnea", "tonsil-stones", "laryngopharyngeal-reflux"],
+}
+QUICK = [("이석증", "bppv"), ("축농증", "chronic-sinusitis"), ("코골이", "snoring"), ("이명", "tinnitus"),
+         ("알레르기 비염", "allergic-rhinitis"), ("편도결석", "tonsil-stones")]
 
 HEAD = """<!doctype html>
 <html lang="ko">
@@ -63,7 +76,6 @@ HEAD = """<!doctype html>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="/assets/site.css?v={css_v}">
-  <script>try{{var a=sessionStorage.getItem("entrg-arrive");if(a){{sessionStorage.removeItem("entrg-arrive");document.documentElement.classList.add("arrive","arrive-"+a)}}}}catch(e){{}}</script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
 {jsonld}
@@ -248,87 +260,193 @@ def home_jsonld(page_title, page_desc):
 
 
 def build_home():
-    parts = ['      <div class="route-grid">']
-    for r in DATA["regions"]:
-        parts.append(f'        <div class="route-col">')
-        parts.append(f'          <h3><a href="/{r["id"]}/">{r["name"]}</a><small>{escape(r["route"])}</small></h3>')
-        parts.append(f'          <p>{escape(r["intro"])}</p>')
-        parts.append(route_list(r, indent="          "))
-        parts.append("        </div>")
-    parts.append("      </div>")
-    block = "\n".join(parts)
     p = ROOT / "index.html"
     s = p.read_text(encoding="utf-8")
-    s = re.sub(r"(<!-- build:routes -->)(.*?)(\s*<!-- /build:routes -->)",
-               lambda m: m.group(1) + "\n" + block + m.group(3), s, flags=re.S)
-    s = re.sub(r"(<!-- build:symptoms -->)(.*?)(\s*<!-- /build:symptoms -->)",
-               lambda m: m.group(1) + "\n" + symptoms_section() + m.group(3), s, flags=re.S)
-    s = re.sub(r"(<!-- build:facts -->)(.*?)(\s*<!-- /build:facts -->)",
-               lambda m: m.group(1) + "\n" + facts_section() + m.group(3), s, flags=re.S)
+    for name, fn in [("quick", quick_links), ("regions", regions_section), ("today", today_section),
+                     ("symptoms", symptoms_section), ("trust", trust_section)]:
+        s = re.sub(rf"(<!-- build:{name} -->)(.*?)(\s*<!-- /build:{name} -->)",
+                   lambda m, fn=fn: m.group(1) + "\n" + fn() + m.group(3), s, flags=re.S)
     title = re.search(r"<title>(.*?)</title>", s).group(1)
     desc = re.search(r'<meta name="description" content="(.*?)">', s).group(1)
     js = "  <script type=\"application/ld+json\">\n" + ld(home_jsonld(title, desc)) + "\n  </script>"
     s = re.sub(r"(<!-- build:og -->)(.*?)(<!-- /build:og -->)",
-               lambda m: m.group(1) + og_meta("home", "귀, 코, 목 안쪽으로 떠나는 탐험") + "\n  " + m.group(3), s, flags=re.S)
+               lambda m: m.group(1) + og_meta("home", "어디가 불편하세요? 귀코목 알지") + "\n  " + m.group(3), s, flags=re.S)
     s = re.sub(r"(<!-- build:jsonld -->\n)(.*?)(\n\s*<!-- /build:jsonld -->)",
                lambda m: m.group(1) + js + m.group(3), s, flags=re.S)
     p.write_text(s, encoding="utf-8")
 
 
-def symptoms_section():
+def quick_links():
+    links = []
+    for label, slug in QUICK:
+        href, _, _ = stop_link(slug)
+        links.append(f'<a href="{href}">{escape(label)}</a>')
+    return f'      <p class="quick"><span>예를 들면</span>{"".join(links)}</p>'
+
+
+def figure_svg(spec):
+    """render_figure 결과에서 그림만 꺼내 장식용(aria-hidden)으로."""
+    html = render_figure({**spec, "caption": spec.get("caption", "")}, "")
+    svg = re.search(r"<svg.*</svg>", html, re.S).group(0)
+    return re.sub(r'role="img" aria-label="[^"]*"', 'aria-hidden="true" focusable="false"', svg, count=1)
+
+
+def regions_section():
     cards = []
+    for r in DATA["regions"]:
+        n = sum(len(s["stops"]) for s in r["segments"])
+        eg = " · ".join(STOPS[slug][2]["name"] for slug in REGION_EG[r["id"]])
+        svg = "\n".join("          " + l for l in figure_svg(REGION_FIG[r["id"]]).splitlines())
+        cards.append(f"""      <a class="region c-{r['id']}" href="/{r['id']}/">
+        <div class="anat region-fig">
+{svg}
+        </div>
+        <div class="region-text">
+          <h2>{r['name']}<small>{escape(r['route'])}</small></h2>
+          <p class="region-count">질환 {n}가지</p>
+          <p class="region-eg">{escape(eg)}</p>
+        </div>
+      </a>""")
+    return f"""    <nav class="regions wrap" aria-label="부위별로 찾기">
+{chr(10).join(cards)}
+    </nav>"""
+
+
+def fact_links(f):
+    rel = []
+    for slug in f["related"]:
+        href, st, _ = stop_link(slug)
+        rel.append((st["name"], href))
+    if not rel:
+        region = next(r for r in DATA["regions"] if r["id"] == f["region"])
+        rel.append((f"{region['name']} 탐험로", f"/{region['id']}/"))
+    return rel
+
+
+def today_section():
+    import datetime
+    items = FACTS["items"]
+    rname = {r["id"]: r["name"] for r in DATA["regions"]}
+    data = [{"id": f["id"], "r": f["region"], "rn": rname[f["region"]], "fig": f["figure"], "title": f["title"],
+             "body": f["body"], "rel": fact_links(f)} for f in items]
+    i = datetime.date.today().timetuple().tm_yday % len(items)
+    f = data[i]
+    rel = " · ".join(f'<a href="{h}">{escape(n)}</a>' for n, h in f["rel"])
+    blob = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    return f"""    <section class="today wrap" aria-labelledby="today-title">
+      <div class="today-head">
+        <h2 id="today-title">오늘의 신기한 상식</h2>
+        <p class="today-count" id="today-count">{i + 1} / {len(items)}</p>
+      </div>
+      <article class="today-card c-{f['r']}" id="today-card" data-index="{i}" aria-live="polite">
+        <div>
+          <p class="today-region">{f['rn']}</p>
+          <p class="today-figure">{escape(f['fig'])}</p>
+        </div>
+        <div>
+          <h3>{escape(f['title'])}</h3>
+          <p class="today-body">{escape(f['body'])}</p>
+          <p class="fact-rel">더 알아보기 {rel}</p>
+        </div>
+      </article>
+      <div class="today-actions">
+        <button type="button" class="today-next" id="today-next" hidden>다른 상식 보기</button>
+        <a href="/facts/">상식 {len(items)}가지 모두 보기</a>
+      </div>
+      <script type="application/json" id="facts-data">{blob}</script>
+    </section>"""
+
+
+def symptoms_section():
+    items = []
     for it in SYMPTOMS["items"]:
-        chips = []
+        lis = []
         for slug in it["slugs"]:
             href, st, _ = stop_link(slug)
-            cls = "chip open" if st.get("published") else "chip"
-            chips.append(f'<li><a class="{cls}" href="{href}">{escape(st["name"])}</a></li>')
-        cards.append(f"""        <div class="finder-item c-{it['region']}">
-          <h3>{escape(it['q'])}</h3>
-          <ul>{''.join(chips)}</ul>
-        </div>""")
+            lis.append(f'<li><a href="{href}">{escape(st["name"])}</a><span>{escape(st.get("easy", st["symptom"]))}</span></li>')
+        items.append(f"""        <details class="finder-item c-{it['region']}">
+          <summary>{escape(it['q'])}</summary>
+          <ul>{''.join(lis)}</ul>
+        </details>""")
     return f"""    <section class="finder wrap" aria-labelledby="finder-title">
       <div class="section-head">
         <h2 id="finder-title">증상으로 찾기</h2>
         <p>{escape(SYMPTOMS['intro'])}</p>
       </div>
-      <div class="finder-grid">
-{chr(10).join(cards)}
+      <div class="finder-list">
+{chr(10).join(items)}
       </div>
       <p class="finder-urgent"><strong>바로 진료가 필요할 때</strong>{escape(SYMPTOMS['urgent'])}</p>
     </section>"""
 
 
+def trust_section():
+    conds = [load_condition(st["slug"]) for _, _, st in published_stops()]
+    conds = [c for c in conds if c]
+    dois = {ref.get("doi") or ref["citation"] for c in conds for ref in c.get("references", [])}
+    figs = sum(1 for c in conds for b in c["body"] if "figure" in b)
+    last = max(c["lastReviewed"] for c in conds)
+    return f"""    <section class="trust wrap" aria-labelledby="trust-title">
+      <div>
+        <h2 id="trust-title">누가 쓰나요</h2>
+        <p class="name">박종원</p>
+        <p class="role">이비인후과 전문의</p>
+        <ul>
+          <li>계명대학교 의과대학 졸업</li>
+          <li>계명대학교 동산병원 이비인후과 전공의 수료</li>
+          <li>삼성서울병원 이비인후과 임상강사</li>
+          <li>전 계명대학교 의과대학 이비인후과학교실 조교수</li>
+        </ul>
+        <a href="/about/">약력 자세히 보기</a>
+      </div>
+      <dl class="trust-stats">
+        <div><dt>질환 설명</dt><dd>{len(conds)}<small>편</small></dd></div>
+        <div><dt>근거로 삼은 진료지침·논문</dt><dd>{len(dois)}<small>편</small></dd></div>
+        <div><dt>직접 그린 해부·검사 그림</dt><dd>{figs}<small>장</small></dd></div>
+        <div><dt>최근 검수일</dt><dd>{ko_date(last)}</dd></div>
+        <p class="trust-note">모든 질환 페이지에 참고한 진료지침과 검수일을 적습니다. 글은 일반적인 의학 정보이며 진료를 대신하지 않습니다.</p>
+      </dl>
+    </section>"""
+
+
+def build_search_index():
+    """대문 검색용 색인 (assets/search.json). 브라우저에서 바로 찾는다."""
+    items = []
+    for r in DATA["regions"]:
+        items.append({"t": "h", "name": r["name"], "alt": [REGION_EN[r["id"]], r["route"]],
+                      "desc": r["intro"], "url": f"/{r['id']}/", "r": r["id"]})
+        for s in r["segments"]:
+            for st in s["stops"]:
+                href, _, _ = stop_link(st["slug"])
+                c = load_condition(st["slug"])
+                alt, sym = [], [x.strip() for x in st["symptom"].split(",")]
+                if c:
+                    alt = [a for a in c["condition"]["alternateName"]]
+                    sym = list(dict.fromkeys(sym + c["condition"]["symptoms"]))
+                items.append({"t": "d", "name": st["name"], "alt": alt + [s["name"]], "sym": sym,
+                              "desc": st.get("easy", ""), "url": href, "r": r["id"]})
+    for it in SYMPTOMS["items"]:
+        links = []
+        for slug in it["slugs"]:
+            href, st, _ = stop_link(slug)
+            links.append({"name": st["name"], "url": href, "desc": st.get("easy", "")})
+        items.append({"t": "s", "name": it["q"], "r": it["region"], "links": links})
+    for f in FACTS["items"]:
+        items.append({"t": "f", "name": f["title"], "alt": [f["figure"]], "desc": f["body"],
+                      "url": f"/facts/#{f['id']}", "r": f["region"]})
+    (ROOT / "assets" / "search.json").write_text(json.dumps({"items": items}, ensure_ascii=False, separators=(",", ":")),
+                                                 encoding="utf-8")
+
+
 def fact_card(f, with_id=False, heading="h3"):
-    rel = []
-    for slug in f["related"]:
-        href, st, _ = stop_link(slug)
-        rel.append(f'<a href="{href}">{escape(st["name"])}</a>')
-    region = next(r for r in DATA["regions"] if r["id"] == f["region"])
-    if not rel:
-        rel.append(f'<a href="/{region["id"]}/">{region["name"]} 탐험로</a>')
+    rel = " · ".join(f'<a href="{h}">{escape(n)}</a>' for n, h in fact_links(f))
     fid = f' id="{f["id"]}"' if with_id else ""
     return f"""<article class="fact c-{f['region']}"{fid}>
           <p class="fact-figure">{escape(f['figure'])}</p>
           <{heading}>{escape(f['title'])}</{heading}>
           <p>{escape(f['body'])}</p>
-          <p class="fact-rel">더 알아보기 {' · '.join(rel)}</p>
+          <p class="fact-rel">더 알아보기 {rel}</p>
         </article>"""
-
-
-def facts_section():
-    picks = [f for f in FACTS["items"] if f.get("home")]
-    cards = "\n        ".join(fact_card(f) for f in picks)
-    return f"""    <section class="facts wrap" aria-labelledby="facts-title">
-      <div class="section-head">
-        <h2 id="facts-title">{escape(FACTS['title'])}</h2>
-        <p>{escape(FACTS['intro'])}</p>
-      </div>
-      <div class="fact-grid">
-        {cards}
-      </div>
-      <p class="more"><a href="/facts/">상식 {len(FACTS['items'])}가지 모두 보기</a></p>
-    </section>"""
 
 
 def build_facts_page():
@@ -618,6 +736,7 @@ if __name__ == "__main__":
     build_home()
     build_facts_page()
     build_about_og()
+    build_search_index()
     for region in DATA["regions"]:
         build_hub(region)
     built = []
