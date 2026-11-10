@@ -4,10 +4,12 @@
 원본 데이터
   - data/diseases.json            30개 질환 목록·순서·발행일
   - data/conditions/<slug>.json    발행한 질환 한 편의 본문·구조화 데이터 (질환당 한 파일)
+  - data/symptoms.json             대문 "증상으로 찾기" (증상 → 관련 질환)
+  - data/facts.json                "알고 보면 신기한 귀·코·목" 상식
 
 이 스크립트가 다시 만드는 것
   - 대문(index.html)의 탐험로 목록과 JSON-LD (build: 마커 사이)
-  - 귀/코/목 허브 페이지
+  - 귀/코/목 허브 페이지, 상식 페이지(/facts/)
   - 질환 페이지 (data/conditions/<slug>.json 이 있는 발행 질환)
   - sitemap.xml, llms.txt
 마지막에 tools/check.py 로 구조화 데이터를 점검한다.
@@ -28,9 +30,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://entrg.net"
-CSS_V = "20261109a"
+CSS_V = "20261110a"
 DATA = json.loads((ROOT / "data" / "diseases.json").read_text(encoding="utf-8"))
+SYMPTOMS = json.loads((ROOT / "data" / "symptoms.json").read_text(encoding="utf-8"))
+FACTS = json.loads((ROOT / "data" / "facts.json").read_text(encoding="utf-8"))
 COND_DIR = ROOT / "data" / "conditions"
+FIG_DIR = ROOT / "data" / "figures"
+OG_DIR = ROOT / "assets" / "og"
 
 SITE_NAME = "귀코목 알지"
 SITE_DESC = "귀, 코, 목 안쪽 길을 따라가며 이비인후과 질환의 증상, 검사, 치료를 이비인후과 전문의가 설명하는 의학정보 사이트."
@@ -38,6 +44,19 @@ PHYSICIAN = f"{SITE}/#physician"
 WEBSITE = f"{SITE}/#website"
 SPECIALTY = "https://schema.org/Otolaryngologic"
 REGION_EN = {"ear": "Ear", "nose": "Nose", "throat": "Throat"}
+# 대문 부위 카드와 미리보기 이미지에 쓰는 그림·강조 부위, 대표 질환
+REGION_FIG = {
+    "ear": {"fig": "ear", "hl": ["canal", "middle", "cochlea", "canals"]},
+    "nose": {"fig": "nose-side", "hl": ["it", "mt", "st", "olf"]},
+    "throat": {"fig": "throat-side", "hl": ["tonsil", "palate-soft", "larynx"]},
+}
+REGION_EG = {
+    "ear": ["bppv", "sudden-hearing-loss", "tinnitus"],
+    "nose": ["allergic-rhinitis", "chronic-sinusitis", "deviated-septum"],
+    "throat": ["sleep-apnea", "tonsil-stones", "laryngopharyngeal-reflux"],
+}
+QUICK = [("이석증", "bppv"), ("축농증", "chronic-sinusitis"), ("코골이", "snoring"), ("이명", "tinnitus"),
+         ("알레르기 비염", "allergic-rhinitis"), ("편도결석", "tonsil-stones")]
 
 HEAD = """<!doctype html>
 <html lang="ko">
@@ -52,12 +71,11 @@ HEAD = """<!doctype html>
   <meta property="og:title" content="{og_title}">
   <meta property="og:description" content="{og_desc}">
   <meta property="og:url" content="{url}">
-  <meta property="og:locale" content="ko_KR">
+  <meta property="og:locale" content="ko_KR">{og_image}
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="/assets/site.css?v={css_v}">
-  <script>try{{var a=sessionStorage.getItem("entrg-arrive");if(a){{sessionStorage.removeItem("entrg-arrive");document.documentElement.classList.add("arrive","arrive-"+a)}}}}catch(e){{}}</script>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
 {jsonld}
@@ -84,7 +102,8 @@ FOOT = """
 </html>
 """
 
-NAV = [("ear", "/ear/", "귀"), ("nose", "/nose/", "코"), ("throat", "/throat/", "목"), ("about", "/about/", "소개")]
+NAV = [("ear", "/ear/", "귀"), ("nose", "/nose/", "코"), ("throat", "/throat/", "목"),
+       ("facts", "/facts/", "상식"), ("about", "/about/", "소개")]
 
 
 def nav(current=None):
@@ -100,10 +119,40 @@ def ld(graph, indent="  "):
     return "\n".join(indent + l for l in json.dumps(obj, ensure_ascii=False, indent=2).splitlines())
 
 
-def head(*, title, desc, url, jsonld, nav_current, og_type="website", og_title=None, og_desc=None):
+def og_key_url(key):
+    """assets/og/<key>.jpg 가 있으면 그 주소. 없으면 None (tools/og.py 로 생성)."""
+    f = OG_DIR / f"{key}.jpg"
+    return f"{SITE}/assets/og/{key}.jpg" if f.exists() else None
+
+
+def og_meta(key, alt, indent="\n  "):
+    u = og_key_url(key)
+    if not u:
+        return ""
+    return indent.join(["", f'<meta property="og:image" content="{u}">',
+                        '<meta property="og:image:width" content="1200">',
+                        '<meta property="og:image:height" content="630">',
+                        f'<meta property="og:image:alt" content="{escape(alt)}">',
+                        '<meta name="twitter:card" content="summary_large_image">'])
+
+
+def image_node(key):
+    u = og_key_url(key)
+    return {"@type": "ImageObject", "url": u, "width": 1200, "height": 630} if u else None
+
+
+def head(*, title, desc, url, jsonld, nav_current, og_type="website", og_title=None, og_desc=None, og_key=None):
     return HEAD.format(title=escape(title), desc=escape(desc), url=url, og_type=og_type,
                        og_title=escape(og_title or title), og_desc=escape(og_desc or desc),
+                       og_image=og_meta(og_key, og_title or title) if og_key else "",
                        css_v=CSS_V, jsonld=jsonld, nav=nav(nav_current))
+
+
+def with_image(node, key):
+    img = image_node(key)
+    if img:
+        node["primaryImageOfPage"] = img
+    return node
 
 
 def strip_tags(s):
@@ -126,6 +175,24 @@ def published_stops():
             for st in s["stops"]:
                 if st.get("published"):
                     yield r, s, st
+
+
+def stop_index():
+    idx = {}
+    for r in DATA["regions"]:
+        for s in r["segments"]:
+            for st in s["stops"]:
+                idx[st["slug"]] = (r, s, st)
+    return idx
+
+
+STOPS = None
+
+
+def stop_link(slug):
+    """발행한 질환은 질환 페이지로, 아직이면 허브의 해당 항목(쉬운 설명)으로."""
+    r, s, st = STOPS[slug]
+    return (stop_path(r, s, st) if st.get("published") else f"/{r['id']}/#{slug}"), st, r
 
 
 def load_condition(slug):
@@ -162,12 +229,16 @@ def route_list(region, with_symptom=False, indent="        "):
         lines.append(f'{indent}  <li class="seg" aria-hidden="true">{escape(seg["name"])}</li>')
         for st in seg["stops"]:
             name = escape(st["name"])
-            sym = f'<span class="sym">{escape(st["symptom"])}</span>' if with_symptom else ""
+            sym, sid = "", ""
+            if with_symptom:
+                sid = f' id="{st["slug"]}"'
+                easy = f'<span class="easy">{escape(st["easy"])}</span>' if st.get("easy") else ""
+                sym = f'{easy}<span class="sym">흔한 증상 · {escape(st["symptom"])}</span>'
             if st.get("published"):
                 href = stop_path(region, seg, st)
-                lines.append(f'{indent}  <li class="stop open"><a href="{href}">{name}</a>{sym}</li>')
+                lines.append(f'{indent}  <li class="stop open"{sid}><a href="{href}">{name}</a>{sym}</li>')
             else:
-                lines.append(f'{indent}  <li class="stop"><span class="soon">{name}<em>준비 중</em></span>{sym}</li>')
+                lines.append(f'{indent}  <li class="stop"{sid}><span class="soon">{name}<em>준비 중</em></span>{sym}</li>')
     lines.append(f"{indent}</ol>")
     return "\n".join(lines)
 
@@ -180,34 +251,241 @@ def home_jsonld(page_title, page_desc):
         "description": page_desc, "inLanguage": "ko-KR", "isPartOf": {"@id": WEBSITE},
         "about": [anatomy_node(r) for r in DATA["regions"]],
         "author": {"@id": PHYSICIAN},
-        "hasPart": [{"@id": u + "#webpage"} for _, u in hubs],
+        "hasPart": [{"@id": u + "#webpage"} for _, u in hubs] + [{"@id": f"{SITE}/facts/#webpage"}],
         "mainEntity": {"@type": "ItemList", "name": "귀코목 탐험로", "numberOfItems": len(hubs),
                        "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "url": u}
                                            for i, (n, u) in enumerate(hubs)]},
     }
-    return [website_node(), person_stub(), webpage]
+    return [website_node(), person_stub(), with_image(webpage, "home")]
 
 
 def build_home():
-    parts = ['      <div class="route-grid">']
-    for r in DATA["regions"]:
-        parts.append(f'        <div class="route-col">')
-        parts.append(f'          <h3><a href="/{r["id"]}/">{r["name"]}</a><small>{escape(r["route"])}</small></h3>')
-        parts.append(f'          <p>{escape(r["intro"])}</p>')
-        parts.append(route_list(r, indent="          "))
-        parts.append("        </div>")
-    parts.append("      </div>")
-    block = "\n".join(parts)
     p = ROOT / "index.html"
     s = p.read_text(encoding="utf-8")
-    s = re.sub(r"(<!-- build:routes -->)(.*?)(\s*<!-- /build:routes -->)",
-               lambda m: m.group(1) + "\n" + block + m.group(3), s, flags=re.S)
+    for name, fn in [("quick", quick_links), ("regions", regions_section), ("today", today_section),
+                     ("symptoms", symptoms_section), ("trust", trust_section)]:
+        s = re.sub(rf"(<!-- build:{name} -->)(.*?)(\s*<!-- /build:{name} -->)",
+                   lambda m, fn=fn: m.group(1) + "\n" + fn() + m.group(3), s, flags=re.S)
     title = re.search(r"<title>(.*?)</title>", s).group(1)
     desc = re.search(r'<meta name="description" content="(.*?)">', s).group(1)
     js = "  <script type=\"application/ld+json\">\n" + ld(home_jsonld(title, desc)) + "\n  </script>"
+    s = re.sub(r"(<!-- build:og -->)(.*?)(<!-- /build:og -->)",
+               lambda m: m.group(1) + og_meta("home", "어디가 불편하세요? 귀코목 알지") + "\n  " + m.group(3), s, flags=re.S)
     s = re.sub(r"(<!-- build:jsonld -->\n)(.*?)(\n\s*<!-- /build:jsonld -->)",
                lambda m: m.group(1) + js + m.group(3), s, flags=re.S)
     p.write_text(s, encoding="utf-8")
+
+
+def quick_links():
+    links = []
+    for label, slug in QUICK:
+        href, _, _ = stop_link(slug)
+        links.append(f'<a href="{href}">{escape(label)}</a>')
+    return f'      <p class="quick"><span>예를 들면</span>{"".join(links)}</p>'
+
+
+def figure_svg(spec):
+    """render_figure 결과에서 그림만 꺼내 장식용(aria-hidden)으로."""
+    html = render_figure({**spec, "caption": spec.get("caption", "")}, "")
+    svg = re.search(r"<svg.*</svg>", html, re.S).group(0)
+    return re.sub(r'role="img" aria-label="[^"]*"', 'aria-hidden="true" focusable="false"', svg, count=1)
+
+
+def regions_section():
+    cards = []
+    for r in DATA["regions"]:
+        n = sum(len(s["stops"]) for s in r["segments"])
+        eg = " · ".join(STOPS[slug][2]["name"] for slug in REGION_EG[r["id"]])
+        svg = "\n".join("          " + l for l in figure_svg(REGION_FIG[r["id"]]).splitlines())
+        cards.append(f"""      <a class="region c-{r['id']}" href="/{r['id']}/">
+        <div class="anat region-fig">
+{svg}
+        </div>
+        <div class="region-text">
+          <h2>{r['name']}<small>{escape(r['route'])}</small></h2>
+          <p class="region-count">질환 {n}가지</p>
+          <p class="region-eg">{escape(eg)}</p>
+        </div>
+      </a>""")
+    return f"""    <nav class="regions wrap" aria-label="부위별로 찾기">
+{chr(10).join(cards)}
+    </nav>"""
+
+
+def fact_links(f):
+    rel = []
+    for slug in f["related"]:
+        href, st, _ = stop_link(slug)
+        rel.append((st["name"], href))
+    if not rel:
+        region = next(r for r in DATA["regions"] if r["id"] == f["region"])
+        rel.append((f"{region['name']} 탐험로", f"/{region['id']}/"))
+    return rel
+
+
+def today_section():
+    import datetime
+    items = FACTS["items"]
+    rname = {r["id"]: r["name"] for r in DATA["regions"]}
+    data = [{"id": f["id"], "r": f["region"], "rn": rname[f["region"]], "fig": f["figure"], "title": f["title"],
+             "body": f["body"], "rel": fact_links(f)} for f in items]
+    i = datetime.date.today().timetuple().tm_yday % len(items)
+    f = data[i]
+    rel = " · ".join(f'<a href="{h}">{escape(n)}</a>' for n, h in f["rel"])
+    blob = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    return f"""    <section class="today wrap" aria-labelledby="today-title">
+      <div class="today-head">
+        <h2 id="today-title">오늘의 신기한 상식</h2>
+        <p class="today-count" id="today-count">{i + 1} / {len(items)}</p>
+      </div>
+      <article class="today-card c-{f['r']}" id="today-card" data-index="{i}" aria-live="polite">
+        <div>
+          <p class="today-region">{f['rn']}</p>
+          <p class="today-figure">{escape(f['fig'])}</p>
+        </div>
+        <div>
+          <h3>{escape(f['title'])}</h3>
+          <p class="today-body">{escape(f['body'])}</p>
+          <p class="fact-rel">더 알아보기 {rel}</p>
+        </div>
+      </article>
+      <div class="today-actions">
+        <button type="button" class="today-next" id="today-next" hidden>다른 상식 보기</button>
+        <a href="/facts/">상식 {len(items)}가지 모두 보기</a>
+      </div>
+      <script type="application/json" id="facts-data">{blob}</script>
+    </section>"""
+
+
+def symptoms_section():
+    items = []
+    for it in SYMPTOMS["items"]:
+        lis = []
+        for slug in it["slugs"]:
+            href, st, _ = stop_link(slug)
+            lis.append(f'<li><a href="{href}">{escape(st["name"])}</a><span>{escape(st.get("easy", st["symptom"]))}</span></li>')
+        items.append(f"""        <details class="finder-item c-{it['region']}">
+          <summary>{escape(it['q'])}</summary>
+          <ul>{''.join(lis)}</ul>
+        </details>""")
+    return f"""    <section class="finder wrap" aria-labelledby="finder-title">
+      <div class="section-head">
+        <h2 id="finder-title">증상으로 찾기</h2>
+        <p>{escape(SYMPTOMS['intro'])}</p>
+      </div>
+      <div class="finder-list">
+{chr(10).join(items)}
+      </div>
+      <p class="finder-urgent"><strong>바로 진료가 필요할 때</strong>{escape(SYMPTOMS['urgent'])}</p>
+    </section>"""
+
+
+def trust_section():
+    conds = [load_condition(st["slug"]) for _, _, st in published_stops()]
+    conds = [c for c in conds if c]
+    dois = {ref.get("doi") or ref["citation"] for c in conds for ref in c.get("references", [])}
+    figs = sum(1 for c in conds for b in c["body"] if "figure" in b)
+    last = max(c["lastReviewed"] for c in conds)
+    return f"""    <section class="trust wrap" aria-labelledby="trust-title">
+      <div>
+        <h2 id="trust-title">누가 쓰나요</h2>
+        <p class="name">박종원</p>
+        <p class="role">이비인후과 전문의</p>
+        <ul>
+          <li>계명대학교 의과대학 졸업</li>
+          <li>계명대학교 동산병원 이비인후과 전공의 수료</li>
+          <li>삼성서울병원 이비인후과 임상강사</li>
+          <li>전 계명대학교 의과대학 이비인후과학교실 조교수</li>
+        </ul>
+        <a href="/about/">약력 자세히 보기</a>
+      </div>
+      <dl class="trust-stats">
+        <div><dt>질환 설명</dt><dd>{len(conds)}<small>편</small></dd></div>
+        <div><dt>근거로 삼은 진료지침·논문</dt><dd>{len(dois)}<small>편</small></dd></div>
+        <div><dt>직접 그린 해부·검사 그림</dt><dd>{figs}<small>장</small></dd></div>
+        <div><dt>최근 검수일</dt><dd>{ko_date(last)}</dd></div>
+        <p class="trust-note">모든 질환 페이지에 참고한 진료지침과 검수일을 적습니다. 글은 일반적인 의학 정보이며 진료를 대신하지 않습니다.</p>
+      </dl>
+    </section>"""
+
+
+def build_search_index():
+    """대문 검색용 색인 (assets/search.json). 브라우저에서 바로 찾는다."""
+    items = []
+    for r in DATA["regions"]:
+        items.append({"t": "h", "name": r["name"], "alt": [REGION_EN[r["id"]], r["route"]],
+                      "desc": r["intro"], "url": f"/{r['id']}/", "r": r["id"]})
+        for s in r["segments"]:
+            for st in s["stops"]:
+                href, _, _ = stop_link(st["slug"])
+                c = load_condition(st["slug"])
+                alt, sym = [], [x.strip() for x in st["symptom"].split(",")]
+                if c:
+                    alt = [a for a in c["condition"]["alternateName"]]
+                    sym = list(dict.fromkeys(sym + c["condition"]["symptoms"]))
+                items.append({"t": "d", "name": st["name"], "alt": alt + [s["name"]], "sym": sym,
+                              "desc": st.get("easy", ""), "url": href, "r": r["id"]})
+    for it in SYMPTOMS["items"]:
+        links = []
+        for slug in it["slugs"]:
+            href, st, _ = stop_link(slug)
+            links.append({"name": st["name"], "url": href, "desc": st.get("easy", "")})
+        items.append({"t": "s", "name": it["q"], "r": it["region"], "links": links})
+    for f in FACTS["items"]:
+        items.append({"t": "f", "name": f["title"], "alt": [f["figure"]], "desc": f["body"],
+                      "url": f"/facts/#{f['id']}", "r": f["region"]})
+    (ROOT / "assets" / "search.json").write_text(json.dumps({"items": items}, ensure_ascii=False, separators=(",", ":")),
+                                                 encoding="utf-8")
+
+
+def fact_card(f, with_id=False, heading="h3"):
+    rel = " · ".join(f'<a href="{h}">{escape(n)}</a>' for n, h in fact_links(f))
+    fid = f' id="{f["id"]}"' if with_id else ""
+    return f"""<article class="fact c-{f['region']}"{fid}>
+          <p class="fact-figure">{escape(f['figure'])}</p>
+          <{heading}>{escape(f['title'])}</{heading}>
+          <p>{escape(f['body'])}</p>
+          <p class="fact-rel">더 알아보기 {rel}</p>
+        </article>"""
+
+
+def build_facts_page():
+    url = f"{SITE}/facts/"
+    title = FACTS["title"]
+    desc = (f"{FACTS['intro']} " + ", ".join(f["title"] for f in FACTS["items"][:3]) + " 등 "
+            f"{len(FACTS['items'])}가지를 이비인후과 전문의가 설명합니다.")
+    page = {"@type": "CollectionPage", "@id": url + "#webpage", "url": url, "name": title,
+            "description": desc, "inLanguage": "ko-KR", "isPartOf": {"@id": WEBSITE},
+            "breadcrumb": {"@id": url + "#breadcrumb"},
+            "about": [anatomy_node(r) for r in DATA["regions"]], "specialty": SPECIALTY,
+            "author": {"@id": PHYSICIAN}, "reviewedBy": {"@id": PHYSICIAN},
+            "mainEntity": {"@type": "ItemList", "numberOfItems": len(FACTS["items"]),
+                           "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": f["title"],
+                                                "url": f"{url}#{f['id']}"} for i, f in enumerate(FACTS["items"])]}}
+    graph = [with_image(page, "facts"), person_stub(), breadcrumb(url, [(SITE_NAME, f"{SITE}/"), ("상식", url)])]
+    h = head(title=f"{title} | 귀코목 알지", desc=desc, url=url, jsonld=ld(graph), nav_current="facts", og_key="facts")
+    groups = []
+    for r in DATA["regions"]:
+        cards = "\n        ".join(fact_card(f, with_id=True, heading="h3") for f in FACTS["items"] if f["region"] == r["id"])
+        groups.append(f"""    <section class="fact-group c-{r['id']}" aria-labelledby="fg-{r['id']}">
+      <h2 id="fg-{r['id']}"><span class="dot" aria-hidden="true"></span>{r['name']}</h2>
+      <div class="fact-grid two">
+        {cards}
+      </div>
+    </section>""")
+    body = f"""
+  <main id="main" class="wrap">
+    <div class="page-head">
+      <p class="crumbs"><a href="/">귀코목 알지</a><span aria-hidden="true">/</span>상식</p>
+      <h1>{escape(title)}</h1>
+      <p class="lede">{escape(FACTS['intro'])}</p>
+    </div>
+{chr(10).join(groups)}
+  </main>
+"""
+    out = ROOT / "facts" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(h + body + FOOT, encoding="utf-8")
 
 
 # ---------- 허브 ----------
@@ -230,9 +508,9 @@ def build_hub(r):
     if items:
         page["hasPart"] = [{"@id": it["url"] + "#webpage"} for it in items]
         page["mainEntity"] = {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": items}
-    graph = [page, breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (r["name"], url)])]
+    graph = [with_image(page, r["id"]), breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (r["name"], url)])]
     h = head(title=f"{r['name']} 질환 안내 | 귀코목 알지", og_title=f"{r['name']}: {r['route']}",
-             desc=desc, url=url, jsonld=ld(graph), nav_current=r["id"])
+             desc=desc, url=url, jsonld=ld(graph), nav_current=r["id"], og_key=r["id"])
     body = f"""
   <main id="main" class="wrap c-{r['id']}">
     <div class="page-head">
@@ -251,6 +529,31 @@ def build_hub(r):
 
 
 # ---------- 질환 페이지 ----------
+def render_figure(spec, ind):
+    """data/figures/<그림>.svg 를 읽어 강조할 부위에 hl, 가릴 부위에 off 클래스를 붙인다."""
+    svg = (FIG_DIR / f"{spec['fig']}.svg").read_text(encoding="utf-8").strip()
+    hl = set(spec["hl"])
+
+    def tag(m):
+        classes, part, rest = m.group(1).split(), m.group(2), m.group(3)
+        if part in hl:
+            classes.append("hl")
+        hw = re.search(r'data-hide-when="([^"]+)"', rest)
+        if hw and set(hw.group(1).split()) & hl:
+            classes.append("off")
+        return f'<g class="{" ".join(classes)}" data-part="{part}"{rest}>'
+
+    unknown = hl - set(re.findall(r'data-part="([^"]+)"', svg))
+    if unknown:
+        raise ValueError(f"{spec['fig']}.svg 에 없는 부위: {sorted(unknown)}")
+    svg = re.sub(r'<g class="([^"]*)" data-part="([^"]+)"([^>]*)>', tag, svg)
+    svg = svg.replace(' xmlns="http://www.w3.org/2000/svg"', "", 1)
+    svg = svg.replace("<svg ", f'<svg role="img" aria-label="{escape(strip_tags(spec["caption"]))}" ', 1)
+    body = "\n".join(ind + "  " + l for l in svg.splitlines())
+    return (f'\n{ind}<figure class="anat {spec.get("kind", "anat")}">\n{body}\n'
+            f'{ind}  <figcaption>{spec["caption"]}</figcaption>\n{ind}</figure>')
+
+
 def render_blocks(blocks, ind="      "):
     out = []
     for b in blocks:
@@ -279,6 +582,8 @@ def render_blocks(blocks, ind="      "):
             if a.get("p"):
                 out.append(f"{ind}  <p>{a['p']}</p>")
             out.append(f"{ind}</section>")
+        elif "figure" in b:
+            out.append(render_figure(b["figure"], ind))
         else:
             raise ValueError(f"알 수 없는 본문 블록: {b}")
     return "\n".join(out)
@@ -328,11 +633,12 @@ def condition_jsonld(c, r, seg, st, url):
                               for t in cond["treatments"]],
         "possibleComplication": cond["complications"],
     }
+    condition = {k: v for k, v in condition.items() if v not in ([], None, "")}
     faq = {"@type": "FAQPage", "@id": url + "#faq", "isPartOf": {"@id": url + "#webpage"},
            "mainEntity": [{"@type": "Question", "name": strip_tags(f["q"]),
                            "acceptedAnswer": {"@type": "Answer", "text": strip_tags(f["a"])}} for f in c["faq"]]}
     crumbs = breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (r["name"], f"{SITE}/{r['id']}/"), (cond["name"], url)])
-    return [page, person_stub(), condition, faq, crumbs]
+    return [with_image(page, st["slug"]), person_stub(), condition, faq, crumbs]
 
 
 def build_condition(r, seg, st, c):
@@ -340,7 +646,7 @@ def build_condition(r, seg, st, c):
     url = SITE + path
     h = head(title=f"{c['seoTitle']} | 귀코목 알지", og_title=c["seoTitle"], og_type="article",
              desc=c["metaDescription"], og_desc=c.get("ogDescription"), url=url,
-             jsonld=ld(condition_jsonld(c, r, seg, st, url)), nav_current=r["id"])
+             jsonld=ld(condition_jsonld(c, r, seg, st, url)), nav_current=r["id"], og_key=st["slug"])
     faq = "\n".join(f"""        <details>
           <summary>{f['q']}</summary>
           <p>{f['a']}</p>
@@ -375,8 +681,16 @@ def build_condition(r, seg, st, c):
 
 
 # ---------- sitemap, llms.txt ----------
+def build_about_og():
+    p = ROOT / "about" / "index.html"
+    s = p.read_text(encoding="utf-8")
+    s = re.sub(r"(<!-- build:og -->)(.*?)(<!-- /build:og -->)",
+               lambda m: m.group(1) + og_meta("about", "이비인후과 전문의 박종원") + "\n  " + m.group(3), s, flags=re.S)
+    p.write_text(s, encoding="utf-8")
+
+
 def build_sitemap():
-    urls = [(f"{SITE}/", None), (f"{SITE}/about/", None)]
+    urls = [(f"{SITE}/", None), (f"{SITE}/facts/", None), (f"{SITE}/about/", None)]
     urls += [(f"{SITE}/{r['id']}/", None) for r in DATA["regions"]]
     for r, s, st in published_stops():
         c = load_condition(st["slug"])
@@ -404,12 +718,25 @@ def build_llms():
         c = load_condition(st["slug"])
         desc = c["metaDescription"] if c else st["symptom"]
         out.append(f"- [{st['name']}]({SITE}{stop_path(r, s, st)}): {desc}")
+    out += ["", "## 질환 30가지 쉬운 설명", ""]
+    for r in DATA["regions"]:
+        for s in r["segments"]:
+            for st in s["stops"]:
+                href, _, _ = stop_link(st["slug"])
+                out.append(f"- [{st['name']}]({SITE}{href}) ({r['name']} · {s['name']}): {st.get('easy', st['symptom'])}")
+    out += ["", f"## {FACTS['title']}", ""]
+    for f in FACTS["items"]:
+        out.append(f"- [{f['title']}]({SITE}/facts/#{f['id']}): {f['body']}")
     out += ["", "## 작성자", "", f"- [이비인후과 전문의 박종원]({SITE}/about/): 약력과 전문 분야", ""]
     (ROOT / "llms.txt").write_text("\n".join(out), encoding="utf-8")
 
 
 if __name__ == "__main__":
+    STOPS = stop_index()
     build_home()
+    build_facts_page()
+    build_about_og()
+    build_search_index()
     for region in DATA["regions"]:
         build_hub(region)
     built = []

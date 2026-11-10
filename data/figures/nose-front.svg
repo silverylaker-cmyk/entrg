@@ -1,0 +1,48 @@
+<svg viewBox="0 0 520 350" xmlns="http://www.w3.org/2000/svg">
+  <path class="fg-bone" d="M60 40 C100 20 420 20 460 40 L470 300 L50 300 Z"/>
+  <circle class="fg-soft" cx="150" cy="104" r="50"/><circle class="fg-soft" cx="370" cy="104" r="50"/>
+  <text class="lbl in" x="150" y="110" text-anchor="middle">눈</text><text class="lbl in" x="370" y="110" text-anchor="middle">눈</text>
+  <g class="part" data-part="ethmoid">
+    <path class="pf" d="M216 64 L304 64 L304 150 L216 150 Z"/>
+    <path class="ps thin" d="M246 64 L246 150 M274 64 L274 150 M216 94 L304 94 M216 122 L304 122"/>
+    <text class="lbl" x="260" y="52" text-anchor="middle">사골동</text>
+  </g>
+  <path class="fg-base" d="M216 150 L204 290 L316 290 L304 150"/>
+  <g class="part" data-part="maxillary">
+    <path class="pf" d="M206 162 L118 170 C96 210 104 262 148 284 L204 288 Z"/>
+    <path class="pf" d="M314 162 L402 170 C424 210 416 262 372 284 L316 288 Z"/>
+    <text class="lbl in" x="156" y="226" text-anchor="middle">상악동</text>
+    <text class="lbl in" x="364" y="226" text-anchor="middle">상악동</text>
+  </g>
+  <g class="part opt" data-part="fluid-l"><path class="pfill" d="M106 244 L205 244 L204 288 L148 284 C122 272 108 260 106 244 Z"/></g>
+  <g class="part opt" data-part="fluid-r"><path class="pfill" d="M414 244 L315 244 L316 288 L372 284 C398 272 412 260 414 244 Z"/></g>
+  <g class="part" data-part="mt">
+    <ellipse class="pf" cx="228" cy="196" rx="11" ry="22"/><ellipse class="pf" cx="292" cy="196" rx="11" ry="22"/>
+  </g>
+  <g class="part" data-part="it" data-hide-when="it-big">
+    <ellipse class="pf" cx="222" cy="256" rx="14" ry="26"/><ellipse class="pf" cx="298" cy="256" rx="14" ry="26"/>
+  </g>
+  <g class="part opt" data-part="it-big">
+    <ellipse class="pf" cx="228" cy="256" rx="22" ry="30"/><ellipse class="pf" cx="292" cy="256" rx="22" ry="30"/>
+  </g>
+  <g class="part" data-part="septum" data-hide-when="deviation">
+    <path class="ps thick" d="M260 66 L260 290"/>
+  </g>
+  <g class="part opt" data-part="deviation">
+    <path class="ps thick" d="M260 66 C262 130 240 170 236 210 C232 250 252 270 260 290"/>
+  </g>
+  <g class="part opt" data-part="polyps">
+    <circle class="pblob" cx="240" cy="214" r="8"/><circle class="pblob" cx="246" cy="228" r="7"/><circle class="pblob" cx="236" cy="230" r="6"/>
+    <circle class="pblob" cx="280" cy="214" r="8"/><circle class="pblob" cx="274" cy="228" r="7"/><circle class="pblob" cx="284" cy="230" r="6"/>
+  </g>
+  <path class="fg-soft" d="M100 296 L420 296 L420 306 L100 306 Z"/>
+  <path class="fg-soft" d="M120 308 L146 308 L148 334 L118 334 Z M156 308 L182 308 L184 334 L154 334 Z M338 308 L364 308 L366 334 L336 334 Z"/>
+  <g class="part" data-part="tooth-r">
+    <path class="pf" d="M374 308 L402 308 L404 334 L372 334 Z"/>
+    <path class="ps thin" d="M380 308 L376 288 M396 308 L400 288"/>
+    <text class="lbl" x="414" y="330">위 어금니</text>
+  </g>
+  <text class="lbl" x="452" y="198">중비갑개</text><path class="lead" d="M304 196 L446 194"/>
+  <text class="lbl" x="452" y="262">하비갑개</text><path class="lead" d="M314 258 L446 258"/>
+  <text class="lbl" x="268" y="324" text-anchor="middle">비중격</text>
+</svg>

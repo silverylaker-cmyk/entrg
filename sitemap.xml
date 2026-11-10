@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://entrg.net/</loc></url>
+  <url><loc>https://entrg.net/facts/</loc></url>
   <url><loc>https://entrg.net/about/</loc></url>
   <url><loc>https://entrg.net/ear/</loc></url>
   <url><loc>https://entrg.net/nose/</loc></url>
   <url><loc>https://entrg.net/throat/</loc></url>
+  <url><loc>https://entrg.net/ear/otitis-externa/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/acute-otitis-media/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/otitis-media-effusion/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/chronic-otitis-media/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/sudden-hearing-loss/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/tinnitus/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/bppv/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/vestibular-neuritis/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/menieres-disease/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/nosebleed/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/deviated-septum/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/turbinate-hypertrophy/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/allergic-rhinitis/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/nonallergic-rhinitis/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/rhinitis-medicamentosa/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/nasal-polyps/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/smell-loss/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/acute-sinusitis/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/nose/chronic-sinusitis/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/odontogenic-sinusitis/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/nose/postnasal-drip/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/throat/tonsil-stones/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/throat/tonsillitis/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/sleep/snoring/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/sleep/sleep-apnea/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/sleep/pediatric-sleep-apnea/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/throat/laryngopharyngeal-reflux/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/throat/globus/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/throat/vocal-nodules/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/throat/neck-lump/</loc><lastmod>2026-11-09</lastmod></url>
 </urlset>

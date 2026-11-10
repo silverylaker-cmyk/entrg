@@ -1,0 +1,22 @@
+<svg viewBox="0 0 440 320" xmlns="http://www.w3.org/2000/svg">
+  <circle class="fg-scope" cx="170" cy="160" r="146"/>
+  <path class="fg-base" d="M92 70 C120 40 220 40 248 70"/>
+  <text class="lbl sm in" x="170" y="40" text-anchor="middle">후두덮개</text>
+  <path class="glottis" d="M170 86 L138 236 L202 236 Z"/>
+  <g class="part" data-part="vf">
+    <path class="pf" d="M170 84 C160 120 146 190 136 236 L118 236 C128 190 150 120 168 84 Z"/>
+    <path class="pf" d="M170 84 C180 120 194 190 204 236 L222 236 C212 190 190 120 172 84 Z"/>
+    <text class="lbl" x="326" y="150">성대</text><path class="lead" d="M210 156 L320 146"/>
+  </g>
+  <path class="fg-soft" d="M112 238 C112 222 140 222 142 240 C142 254 112 256 112 238 Z M198 240 C200 222 228 222 228 238 C228 256 198 254 198 240 Z"/>
+  <g class="part opt" data-part="nodules">
+    <circle class="pblob" cx="155" cy="160" r="6"/><circle class="pblob" cx="185" cy="160" r="6"/>
+    <text class="lbl" x="326" y="186">결절(양쪽)</text><path class="lead" d="M192 162 L320 182"/>
+  </g>
+  <g class="part opt" data-part="polyp">
+    <ellipse class="pblob" cx="152" cy="178" rx="11" ry="13"/>
+    <text class="lbl" x="326" y="214">폴립(한쪽)</text><path class="lead" d="M164 182 L320 210"/>
+  </g>
+  <text class="lbl sm" x="170" y="300" text-anchor="middle">목 뒤쪽</text>
+  <text class="lbl sm" x="326" y="60">앞(목젖 쪽)은 위,</text><text class="lbl sm" x="326" y="78">뒤쪽은 아래</text>
+</svg>

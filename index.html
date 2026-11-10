@@ -9,19 +9,20 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="귀코목 알지">
   <meta property="og:title" content="귀코목 알지">
-  <meta property="og:description" content="귀, 코, 목 안쪽으로 떠나는 탐험. 이비인후과 질환을 전문의가 하나씩 짚어 드립니다.">
+  <meta property="og:description" content="어디가 불편하세요? 증상이나 병 이름으로 찾는 귀·코·목 질환 30가지와 알고 보면 신기한 상식. 이비인후과 전문의가 쓰고 검수했습니다.">
   <meta property="og:url" content="https://entrg.net/">
   <meta property="og:locale" content="ko_KR">
-  <meta name="theme-color" content="#0a1521">
+  <!-- build:og -->
+  <meta property="og:image" content="https://entrg.net/assets/og/home.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="어디가 불편하세요? 귀코목 알지">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- /build:og -->
+  <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261109a">
-  <script type="importmap">
-  { "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-  } }
-  </script>
+  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <!-- build:jsonld -->
   <script type="application/ld+json">
@@ -86,6 +87,9 @@
           },
           {
             "@id": "https://entrg.net/throat/#webpage"
+          },
+          {
+            "@id": "https://entrg.net/facts/#webpage"
           }
         ],
         "mainEntity": {
@@ -112,6 +116,12 @@
               "url": "https://entrg.net/throat/"
             }
           ]
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://entrg.net/assets/og/home.jpg",
+          "width": 1200,
+          "height": 630
         }
       }
     ]
@@ -121,202 +131,353 @@
 </head>
 <body>
   <a class="skip" href="#main">본문으로 건너뛰기</a>
-  <header class="site-header on-stage">
+  <header class="site-header">
     <a class="wordmark" href="/"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>귀코목 알지</a>
     <nav class="site-nav" aria-label="주요 메뉴">
       <a href="/ear/">귀</a>
       <a href="/nose/">코</a>
       <a href="/throat/">목</a>
+      <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
   </header>
 
   <main id="main">
-    <div class="stage-band on-stage">
-    <section class="hero wrap" aria-labelledby="hero-title">
-      <div>
-        <h1 id="hero-title"><span>귀, 코, 목</span><span>안쪽으로 떠나는</span><span class="acc">탐험</span></h1>
-        <p class="lede">소리가 들어오는 길, 숨이 지나는 길, 목소리가 나오는 길. 이비인후과 전문의가 그 길 위에서 생기는 질환을 하나씩 짚어 드립니다.</p>
-        <div class="routes-pick">
-          <a class="r-ear" href="/ear/" data-route="ear">귀 탐험하기</a>
-          <a class="r-nose" href="/nose/" data-route="nose">코 탐험하기</a>
-          <a class="r-throat" href="/throat/" data-route="throat">목 탐험하기</a>
+    <section class="ask wrap" aria-labelledby="ask-title">
+      <p class="ask-kicker">이비인후과 전문의가 쓰고 검수한 귀·코·목 의학정보</p>
+      <h1 id="ask-title">어디가 불편하세요?</h1>
+      <form class="search" id="search" role="search" action="/" data-index="/assets/search.json?v=20261110a">
+        <label class="sr-only" for="q">증상이나 병 이름으로 찾기</label>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 L21 21"/></svg>
+          <input id="q" name="q" type="search" autocomplete="off" enterkeyhint="search" spellcheck="false"
+                 placeholder="증상이나 병 이름 (예: 어지러워요, 축농증)"
+                 data-examples="어지러워요|코가 계속 막혀요|축농증|코골이|귀에서 삐 소리가 나요|목에 뭐가 걸린 느낌"
+                 aria-controls="search-results" aria-autocomplete="list">
+          <button type="submit">찾기</button>
         </div>
-        <p class="map-hint" id="map-hint" hidden>얼굴의 <b>귀·코·목</b>을 가리켜 보고, 눌러서 들어가 보세요.</p>
-        <button type="button" class="map-3d-on" id="map-3d-on" hidden>움직이는 3D 지도 보기</button>
-      </div>
-
-      <div class="map" id="map">
-        <svg viewBox="56 60 560 580" role="img" aria-labelledby="map-title map-desc">
-          <title id="map-title">귀, 코, 목 탐험 지도</title>
-          <desc id="map-desc">옆에서 본 머리를 지도처럼 그렸습니다. 귀로 들어온 소리가 달팽이관까지 가는 길, 콧구멍으로 들어온 숨이 비강과 목을 지나 기관으로 내려가는 길, 성대에서 난 목소리가 입으로 나오는 길이 표시되어 있습니다.</desc>
-          <defs>
-            <radialGradient id="grid-fade" cx="50%" cy="50%" r="55%">
-              <stop offset="55%" stop-color="#fff"/>
-              <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-            </radialGradient>
-            <mask id="grid-mask"><rect width="640" height="640" fill="url(#grid-fade)"/></mask>
-            <clipPath id="head-clip">
-              <path d="M450 640 C448 590 440 545 452 505 C500 440 520 330 495 245 C465 150 380 95 290 100 C220 105 175 150 168 215 C165 245 172 262 168 275 C160 300 140 325 122 348 C115 358 122 368 140 368 C152 368 160 372 160 380 C152 388 150 396 160 402 C168 405 168 408 160 412 C150 418 155 432 168 436 C160 455 165 478 190 488 C220 498 255 500 275 505 C285 540 290 590 292 640 Z"/>
-            </clipPath>
-          </defs>
-
-          <g class="m-grid" aria-hidden="true" mask="url(#grid-mask)">
-            <line x1="0" y1="80" x2="640" y2="80"/><line x1="0" y1="160" x2="640" y2="160"/><line x1="0" y1="240" x2="640" y2="240"/><line x1="0" y1="320" x2="640" y2="320"/><line x1="0" y1="400" x2="640" y2="400"/><line x1="0" y1="480" x2="640" y2="480"/><line x1="0" y1="560" x2="640" y2="560"/>
-            <line x1="80" y1="0" x2="80" y2="640"/><line x1="160" y1="0" x2="160" y2="640"/><line x1="240" y1="0" x2="240" y2="640"/><line x1="320" y1="0" x2="320" y2="640"/><line x1="400" y1="0" x2="400" y2="640"/><line x1="480" y1="0" x2="480" y2="640"/><line x1="560" y1="0" x2="560" y2="640"/>
-          </g>
-
-          <g class="m-contour" clip-path="url(#head-clip)" aria-hidden="true">
-            <path d="M288 14 L298 13 L304 17 L310 22 L314 26 L320 32 L324 36 L330 42 L335 46 L340 50 L346 54 L353 58 L360 61 L367 64 L374 66 L382 68 L392 69 L402 69 L410 68 L418 65 L424 62 L430 57 L436 53 L442 48 L448 45 L456 42 L464 42 L472 43 L478 46 L484 50 L490 56 L494 60 L498 66 L502 73 L506 80 L509 86 L512 94 L515 100 L518 107 L521 114 L524 120 L528 127 L532 134 L536 140 L540 146 L544 152 L548 157 L553 162 L558 167 L563 172 L568 177 L574 182 L578 186 L584 192 L588 197 L592 202 L596 208 L600 216 L602 223 L604 230 L606 240 L607 248 L607 258 L607 268 L606 278 L605 286 L602 294 L600 300 L596 306 L591 312 L586 316 L580 320 L574 325 L568 329 L562 334 L558 339 L554 344 L550 351 L547 358 L544 364 L541 372 L538 380 L536 386 L532 394 L529 400 L526 406 L521 412 L516 416 L510 420 L502 423 L494 425 L486 426 L476 428 L469 430 L462 433 L456 437 L452 442 L448 448 L444 456 L442 462 L440 470 L437 478 L435 486 L432 494 L430 500 L426 508 L422 514 L418 519 L413 524 L408 530 L404 534 L399 540 L395 546 L391 552 L387 558 L384 565 L381 572 L378 579 L375 586 L372 594 L370 600 L366 608 L363 614 L359 620 L354 626 L348 630 L341 632 L333 632 L326 630 L319 626 L314 622 L308 616 L304 611 L300 604 L297 598 L294 592 L290 584 L288 578 L285 570 L282 563 L279 556 L276 548 L274 541 L271 534 L268 526 L266 520 L262 512 L260 506 L256 499 L252 492 L248 486 L244 481 L240 476 L234 470 L230 466 L224 461 L219 456 L214 452 L208 446 L204 441 L199 436 L195 430 L190 424 L186 419 L182 413 L178 408 L173 402 L169 396 L164 390 L160 385 L156 380 L151 374 L146 368 L142 363 L138 358 L133 352 L128 346 L124 341 L119 336 L114 330 L110 326 L105 320 L100 314 L96 308 L93 302 L91 294 L89 286 L88 276 L88 268 L88 258 L88 248 L88 238 L88 230 L89 220 L90 210 L91 202 L92 194 L95 186 L98 178 L101 172 L106 166 L111 162 L117 158 L123 154 L130 150 L135 146 L140 142 L146 136 L150 131 L154 125 L158 118 L161 112 L164 106 L168 98 L171 92 L174 86 L178 80 L183 74 L188 70 L195 66 L202 64 L210 62 L220 61 L229 60 L238 59 L246 57 L254 54 L260 50 L264 46 L269 40 L273 34 L276 28 L280 22 L285 16"/>
-            <path d="M310 74 L320 73 L329 74 L338 76 L346 78 L354 80 L362 82 L370 83 L378 85 L386 87 L394 88 L404 89 L414 89 L424 89 L432 88 L440 86 L448 84 L458 83 L468 84 L474 87 L480 92 L484 96 L488 102 L492 108 L496 115 L500 122 L503 128 L506 134 L510 142 L513 148 L517 154 L521 160 L525 166 L529 172 L534 178 L538 183 L543 188 L548 194 L552 198 L558 204 L562 209 L566 214 L570 220 L574 227 L577 234 L579 242 L580 250 L580 260 L579 268 L576 275 L572 282 L568 287 L563 292 L558 296 L552 302 L548 307 L544 313 L540 320 L537 326 L534 333 L532 340 L529 348 L526 355 L524 362 L520 370 L517 376 L513 382 L508 388 L503 392 L496 396 L490 398 L481 400 L472 401 L462 402 L454 403 L446 406 L440 409 L434 414 L430 419 L426 426 L423 432 L421 440 L418 448 L416 456 L414 464 L412 471 L410 478 L406 486 L403 492 L400 498 L396 505 L392 512 L388 518 L385 524 L382 530 L378 538 L375 544 L372 551 L369 558 L366 564 L362 572 L359 578 L356 584 L352 590 L347 596 L340 600 L332 601 L324 599 L318 595 L313 590 L308 584 L304 578 L301 572 L298 566 L294 558 L292 552 L289 544 L286 537 L283 530 L281 522 L278 514 L276 508 L273 500 L270 492 L268 486 L264 478 L261 472 L258 466 L253 460 L249 454 L244 449 L238 444 L234 440 L228 435 L222 430 L217 426 L212 422 L206 416 L202 412 L196 406 L192 402 L186 396 L182 391 L177 386 L172 380 L168 375 L164 370 L160 364 L155 358 L151 352 L147 346 L144 340 L140 333 L136 326 L133 320 L130 314 L126 306 L123 300 L120 292 L118 286 L115 278 L112 270 L111 262 L109 254 L108 244 L108 236 L108 228 L109 218 L111 210 L114 202 L117 196 L121 190 L126 185 L131 180 L136 176 L142 172 L148 167 L153 162 L158 156 L162 150 L166 144 L169 138 L173 132 L176 125 L180 118 L183 112 L187 106 L192 100 L196 96 L202 92 L210 88 L218 86 L226 86 L236 86 L244 86 L254 87 L264 87 L272 86 L280 84 L288 81 L296 78 L302 76 L310 74"/>
-            <path d="M328 98 L338 96 L348 96 L358 97 L366 98 L376 100 L384 101 L392 103 L400 105 L408 106 L417 108 L426 110 L434 112 L442 114 L448 116 L456 120 L462 123 L467 128 L472 133 L476 138 L480 144 L484 151 L488 158 L491 164 L494 170 L498 178 L501 184 L504 191 L508 198 L511 204 L514 211 L517 218 L520 224 L523 232 L526 240 L527 248 L527 258 L526 268 L525 276 L523 284 L522 292 L520 302 L518 310 L517 318 L515 326 L512 334 L510 341 L507 348 L504 355 L500 361 L495 366 L490 370 L482 374 L475 376 L466 378 L458 378 L448 380 L440 382 L433 384 L426 387 L420 392 L416 396 L412 402 L408 409 L405 416 L402 424 L400 431 L398 438 L396 446 L394 454 L391 462 L389 470 L386 478 L383 484 L380 492 L378 498 L374 506 L372 512 L368 520 L365 526 L362 534 L359 540 L356 546 L352 554 L348 560 L344 565 L338 569 L330 571 L322 568 L317 564 L312 559 L308 553 L304 546 L301 540 L298 532 L296 526 L293 518 L290 510 L288 502 L286 495 L284 488 L282 480 L280 472 L277 464 L274 456 L271 450 L268 444 L264 438 L258 432 L253 428 L247 424 L240 420 L234 416 L228 413 L222 409 L216 405 L210 401 L204 396 L199 392 L194 387 L188 382 L184 377 L179 372 L174 366 L170 360 L166 355 L162 348 L158 342 L155 336 L152 329 L149 322 L146 314 L144 307 L142 300 L140 292 L137 284 L135 276 L133 268 L132 260 L131 250 L130 240 L131 230 L134 222 L136 216 L140 210 L145 204 L150 199 L155 194 L160 189 L164 184 L169 178 L173 172 L176 166 L180 159 L183 152 L186 146 L190 139 L194 132 L198 126 L202 121 L208 116 L214 113 L222 110 L230 109 L240 109 L250 110 L258 110 L268 111 L278 111 L286 110 L295 108 L302 106 L310 103 L318 100 L326 98"/>
-            <path d="M352 112 L362 112 L370 112 L380 114 L388 116 L396 117 L404 120 L411 122 L418 125 L426 128 L432 131 L438 135 L444 139 L450 144 L454 149 L458 154 L463 160 L467 166 L470 172 L474 180 L477 186 L480 194 L482 200 L485 208 L488 216 L490 223 L492 230 L494 238 L496 247 L498 256 L499 264 L500 274 L500 282 L500 292 L500 300 L498 310 L497 318 L495 326 L492 333 L488 340 L484 345 L479 350 L473 354 L466 357 L458 360 L450 362 L442 364 L435 366 L428 368 L420 371 L414 374 L408 378 L402 384 L398 389 L394 395 L391 402 L388 408 L385 416 L382 424 L380 431 L378 438 L376 446 L373 454 L371 462 L368 470 L366 477 L364 484 L361 492 L358 499 L355 506 L352 513 L349 520 L345 526 L341 532 L336 536 L328 538 L322 536 L316 530 L312 524 L309 518 L306 510 L304 504 L302 496 L300 488 L298 478 L297 470 L295 462 L293 454 L291 446 L289 438 L286 432 L282 425 L277 420 L272 416 L266 412 L258 408 L252 406 L244 403 L236 400 L230 398 L222 394 L216 391 L210 387 L204 383 L198 378 L194 374 L188 368 L184 363 L180 358 L175 352 L172 346 L168 339 L165 332 L162 324 L160 316 L158 308 L157 300 L156 290 L156 280 L156 270 L157 260 L159 252 L161 244 L164 236 L167 230 L171 224 L174 218 L178 211 L182 204 L184 198 L188 190 L190 184 L193 176 L196 170 L199 162 L203 156 L206 150 L211 144 L216 139 L222 135 L228 132 L237 130 L246 130 L256 130 L264 130 L274 130 L282 130 L292 128 L300 127 L308 124 L314 122 L322 119 L330 116 L337 114 L346 112"/>
-            <path d="M354 126 L364 125 L374 126 L382 127 L390 129 L398 131 L406 134 L412 137 L418 140 L425 144 L430 148 L436 153 L441 158 L446 164 L450 170 L454 176 L457 182 L460 188 L464 196 L466 202 L469 210 L472 218 L474 226 L476 234 L478 242 L480 250 L481 258 L482 266 L483 276 L484 286 L484 296 L483 306 L481 314 L478 322 L475 328 L471 334 L466 339 L460 343 L454 346 L446 350 L440 352 L432 355 L424 357 L416 359 L408 362 L402 365 L396 369 L390 374 L386 379 L382 384 L378 391 L374 398 L371 404 L368 410 L364 418 L361 424 L358 431 L355 438 L352 445 L349 452 L346 460 L343 466 L340 473 L336 479 L330 482 L325 478 L322 472 L320 464 L318 456 L316 448 L314 440 L311 432 L308 426 L304 420 L300 414 L294 408 L289 404 L282 400 L276 397 L268 395 L260 393 L252 391 L244 389 L236 387 L228 384 L222 382 L215 378 L209 374 L203 370 L198 365 L193 360 L188 354 L184 348 L180 342 L177 336 L174 328 L173 320 L171 312 L171 302 L172 294 L174 286 L177 278 L180 270 L183 264 L187 258 L190 251 L193 244 L196 237 L198 230 L200 222 L202 214 L204 206 L206 198 L209 190 L211 182 L214 176 L218 169 L222 163 L227 158 L233 154 L240 151 L248 149 L256 148 L266 147 L276 147 L284 146 L294 144 L302 142 L310 140 L316 138 L324 135 L331 132 L338 129 L346 127 L354 126"/>
-            <path d="M352 140 L362 138 L372 138 L382 139 L390 141 L398 144 L404 146 L411 150 L417 154 L422 158 L428 163 L432 168 L437 174 L441 180 L445 186 L448 192 L452 200 L454 206 L457 214 L460 222 L462 230 L464 238 L465 246 L467 254 L468 262 L470 272 L471 280 L471 290 L471 300 L469 308 L467 316 L463 322 L459 328 L454 333 L448 337 L442 341 L434 344 L428 346 L420 348 L412 350 L404 352 L396 354 L389 358 L383 362 L378 366 L373 372 L368 378 L364 383 L360 388 L355 394 L350 399 L344 403 L336 406 L330 406 L322 403 L316 400 L309 396 L302 392 L296 389 L288 386 L281 384 L272 382 L264 381 L256 379 L247 378 L238 376 L231 374 L224 371 L217 368 L211 364 L206 360 L200 354 L196 350 L192 344 L188 336 L186 330 L184 322 L183 312 L184 304 L187 296 L190 289 L194 282 L198 276 L202 270 L205 264 L209 258 L212 250 L214 244 L216 236 L218 226 L220 218 L221 210 L223 202 L226 194 L229 188 L232 182 L238 176 L242 172 L250 168 L256 166 L264 164 L274 162 L282 161 L290 160 L298 158 L306 156 L314 153 L322 150 L328 148 L336 145 L344 142 L351 140"/>
-            <path d="M358 152 L368 151 L378 151 L386 153 L394 155 L400 158 L407 162 L413 166 L418 170 L423 176 L428 182 L432 187 L436 194 L439 200 L442 207 L445 214 L447 222 L450 230 L451 238 L453 246 L455 254 L456 262 L458 272 L459 280 L460 289 L460 296 L458 306 L456 313 L452 320 L448 325 L442 330 L436 334 L430 336 L422 339 L414 341 L404 342 L396 343 L388 345 L381 348 L375 352 L370 356 L364 361 L359 366 L354 370 L348 375 L342 378 L334 381 L324 381 L316 380 L308 378 L300 376 L292 374 L284 372 L274 370 L266 370 L256 368 L248 367 L240 366 L232 364 L224 360 L218 357 L212 353 L207 348 L202 342 L199 336 L196 328 L195 320 L196 311 L198 304 L202 296 L206 290 L210 284 L214 278 L218 272 L222 266 L224 260 L227 252 L230 244 L231 236 L233 228 L235 220 L237 212 L240 205 L244 198 L248 192 L252 188 L258 184 L266 180 L272 178 L280 176 L289 174 L297 172 L305 170 L312 168 L320 165 L328 162 L334 160 L342 156 L349 154 L358 152"/>
-            <path d="M358 166 L368 164 L378 164 L386 166 L394 169 L400 172 L406 176 L412 181 L416 186 L421 192 L425 198 L428 204 L432 212 L434 218 L436 226 L438 234 L440 242 L442 251 L444 260 L446 268 L448 276 L449 284 L450 294 L449 304 L446 312 L442 318 L438 322 L432 326 L424 330 L416 332 L408 333 L398 333 L388 334 L380 335 L373 338 L366 342 L361 346 L356 350 L350 354 L344 358 L336 362 L328 364 L320 365 L311 364 L302 363 L294 362 L284 360 L276 359 L266 359 L258 358 L248 357 L240 355 L232 352 L226 349 L220 345 L215 340 L211 334 L208 326 L208 319 L210 310 L213 304 L216 298 L220 292 L225 286 L229 280 L233 274 L236 267 L239 260 L241 252 L244 244 L246 236 L248 228 L250 221 L253 214 L257 208 L262 202 L267 198 L274 194 L280 191 L288 189 L296 186 L304 184 L311 182 L318 180 L326 177 L333 174 L340 171 L348 168 L356 166"/>
-            <path d="M360 180 L370 179 L380 179 L388 182 L394 185 L400 189 L406 194 L410 199 L414 204 L418 212 L421 218 L423 226 L425 234 L427 242 L428 250 L430 258 L433 266 L435 274 L438 282 L439 290 L439 300 L437 308 L433 314 L428 318 L420 322 L412 323 L402 323 L392 322 L384 322 L376 323 L368 325 L362 329 L356 333 L350 337 L344 341 L338 344 L330 348 L322 350 L314 350 L304 350 L296 349 L286 349 L278 348 L268 347 L258 346 L250 345 L242 343 L236 340 L230 336 L226 330 L224 322 L225 314 L228 306 L232 300 L236 294 L240 288 L243 282 L246 276 L250 268 L252 262 L254 254 L257 246 L259 238 L262 231 L265 224 L269 218 L274 213 L280 208 L286 205 L293 202 L300 199 L308 197 L316 194 L323 192 L330 190 L338 187 L345 184 L352 182 L360 180"/>
-            <path d="M368 196 L376 196 L384 199 L390 202 L396 207 L400 212 L404 219 L407 226 L409 234 L410 242 L412 252 L413 260 L416 267 L419 274 L422 280 L425 288 L426 296 L424 304 L420 308 L412 311 L402 310 L394 308 L386 306 L378 305 L370 307 L363 310 L356 314 L351 318 L345 322 L340 326 L333 330 L326 333 L318 335 L309 336 L300 336 L292 336 L282 335 L274 334 L265 332 L258 330 L251 326 L247 320 L247 310 L250 302 L253 296 L256 290 L259 282 L262 275 L264 268 L267 260 L270 252 L272 245 L275 238 L279 232 L284 226 L289 222 L295 218 L302 215 L309 212 L316 210 L324 207 L332 205 L340 202 L347 200 L355 198 L364 196"/>
-            <path d="M346 222 L356 221 L366 222 L372 224 L378 229 L381 236 L382 244 L382 252 L379 260 L376 266 L372 272 L367 278 L362 283 L357 288 L352 293 L347 298 L342 302 L336 307 L330 311 L324 315 L316 317 L308 318 L298 318 L290 316 L284 314 L278 308 L276 302 L276 292 L277 284 L279 276 L281 268 L284 260 L287 254 L290 248 L295 242 L300 237 L306 233 L313 230 L320 228 L328 225 L336 224 L346 222"/>
-          </g>
-
-          <g class="m-compass" aria-hidden="true" transform="translate(572 92)">
-            <path d="M0 22 L0 -14 M-5 -8 L0 -14 L5 -8"/>
-            <path d="M14 30 L-22 30 M-16 25 L-22 30 L-16 35"/>
-            <text x="0" y="-20">위</text>
-            <text x="-34" y="34">앞</text>
-          </g>
-
-          <path class="m-head" pathLength="1" d="M450 640 C448 590 440 545 452 505 C500 440 520 330 495 245 C465 150 380 95 290 100 C220 105 175 150 168 215 C165 245 172 262 168 275 C160 300 140 325 122 348 C115 358 122 368 140 368 C152 368 160 372 160 380 C152 388 150 396 160 402 C168 405 168 408 160 412 C150 418 155 432 168 436 C160 455 165 478 190 488 C220 498 255 500 275 505 C285 540 290 590 292 640"/>
-          <path class="m-head" pathLength="1" d="M400 268 C428 252 452 276 447 312 C443 342 428 364 408 370 C396 373 391 362 398 354 C410 344 416 330 414 318 M412 290 C426 286 434 300 430 316"/>
-
-          <!-- 귀 -->
-          <g class="m-layer" data-r="ear">
-            <path class="m-inner" d="M386 300 L386 324"/>
-            <path class="m-inner" d="M347 298 a9 9 0 1 1 9 9 a6 6 0 1 1 -6 -6 a3 3 0 1 1 3 3"/>
-            <path class="m-inner" d="M356 290 C350 276 360 262 372 266 C382 270 382 284 372 292 M366 292 C376 280 390 282 390 292 C390 300 380 304 372 300"/>
-            <path class="m-route ear" id="route-ear" pathLength="1" d="M434 314 C420 313 404 312 388 312 C378 312 370 309 362 302"/>
-            <g class="m-waves-ear" aria-hidden="true"></g>
-            <g class="m-stop ear"><circle cx="418" cy="313" r="4.5"/><text x="418" y="336" text-anchor="middle">외이도</text></g>
-            <g class="m-stop ear"><circle cx="386" cy="312" r="4.5"/><text x="384" y="338" text-anchor="end">고막과 중이</text></g>
-            <g class="m-stop ear"><circle cx="352" cy="300" r="4.5"/><text x="340" y="305" text-anchor="end">달팽이관</text></g>
-            <g class="m-stop ear"><circle cx="366" cy="270" r="4.5"/><text x="380" y="258">반고리관</text></g>
-          </g>
-
-          <!-- 코 -->
-          <g class="m-layer" data-r="nose">
-            <ellipse class="m-sinus" cx="202" cy="208" rx="16" ry="24" transform="rotate(-12 202 208)"/>
-            <ellipse class="m-sinus" cx="240" cy="302" rx="30" ry="19"/>
-            <path class="m-route nose" id="route-nose" pathLength="1" d="M134 360 C175 346 235 334 300 331 C334 330 348 345 347 375 C346 410 342 440 336 470 C330 498 314 520 310 548 L306 640"/>
-            <g class="m-breath" aria-hidden="true"></g>
-            <g class="m-stop nose"><circle cx="222" cy="338" r="4.5"/><text x="222" y="364" text-anchor="middle">비강</text></g>
-            <g class="m-stop nose"><circle cx="240" cy="302" r="4.5"/><text x="240" y="280" text-anchor="middle">부비동</text></g>
-            <g class="m-stop nose"><circle cx="343" cy="352" r="4.5"/><text x="356" y="372">비인두</text></g>
-          </g>
-          <g class="m-layer" data-r="nose"><path class="m-tube" d="M376 318 C368 330 356 338 345 346"/></g>
-
-          <!-- 목 -->
-          <g class="m-layer" data-r="throat">
-            <path class="m-route throat" id="route-throat" pathLength="1" d="M312 552 C318 522 324 492 326 460 C328 428 318 414 288 411 C250 408 200 406 160 406"/>
-            <g class="m-waves-throat" aria-hidden="true"></g>
-            <g class="m-stop throat"><circle cx="324" cy="432" r="4.5"/><text x="300" y="440" text-anchor="end">편도</text></g>
-            <g class="m-stop throat"><circle cx="314" cy="540" r="4.5"/><text x="328" y="548">성대</text></g>
-          </g>
-
-          <circle class="m-traveler nose" r="6" cx="-20" cy="-20" data-for="route-nose"/>
-          <circle class="m-traveler ear" r="6" cx="-20" cy="-20" data-for="route-ear"/>
-          <circle class="m-traveler throat" r="6" cx="-20" cy="-20" data-for="route-throat"/>
-
-          <g class="m-layer" data-r="ear"><g class="m-pin ear"><circle cx="476" cy="300" r="19"/><text x="476" y="300">귀</text></g></g>
-          <g class="m-layer" data-r="nose"><g class="m-pin nose"><circle cx="96" cy="314" r="19"/><text x="96" y="314">코</text></g></g>
-          <g class="m-layer" data-r="throat"><g class="m-pin throat"><circle cx="248" cy="572" r="19"/><text x="248" y="572">목</text></g></g>
-        </svg>
-      </div>
+        <div class="search-results" id="search-results" hidden></div>
+        <p class="sr-only" id="search-status" aria-live="polite"></p>
+      </form>
+      <!-- build:quick -->
+      <p class="quick"><span>예를 들면</span><a href="/ear/bppv/">이석증</a><a href="/nose/chronic-sinusitis/">축농증</a><a href="/sleep/snoring/">코골이</a><a href="/ear/tinnitus/">이명</a><a href="/nose/allergic-rhinitis/">알레르기 비염</a><a href="/throat/tonsil-stones/">편도결석</a></p>
+      <!-- /build:quick -->
     </section>
-    </div>
 
-    <section class="expeditions wrap" aria-labelledby="exp-title">
+    <!-- build:regions -->
+    <nav class="regions wrap" aria-label="부위별로 찾기">
+      <a class="region c-ear" href="/ear/">
+        <div class="anat region-fig">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 520 330">
+              <path class="fg-bone" d="M96 40 L500 30 L500 310 L96 300 Z"/>
+              <path class="fg-soft" d="M58 70 C24 86 18 170 44 222 C58 250 84 252 88 228 C90 206 74 196 76 176 C78 160 92 152 94 132 C96 104 84 74 58 70 Z"/>
+              <path class="fg-base" d="M56 92 C40 110 40 170 56 206"/>
+              <text class="lbl" x="30" y="282">귓바퀴</text>
+              <g class="part hl" data-part="canal">
+                <path class="pf" d="M88 140 C120 134 170 132 214 136 L214 186 C170 182 120 182 88 190 Z"/>
+                <text class="lbl" x="128" y="122">외이도</text>
+              </g>
+              <g class="part hl" data-part="middle">
+                <path class="pf" d="M218 120 C236 106 270 106 284 118 L290 202 C282 218 242 224 222 212 C214 190 214 150 218 120 Z"/>
+                <text class="lbl" x="228" y="246">중이</text>
+              </g>
+              <g class="part opt" data-part="fluid">
+                <path class="pfill" d="M219 168 L288 168 L290 202 C282 218 242 224 222 212 C216 196 217 182 219 168 Z"/>
+              </g>
+              <g class="part" data-part="ossicles">
+                <path class="ps thin" d="M216 152 L234 126"/><circle class="pf" cx="238" cy="121" r="6"/>
+                <path class="ps thin" d="M244 124 L256 144 L272 150"/><path class="ps" d="M274 142 L274 158"/>
+                <text class="lbl sm" x="214" y="98">이소골</text>
+              </g>
+              <g class="part" data-part="drum">
+                <path class="ps thick" d="M214 130 C223 148 225 172 214 192"/>
+                <text class="lbl" x="150" y="214">고막</text>
+              </g>
+              <g class="part opt" data-part="perf">
+                <ellipse class="hole" cx="218" cy="160" rx="4" ry="8"/>
+                <circle class="pfill" cx="186" cy="178" r="3.5"/><circle class="pfill" cx="166" cy="180" r="3"/><circle class="pfill" cx="146" cy="182" r="2.6"/>
+              </g>
+              <g class="part" data-part="tube">
+                <path class="pf" d="M262 214 C282 240 320 268 358 292 L370 280 C334 256 298 230 282 206 Z"/>
+                <text class="lbl" x="236" y="300">이관</text>
+              </g>
+              <g class="part" data-part="vestibule">
+                <ellipse class="pf" cx="306" cy="152" rx="18" ry="16"/>
+                <text class="lbl in" x="306" y="157" text-anchor="middle">전정</text>
+              </g>
+              <g class="part hl" data-part="canals">
+                <path class="ps loop" d="M298 138 C286 96 326 76 344 100 C354 116 342 132 322 138"/>
+                <path class="ps loop" d="M320 144 C336 116 380 116 382 142 C384 162 360 168 334 160"/>
+                <path class="ps loop" d="M296 162 C280 190 300 214 324 202"/>
+                <text class="lbl" x="352" y="72">반고리관</text>
+              </g>
+              <g class="part opt" data-part="otoconia">
+                <circle class="pstone" cx="300" cy="150" r="3.6"/><circle class="pstone" cx="309" cy="156" r="3.2"/><circle class="pstone" cx="312" cy="146" r="3"/>
+                <circle class="pstone" cx="290" cy="184" r="4.2"/><circle class="pstone" cx="296" cy="194" r="3.8"/><circle class="pstone" cx="305" cy="200" r="3.4"/>
+                <text class="lbl" x="214" y="196" text-anchor="end">떨어진 이석</text>
+              </g>
+              <g class="part hl" data-part="cochlea">
+                <circle class="pf" cx="352" cy="214" r="28"/>
+                <path class="ps thin" d="M352 214 m-4 0 a4 4 0 1 1 8 0 a9 9 0 1 1 -18 0 a14 14 0 1 1 28 0 a19 19 0 1 1 -38 0 a24 24 0 1 1 48 0"/>
+                <text class="lbl" x="372" y="266">달팽이관</text>
+              </g>
+              <g class="part" data-part="nerve-vest">
+                <path class="ps nerve" d="M324 146 C370 136 420 128 494 128"/>
+                <text class="lbl" x="420" y="116">전정신경</text>
+              </g>
+              <g class="part" data-part="nerve-coch">
+                <path class="ps nerve" d="M380 206 C420 190 450 160 494 148"/>
+                <text class="lbl" x="424" y="204">청신경</text>
+              </g>
+              <g class="part opt tool" data-part="scope-ear">
+                <path class="tool-body" d="M2 146 L46 140 L84 156 L84 176 L46 192 L2 186 Z"/>
+                <path class="tool-light" d="M86 160 L210 150 M86 172 L210 176"/>
+                <text class="lbl tl" x="4" y="128">이경</text>
+              </g>
+            </svg>
+        </div>
+        <div class="region-text">
+          <h2>귀<small>소리와 균형의 길</small></h2>
+          <p class="region-count">질환 9가지</p>
+          <p class="region-eg">이석증 · 돌발성 난청 · 이명</p>
+        </div>
+      </a>
+      <a class="region c-nose" href="/nose/">
+        <div class="anat region-fig">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 520 330">
+              <path class="fg-bone" d="M126 20 L470 20 L470 236 L330 236 L96 236 C120 200 130 140 126 20 Z"/>
+              <path class="fg-base" d="M150 10 C140 40 132 70 128 92 C110 130 80 168 54 196 C46 206 52 220 66 222 C76 222 86 226 94 230 C98 240 98 250 96 262"/>
+              <path class="fg-soft" d="M96 230 L332 230 L332 246 L100 248 Z"/>
+              <text class="lbl sm" x="150" y="268">입천장(경구개)</text>
+              <path class="fg-base" d="M120 108 C170 96 250 94 304 102 L332 118 C376 120 406 150 410 200 L414 330"/>
+              <path class="fg-base" d="M332 246 C352 258 370 278 372 300"/>
+              <g class="part" data-part="frontal">
+                <path class="pf" d="M128 62 C132 38 168 34 178 52 C184 68 166 82 146 82 C132 82 126 74 128 62 Z"/>
+                <text class="lbl" x="188" y="48">이마굴(전두동)</text>
+              </g>
+              <g class="part" data-part="sphenoid">
+                <path class="pf" d="M320 112 C330 92 366 92 374 112 C378 130 360 142 338 140 C322 138 314 128 320 112 Z"/>
+                <text class="lbl" x="382" y="96">나비굴(접형동)</text>
+              </g>
+              <g class="part hl" data-part="olf">
+                <path class="pf" d="M212 102 C240 98 280 98 302 104 L300 116 C280 112 240 112 214 116 Z"/>
+                <text class="lbl" x="214" y="88">후각 점막</text>
+              </g>
+              <g class="part hl" data-part="st">
+                <path class="pf" d="M206 140 C234 132 282 132 308 140 C312 146 306 152 292 152 L216 154 C202 154 198 146 206 140 Z"/>
+                <text class="lbl in sm" x="256" y="148" text-anchor="middle">상비갑개</text>
+              </g>
+              <g class="part hl" data-part="mt">
+                <path class="pf" d="M150 176 C190 162 270 162 314 172 C322 178 316 188 298 188 L162 190 C146 190 142 182 150 176 Z"/>
+                <text class="lbl in" x="234" y="182" text-anchor="middle">중비갑개</text>
+              </g>
+              <g class="part hl" data-part="it">
+                <path class="pf" d="M118 214 C150 198 262 196 318 206 C328 212 322 224 302 224 L130 226 C116 226 112 220 118 214 Z"/>
+                <text class="lbl in" x="220" y="217" text-anchor="middle">하비갑개</text>
+              </g>
+              <g class="part" data-part="kiss">
+                <ellipse class="pf" cx="100" cy="212" rx="12" ry="9"/>
+                <path class="lead" d="M92 220 L60 286"/>
+                <text class="lbl" x="8" y="304">코 앞쪽 혈관이 모인 곳</text>
+              </g>
+              <g class="part" data-part="np">
+                <path class="pf" d="M334 150 C360 152 400 172 404 212 L404 230 L334 230 Z"/>
+                <text class="lbl" x="372" y="224" text-anchor="middle">비인두</text>
+              </g>
+              <g class="part" data-part="et">
+                <ellipse class="pf" cx="364" cy="190" rx="7" ry="10"/>
+                <text class="lbl sm" x="420" y="186">이관 입구</text>
+                <path class="lead" d="M372 188 L416 182"/>
+              </g>
+              <g class="part opt" data-part="drip">
+                <circle class="pfill" cx="402" cy="246" r="4.5"/><circle class="pfill" cx="401" cy="266" r="4"/><circle class="pfill" cx="400" cy="286" r="3.6"/><circle class="pfill" cx="399" cy="306" r="3.2"/>
+                <path class="arrow" d="M386 244 L386 316"/>
+                <text class="lbl" x="372" y="326" text-anchor="end">목 뒤로 넘어가는 콧물</text>
+              </g>
+              <g class="part opt" data-part="flow">
+                <path class="arrow" d="M58 214 C120 194 240 190 330 196 C360 200 380 210 392 228"/>
+              </g>
+              <g class="part opt tool" data-part="scope-nose">
+                <path class="tool-body" d="M0 206 L34 206 L34 222 L0 222 Z"/>
+                <path class="tool-shaft" d="M34 214 L70 224 L326 229"/>
+                <path class="tool-light" d="M328 229 L356 214 M328 229 L360 232"/>
+                <text class="lbl tl" x="2" y="192">비내시경</text>
+              </g>
+            </svg>
+        </div>
+        <div class="region-text">
+          <h2>코<small>숨과 냄새의 길</small></h2>
+          <p class="region-count">질환 12가지</p>
+          <p class="region-eg">알레르기 비염 · 만성 부비동염(축농증) · 비중격만곡증</p>
+        </div>
+      </a>
+      <a class="region c-throat" href="/throat/">
+        <div class="anat region-fig">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 520 370">
+              <path class="fg-bone" d="M370 20 L500 20 L500 370 L374 370 Z"/>
+              <text class="lbl sm" x="436" y="40" text-anchor="middle">목뼈 쪽</text>
+              <path class="fg-base" d="M60 20 C56 50 40 80 34 96 C30 106 40 112 50 112 C54 124 58 134 60 146 C56 156 58 166 62 174 C60 194 64 214 76 226 C100 236 130 242 150 254 L156 370"/>
+              <path class="fg-soft" d="M66 112 L252 112 L252 124 L70 126 Z"/>
+              <text class="lbl sm" x="104" y="102">코 바닥(입천장)</text>
+              <path class="fg-base" d="M300 70 C346 76 366 104 366 150 L372 370"/>
+              <g class="part" data-part="adenoid" data-hide-when="adenoid-big">
+                <path class="pf" d="M318 82 C334 76 356 84 360 100 C348 108 330 104 318 94 Z"/>
+                <text class="lbl" x="392" y="96">아데노이드</text><path class="lead" d="M356 96 L388 92"/>
+              </g>
+              <g class="part opt" data-part="adenoid-big">
+                <path class="pf" d="M300 80 C326 66 362 76 366 104 C352 126 318 122 300 102 Z"/>
+                <text class="lbl" x="392" y="96">커진 아데노이드</text><path class="lead" d="M364 100 L388 92"/>
+              </g>
+              <g class="part" data-part="airway">
+                <path class="zone" d="M300 128 L364 128 L368 296 L314 296 C318 262 316 226 304 192 Z"/>
+              </g>
+              <g class="part hl" data-part="palate-soft">
+                <path class="pf" d="M252 112 C280 116 300 136 304 164 C306 178 296 184 290 172 C284 154 270 136 252 126 Z"/>
+                <text class="lbl" x="392" y="152">입천장 뒤쪽·목젖</text><path class="lead" d="M302 166 L388 148"/>
+              </g>
+              <g class="part" data-part="tongue">
+                <path class="pf" d="M66 178 C120 150 232 150 274 190 C302 220 304 262 290 284 L232 292 C170 282 110 244 74 218 Z"/>
+                <text class="lbl in" x="160" y="214" text-anchor="middle">혀</text>
+              </g>
+              <g class="part" data-part="tongue-base">
+                <path class="pf" d="M274 190 C302 220 304 262 290 284 L264 286 C278 252 272 216 252 196 Z"/>
+                <text class="lbl" x="392" y="246">혀뿌리</text><path class="lead" d="M292 248 L388 242"/>
+              </g>
+              <g class="part hl" data-part="tonsil" data-hide-when="tonsil-big">
+                <ellipse class="pf" cx="300" cy="206" rx="11" ry="17"/>
+                <text class="lbl" x="392" y="204">편도</text><path class="lead" d="M310 204 L388 200"/>
+              </g>
+              <g class="part opt" data-part="tonsil-big">
+                <ellipse class="pf" cx="310" cy="210" rx="24" ry="30"/>
+                <text class="lbl" x="392" y="204">커진 편도</text><path class="lead" d="M332 204 L388 200"/>
+              </g>
+              <g class="part opt" data-part="stones">
+                <circle class="pstone" cx="298" cy="200" r="3"/><circle class="pstone" cx="303" cy="210" r="2.6"/><circle class="pstone" cx="296" cy="216" r="2.2"/>
+              </g>
+              <g class="part opt" data-part="collapse">
+                <path class="arrow" d="M362 160 L318 160"/><path class="arrow" d="M362 252 L306 252"/>
+                <text class="lbl" x="200" y="140" text-anchor="middle">잘 때 좁아지는 곳</text>
+              </g>
+              <g class="part" data-part="epiglottis">
+                <path class="pf" d="M302 290 C306 270 318 262 328 266 C324 280 314 292 306 300 Z"/>
+                <text class="lbl" x="392" y="282">후두덮개</text><path class="lead" d="M326 274 L388 278"/>
+              </g>
+              <g class="part hl" data-part="larynx">
+                <path class="pf" d="M290 302 L348 302 L350 344 L292 344 Z"/>
+                <path class="ps thick" d="M296 322 L344 320"/>
+                <text class="lbl" x="392" y="324">성대(후두)</text><path class="lead" d="M350 322 L388 320"/>
+              </g>
+              <path class="fg-soft" d="M294 346 L348 346 L348 370 L294 370 Z"/>
+              <text class="lbl sm in" x="321" y="363" text-anchor="middle">기도</text>
+              <g class="part" data-part="esophagus">
+                <path class="pf" d="M352 300 L366 300 L368 370 L354 370 Z"/>
+                <text class="lbl" x="392" y="356">식도</text><path class="lead" d="M366 350 L388 352"/>
+              </g>
+              <g class="part opt" data-part="reflux">
+                <path class="arrow" d="M361 366 L360 304 C356 290 344 290 334 300"/>
+                <circle class="pfill" cx="318" cy="314" r="2.6"/><circle class="pfill" cx="328" cy="310" r="2.2"/><circle class="pfill" cx="308" cy="312" r="2"/>
+              </g>
+              <g class="part opt" data-part="globus">
+                <circle class="ring" cx="336" cy="276" r="16"/>
+                <text class="lbl" x="250" y="340" text-anchor="end">걸린 듯 느껴지는 곳</text><path class="lead" d="M254 336 L322 286"/>
+              </g>
+              <g class="part opt tool" data-part="scope-throat">
+                <path class="tool-shaft" d="M8 92 L42 96 C120 104 230 104 292 112 C340 118 340 160 336 200 C334 230 332 250 330 268"/>
+                <path class="tool-light" d="M330 270 L316 290 M330 270 L344 290"/>
+                <text class="lbl tl" x="6" y="82">후두 내시경</text>
+              </g>
+            </svg>
+        </div>
+        <div class="region-text">
+          <h2>목<small>목소리와 잠의 길</small></h2>
+          <p class="region-count">질환 9가지</p>
+          <p class="region-eg">폐쇄성 수면무호흡 · 편도결석 · 인후두 역류</p>
+        </div>
+      </a>
+    </nav>
+    <!-- /build:regions -->
+
+    <!-- build:today -->
+    <section class="today wrap" aria-labelledby="today-title">
+      <div class="today-head">
+        <h2 id="today-title">오늘의 신기한 상식</h2>
+        <p class="today-count" id="today-count">7 / 14</p>
+      </div>
+      <article class="today-card c-nose" id="today-card" data-index="6" aria-live="polite">
+        <div>
+          <p class="today-region">코</p>
+          <p class="today-figure">풍미는 코에서</p>
+        </div>
+        <div>
+          <h3>맛의 상당 부분은 사실 냄새입니다</h3>
+          <p class="today-body">혀가 구분하는 맛은 단맛, 짠맛, 신맛, 쓴맛, 감칠맛 정도입니다. 딸기 맛과 사과 맛을 가르는 풍미는 음식 냄새가 목 뒤로 올라가 코에서 느껴지는 것입니다. 코가 막히면 음식이 맛없게 느껴지는 이유입니다.</p>
+          <p class="fact-rel">더 알아보기 <a href="/nose/smell-loss/">후각 장애</a></p>
+        </div>
+      </article>
+      <div class="today-actions">
+        <button type="button" class="today-next" id="today-next" hidden>다른 상식 보기</button>
+        <a href="/facts/">상식 14가지 모두 보기</a>
+      </div>
+      <script type="application/json" id="facts-data">[{"id": "earwax", "r": "ear", "rn": "귀", "fig": "자정 작용", "title": "귀지는 파지 않아도 저절로 나옵니다", "body": "귀 통로의 피부는 안쪽에서 바깥쪽으로 아주 천천히 자라 나가면서 귀지를 함께 밀어냅니다. 면봉으로 파면 오히려 귀지를 안으로 밀어 넣고 피부에 작은 상처를 내 외이도염의 원인이 됩니다.", "rel": [["외이도염", "/ear/otitis-externa/"]]}, {"id": "smallest-bone", "r": "ear", "rn": "귀", "fig": "약 3mm", "title": "몸에서 가장 작은 뼈는 귀 안에 있습니다", "body": "고막 안쪽에는 망치뼈, 모루뼈, 등자뼈라는 작은 뼈 세 개가 사슬처럼 이어져 있습니다. 그중 등자뼈는 길이가 3mm 남짓으로 사람 몸에서 가장 작은 뼈입니다. 이 뼈들이 고막의 떨림을 속귀까지 전해 줍니다.", "rel": [["만성 중이염", "/ear/chronic-otitis-media/"]]}, {"id": "ear-stones", "r": "ear", "rn": "귀", "fig": "귀 속의 돌", "title": "흔한 어지럼의 원인은 귀 속의 작은 돌입니다", "body": "속귀에는 몸의 기울기를 느끼는 아주 작은 칼슘 결정, 이석이 있습니다. 이 돌이 떨어져 나와 회전을 느끼는 관(반고리관)으로 들어가면 고개를 돌릴 때마다 세상이 빙글 돕니다. 이석증은 머리 위치를 차례로 바꿔 돌을 제자리로 돌려보내는 방법으로 치료합니다.", "rel": [["이석증", "/ear/bppv/"]]}, {"id": "recorded-voice", "r": "ear", "rn": "귀", "fig": "뼈로 듣는 소리", "title": "녹음한 내 목소리가 어색하게 들리는 이유", "body": "말할 때 우리는 공기로 전해지는 소리와 함께 머리뼈를 타고 전해지는 소리를 듣습니다. 뼈로 전해지는 소리는 낮은 음이 강해서, 평소 듣는 내 목소리는 실제보다 낮고 풍성하게 들립니다. 녹음에는 공기로 전해진 소리만 남아 낯설게 느껴집니다.", "rel": [["귀 탐험로", "/ear/"]]}, {"id": "nasal-cycle", "r": "nose", "rn": "코", "fig": "비주기", "title": "코는 몇 시간마다 좌우를 번갈아 씁니다", "body": "많은 사람에게서 한쪽 콧구멍이 조금 더 막히고 반대쪽이 더 뚫려 있다가 몇 시간 간격으로 바뀝니다. 이를 비주기라고 하며 대부분은 느끼지 못합니다. 옆으로 누우면 아래쪽 코가 더 막히는 것도 자연스러운 현상입니다.", "rel": [["하비갑개 비대", "/nose/turbinate-hypertrophy/"], ["알레르기 비염", "/nose/allergic-rhinitis/"]]}, {"id": "air-conditioner", "r": "nose", "rn": "코", "fig": "약 1만 L", "title": "코는 하루 1만 리터 가까운 공기를 데우고 적십니다", "body": "들이쉰 공기는 코를 지나는 짧은 순간에 체온에 가깝게 데워지고 습기를 머금으며 먼지가 걸러집니다. 입으로 숨을 쉬면 이 과정을 건너뛰어 목이 쉽게 마르고 따갑습니다.", "rel": [["비중격만곡증", "/nose/deviated-septum/"]]}, {"id": "flavor", "r": "nose", "rn": "코", "fig": "풍미는 코에서", "title": "맛의 상당 부분은 사실 냄새입니다", "body": "혀가 구분하는 맛은 단맛, 짠맛, 신맛, 쓴맛, 감칠맛 정도입니다. 딸기 맛과 사과 맛을 가르는 풍미는 음식 냄새가 목 뒤로 올라가 코에서 느껴지는 것입니다. 코가 막히면 음식이 맛없게 느껴지는 이유입니다.", "rel": [["후각 장애", "/nose/smell-loss/"]]}, {"id": "sinus-mystery", "r": "nose", "rn": "코", "fig": "4쌍", "title": "부비동이 왜 있는지는 아직 정확히 모릅니다", "body": "얼굴뼈 속에는 좌우로 네 쌍의 빈 공간, 부비동이 있습니다. 머리 무게를 줄인다, 목소리를 울리게 한다, 충격을 흡수한다는 등 여러 설명이 있지만 확실한 답은 없습니다. 분명한 것은 이 공간의 좁은 출구가 막히면 부비동염이 생긴다는 점입니다.", "rel": [["급성 부비동염", "/nose/acute-sinusitis/"], ["만성 부비동염(축농증)", "/nose/chronic-sinusitis/"]]}, {"id": "vocal-folds", "r": "throat", "rn": "목", "fig": "초당 100–250회", "title": "말할 때 성대는 1초에 100번 넘게 부딪힙니다", "body": "목소리는 숨이 지나갈 때 좌우 성대가 빠르게 붙었다 떨어지며 만들어집니다. 보통 대화할 때 남성은 1초에 100~150번, 여성은 200~250번쯤 떨립니다. 목을 무리하게 쓰면 이 부딪힘이 쌓여 성대에 굳은살 같은 결절이 생깁니다.", "rel": [["성대결절과 폴립", "/throat/vocal-nodules/"]]}, {"id": "swallow", "r": "throat", "rn": "목", "fig": "갈림길", "title": "삼키는 순간에는 숨이 멈춥니다", "body": "목은 공기와 음식이 함께 지나는 갈림길입니다. 삼킬 때는 후두가 위로 올라가고 후두덮개가 기도 입구를 덮어 음식이 기도로 들어가지 않게 막습니다. 이 순서가 잠깐 어긋나면 사레가 들립니다.", "rel": [["목 탐험로", "/throat/"]]}, {"id": "snoring-sound", "r": "throat", "rn": "목", "fig": "입천장의 떨림", "title": "코골이는 코가 아니라 입천장이 떠는 소리입니다", "body": "잠이 들면 목 근육이 풀려 숨길이 좁아집니다. 좁은 길로 공기가 빠르게 지나가면 입천장 뒤쪽과 목젖이 깃발처럼 떨리며 소리가 납니다. 숨길이 아예 막혀 숨이 멈추기를 반복하면 수면무호흡입니다.", "rel": [["코골이", "/sleep/snoring/"], ["폐쇄성 수면무호흡", "/sleep/sleep-apnea/"]]}, {"id": "tonsils", "r": "throat", "rn": "목", "fig": "면역 초소", "title": "편도는 입으로 들어오는 균을 먼저 만나는 초소입니다", "body": "목 양쪽의 편도는 면역 세포가 모인 림프 조직으로, 입과 코로 들어오는 세균과 바이러스를 가장 먼저 만납니다. 어릴 때 가장 크고 자라면서 점차 작아집니다. 그래서 편도 때문에 생기는 코골이는 아이에게 더 흔합니다.", "rel": [["급성 편도염", "/throat/tonsillitis/"], ["소아 코골이와 수면무호흡", "/sleep/pediatric-sleep-apnea/"]]}, {"id": "ear-nose-link", "r": "ear", "rn": "귀", "fig": "이관", "title": "코감기 뒤에 귀가 먹먹해지는 이유", "body": "코 뒤쪽에는 귀로 통하는 가는 관, 이관이 열려 있습니다. 코감기로 이 입구가 부으면 귀 안의 공기 압력을 맞추지 못해 귀가 먹먹해지고, 아이에게는 중이염이 잘 생깁니다. 귀, 코, 목을 한 진료과에서 함께 보는 이유이기도 합니다.", "rel": [["삼출성 중이염", "/ear/otitis-media-effusion/"], ["급성 중이염", "/ear/acute-otitis-media/"]]}, {"id": "nose-throat-link", "r": "nose", "rn": "코", "fig": "코에서 목으로", "title": "오래가는 헛기침이 코에서 시작되기도 합니다", "body": "코와 부비동에서 만든 분비물은 코 뒤쪽을 지나 목으로 넘어갑니다. 비염이나 부비동염으로 분비물이 많아지면 목에 가래가 걸린 느낌과 헛기침이 생깁니다. 오래가는 기침의 원인을 찾을 때 코를 함께 보는 이유입니다.", "rel": [["후비루", "/nose/postnasal-drip/"], ["만성 부비동염(축농증)", "/nose/chronic-sinusitis/"]]}]</script>
+    </section>
+    <!-- /build:today -->
+
+    <!-- build:symptoms -->
+    <section class="finder wrap" aria-labelledby="finder-title">
       <div class="section-head">
-        <h2 id="exp-title">세 갈래 탐험로</h2>
-        <p>바깥에서 안쪽으로, 길을 따라 질환을 배치했습니다. 채워진 정류장은 지금 읽을 수 있고, 빈 정류장은 차례로 열립니다.</p>
+        <h2 id="finder-title">증상으로 찾기</h2>
+        <p>병 이름을 몰라도 괜찮습니다. 지금 겪는 증상에서 출발해 관련 있을 수 있는 질환을 찾아보세요. 여기 적힌 질환은 가능성일 뿐이며, 진단은 진료로 합니다.</p>
       </div>
-      <!-- build:routes -->
-      <div class="route-grid">
-        <div class="route-col">
-          <h3><a href="/ear/">귀</a><small>소리와 균형의 길</small></h3>
-          <p>바깥귀에서 고막과 중이를 지나, 소리를 듣고 균형을 잡는 속귀까지 들어갑니다.</p>
-          <ol class="line ear">
-            <li class="seg" aria-hidden="true">바깥귀</li>
-            <li class="stop"><span class="soon">외이도염<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">고막과 중이</li>
-            <li class="stop"><span class="soon">급성 중이염<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">삼출성 중이염<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">만성 중이염<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">달팽이관</li>
-            <li class="stop"><span class="soon">돌발성 난청<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">이명<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">전정과 반고리관</li>
-            <li class="stop"><span class="soon">이석증<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">전정신경염<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">메니에르병<em>준비 중</em></span></li>
-          </ol>
-        </div>
-        <div class="route-col">
-          <h3><a href="/nose/">코</a><small>숨과 냄새의 길</small></h3>
-          <p>콧구멍에서 비강과 부비동을 지나, 목으로 넘어가는 코 뒤쪽까지 따라갑니다.</p>
-          <ol class="line nose">
-            <li class="seg" aria-hidden="true">콧구멍과 비강</li>
-            <li class="stop"><span class="soon">코피<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">비중격만곡증<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">하비갑개 비대<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">코 점막</li>
-            <li class="stop"><span class="soon">알레르기 비염<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">비알레르기성 비염<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">약물성 비염<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">비용종<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">후각 장애<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">부비동</li>
-            <li class="stop"><span class="soon">급성 부비동염<em>준비 중</em></span></li>
-            <li class="stop open"><a href="/nose/chronic-sinusitis/">만성 부비동염(축농증)</a></li>
-            <li class="stop"><span class="soon">치성 부비동염<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">코 뒤쪽</li>
-            <li class="stop"><span class="soon">후비루<em>준비 중</em></span></li>
-          </ol>
-        </div>
-        <div class="route-col">
-          <h3><a href="/throat/">목</a><small>목소리와 잠의 길</small></h3>
-          <p>편도에서 인두를 지나 성대까지 내려가고, 잠잘 때 좁아지는 숨길도 함께 봅니다.</p>
-          <ol class="line throat">
-            <li class="seg" aria-hidden="true">편도</li>
-            <li class="stop"><span class="soon">편도결석<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">급성 편도염<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">잠잘 때의 숨길</li>
-            <li class="stop"><span class="soon">코골이<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">폐쇄성 수면무호흡<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">소아 코골이와 수면무호흡<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">인두와 후두</li>
-            <li class="stop"><span class="soon">인후두 역류<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">목 이물감<em>준비 중</em></span></li>
-            <li class="stop"><span class="soon">성대결절과 폴립<em>준비 중</em></span></li>
-            <li class="seg" aria-hidden="true">목 바깥</li>
-            <li class="stop"><span class="soon">목 멍울<em>준비 중</em></span></li>
-          </ol>
-        </div>
+      <div class="finder-list">
+        <details class="finder-item c-ear">
+          <summary>빙글빙글 어지러워요</summary>
+          <ul><li><a href="/ear/bppv/">이석증</a><span>귀 속 균형 기관에 있는 아주 작은 돌(이석)이 제자리를 벗어나, 고개를 돌리거나 누울 때 빙글 도는 어지럼이 생기는 병입니다.</span></li><li><a href="/ear/vestibular-neuritis/">전정신경염</a><span>균형 정보를 뇌로 보내는 신경에 염증이 생겨 며칠 동안 심하게 어지러운 병입니다. 청력은 대개 그대로입니다.</span></li><li><a href="/ear/menieres-disease/">메니에르병</a><span>어지럼, 귀 먹먹함, 이명, 청력 저하가 한꺼번에 발작처럼 찾아왔다가 가라앉기를 반복하는 속귀의 병입니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-ear">
+          <summary>귀가 먹먹하거나 잘 안 들려요</summary>
+          <ul><li><a href="/ear/sudden-hearing-loss/">돌발성 난청</a><span>뚜렷한 이유 없이 갑자기 한쪽 귀가 잘 안 들리는 병입니다. 일찍 치료할수록 회복 가능성이 높아 며칠을 기다리면 안 됩니다.</span></li><li><a href="/ear/otitis-media-effusion/">삼출성 중이염</a><span>고막 안쪽에 물이 고여 귀가 먹먹한 상태입니다. 아프지 않아서 아이가 말하지 않으면 모르고 지나가기 쉽습니다.</span></li><li><a href="/ear/menieres-disease/">메니에르병</a><span>어지럼, 귀 먹먹함, 이명, 청력 저하가 한꺼번에 발작처럼 찾아왔다가 가라앉기를 반복하는 속귀의 병입니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-ear">
+          <summary>귀에서 삐 소리가 나요</summary>
+          <ul><li><a href="/ear/tinnitus/">이명</a><span>바깥에서 나는 소리가 없는데 귀나 머릿속에서 소리가 들리는 것입니다. 병 이름이라기보다 여러 원인에서 오는 증상입니다.</span></li><li><a href="/ear/sudden-hearing-loss/">돌발성 난청</a><span>뚜렷한 이유 없이 갑자기 한쪽 귀가 잘 안 들리는 병입니다. 일찍 치료할수록 회복 가능성이 높아 며칠을 기다리면 안 됩니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-ear">
+          <summary>귀가 아프거나 진물이 나요</summary>
+          <ul><li><a href="/ear/otitis-externa/">외이도염</a><span>귀 입구에서 고막까지 이어지는 통로(외이도)의 피부에 생긴 염증입니다. 귀를 자주 후비거나 물이 들어간 뒤에 잘 생깁니다.</span></li><li><a href="/ear/acute-otitis-media/">급성 중이염</a><span>고막 안쪽 공간(중이)에 갑자기 생긴 염증입니다. 감기 끝에 아이들에게 특히 흔합니다.</span></li><li><a href="/ear/chronic-otitis-media/">만성 중이염</a><span>고막에 구멍이 있거나 중이 염증이 오래 이어져, 귀에서 고름이 반복해 나오고 청력이 떨어지는 병입니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-nose">
+          <summary>코가 늘 막혀 있어요</summary>
+          <ul><li><a href="/nose/allergic-rhinitis/">알레르기 비염</a><span>집먼지진드기나 꽃가루 같은 물질에 코 점막이 과민하게 반응해 재채기, 맑은 콧물, 코막힘이 생기는 병입니다.</span></li><li><a href="/nose/deviated-septum/">비중격만곡증</a><span>코 한가운데 칸막이(비중격)가 한쪽으로 휘어 숨길이 좁아진 상태입니다. 조금 휜 것은 흔해서 불편할 때만 치료합니다.</span></li><li><a href="/nose/turbinate-hypertrophy/">하비갑개 비대</a><span>코 옆벽에 있는 살(하비갑개)이 부어 커져 숨길을 막는 상태입니다. 비염이 오래되면 잘 생깁니다.</span></li><li><a href="/nose/rhinitis-medicamentosa/">약물성 비염</a><span>코를 바로 뚫어 주는 스프레이(충혈제거제)를 오래 써서 오히려 코막힘이 심해진 상태입니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-nose">
+          <summary>누런 콧물이 오래가요</summary>
+          <ul><li><a href="/nose/acute-sinusitis/">급성 부비동염</a><span>감기 끝에 부비동까지 염증이 번져 누런 콧물과 얼굴 통증이 열흘 넘게 이어지는 상태입니다.</span></li><li><a href="/nose/chronic-sinusitis/">만성 부비동염(축농증)</a><span>코와 부비동의 염증이 12주 넘게 이어지는 병입니다. 흔히 축농증이라고 부릅니다.</span></li><li><a href="/nose/odontogenic-sinusitis/">치성 부비동염</a><span>위쪽 어금니 뿌리의 염증이나 치과 치료가 원인이 되어 생기는 부비동염입니다. 주로 한쪽에만 생기고 고약한 냄새가 납니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-nose">
+          <summary>냄새를 잘 못 맡아요</summary>
+          <ul><li><a href="/nose/smell-loss/">후각 장애</a><span>냄새를 잘 못 맡거나 다르게 느끼는 상태입니다. 비염과 부비동염, 감기 바이러스, 머리 외상 등이 원인이 됩니다.</span></li><li><a href="/nose/nasal-polyps/">비용종</a><span>오래된 염증으로 코와 부비동 점막이 부풀어 생긴 말랑한 물혹입니다. 암은 아니지만 코를 막고 냄새를 못 맡게 합니다.</span></li><li><a href="/nose/chronic-sinusitis/">만성 부비동염(축농증)</a><span>코와 부비동의 염증이 12주 넘게 이어지는 병입니다. 흔히 축농증이라고 부릅니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-throat">
+          <summary>목에 뭐가 걸린 것 같아요</summary>
+          <ul><li><a href="/throat/globus/">목 이물감</a><span>목에 뭔가 걸린 것 같은데 실제로 막힌 것은 없는 느낌입니다. 역류, 후비루, 긴장 등이 흔한 원인입니다.</span></li><li><a href="/throat/laryngopharyngeal-reflux/">인후두 역류</a><span>위산이나 위 내용물이 목까지 올라와 목 이물감, 헛기침, 쉰 목소리를 만드는 병입니다. 가슴 쓰림이 없을 수도 있습니다.</span></li><li><a href="/nose/postnasal-drip/">후비루</a><span>콧물이 목 뒤로 넘어가는 느낌입니다. 오래가는 헛기침과 가래의 흔한 원인입니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-throat">
+          <summary>코를 골거나 자다가 숨이 멎어요</summary>
+          <ul><li><a href="/sleep/snoring/">코골이</a><span>잘 때 좁아진 목 숨길로 공기가 빠르게 지나가면서 입천장과 목젖이 떨려 나는 소리입니다.</span></li><li><a href="/sleep/sleep-apnea/">폐쇄성 수면무호흡</a><span>잘 때 목 숨길이 반복해서 막혀 숨이 멈추는 병입니다. 낮 졸림뿐 아니라 고혈압 같은 병과도 관련됩니다.</span></li><li><a href="/sleep/pediatric-sleep-apnea/">소아 코골이와 수면무호흡</a><span>아이의 큰 편도와 아데노이드가 숨길을 막아 생깁니다. 잠을 설치면 성장과 집중력에도 영향을 줄 수 있습니다.</span></li></ul>
+        </details>
+        <details class="finder-item c-throat">
+          <summary>목소리가 쉬었어요</summary>
+          <ul><li><a href="/throat/vocal-nodules/">성대결절과 폴립</a><span>목을 많이 쓰거나 무리하게 써서 성대에 굳은살이나 혹이 생겨 목소리가 쉬는 병입니다.</span></li><li><a href="/throat/laryngopharyngeal-reflux/">인후두 역류</a><span>위산이나 위 내용물이 목까지 올라와 목 이물감, 헛기침, 쉰 목소리를 만드는 병입니다. 가슴 쓰림이 없을 수도 있습니다.</span></li></ul>
+        </details>
       </div>
-      <!-- /build:routes -->
+      <p class="finder-urgent"><strong>바로 진료가 필요할 때</strong>갑자기 한쪽 귀가 안 들리면 며칠 안에 진료를 받으세요. 어지럼과 함께 말이 어눌해지거나, 한쪽 팔다리에 힘이 빠지거나, 물체가 둘로 보이면 뇌혈관 문제일 수 있으니 바로 응급실로 가세요.</p>
     </section>
+    <!-- /build:symptoms -->
 
-    <section class="connect wrap" aria-labelledby="connect-title">
-      <h2 id="connect-title">세 길은 이어져 있습니다</h2>
-      <div class="prose">
-        <p>코 뒤쪽 비인두에는 귀로 통하는 관(이관)이 열려 있습니다. 그래서 코감기 뒤에 귀가 먹먹해지거나, 아이의 중이염이 코 상태와 함께 좋아지고 나빠지기도 합니다.</p>
-        <p>코에서 만들어진 분비물은 목으로 넘어갑니다. 오래가는 헛기침이나 목의 가래가 사실 코에서 시작된 경우가 많은 이유입니다. 귀, 코, 목을 한 진료과에서 함께 보는 것도 이 때문입니다.</p>
-      </div>
-    </section>
-
-    <section class="guide wrap" aria-labelledby="guide-title">
-      <h2 id="guide-title">이 지도를 그린 사람</h2>
+    <!-- build:trust -->
+    <section class="trust wrap" aria-labelledby="trust-title">
       <div>
+        <h2 id="trust-title">누가 쓰나요</h2>
         <p class="name">박종원</p>
         <p class="role">이비인후과 전문의</p>
         <ul>
@@ -327,7 +488,15 @@
         </ul>
         <a href="/about/">약력 자세히 보기</a>
       </div>
+      <dl class="trust-stats">
+        <div><dt>질환 설명</dt><dd>30<small>편</small></dd></div>
+        <div><dt>근거로 삼은 진료지침·논문</dt><dd>27<small>편</small></dd></div>
+        <div><dt>직접 그린 해부·검사 그림</dt><dd>41<small>장</small></dd></div>
+        <div><dt>최근 검수일</dt><dd>2026년 11월 9일</dd></div>
+        <p class="trust-note">모든 질환 페이지에 참고한 진료지침과 검수일을 적습니다. 글은 일반적인 의학 정보이며 진료를 대신하지 않습니다.</p>
+      </dl>
     </section>
+    <!-- /build:trust -->
   </main>
 
   <footer class="site-footer">
@@ -337,7 +506,6 @@
     </div>
   </footer>
 
-  <script src="/assets/hero.js?v=20261109a" defer></script>
-  <script type="module" src="/assets/hero3d.js?v=20261109a"></script>
+  <script src="/assets/home.js?v=20261110a" defer></script>
 </body>
 </html>
