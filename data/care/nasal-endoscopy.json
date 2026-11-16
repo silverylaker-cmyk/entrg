@@ -1,0 +1,128 @@
+{
+  "slug": "nasal-endoscopy",
+  "kind": "test",
+  "region": "nose",
+  "status": "standard",
+  "title": "비내시경 검사",
+  "seoTitle": "비내시경 검사: 코 안을 직접 보는 검사, 아픈가요",
+  "metaDescription": "비내시경 검사는 가는 내시경을 콧구멍으로 넣어 코 안과 부비동 입구, 코 뒤쪽을 직접 보는 검사입니다. 어떤 때 하는지, 어떻게 진행하는지, 아픈지 이비인후과 전문의가 설명합니다.",
+  "ogDescription": "가는 내시경으로 코 안과 부비동 입구, 코 뒤쪽을 직접 봅니다. 1~2분이면 끝납니다.",
+  "published": "2026-11-09",
+  "lastReviewed": "2026-11-09",
+  "dateModified": "2026-11-09",
+  "entity": {
+    "type": "MedicalTest",
+    "name": "비내시경 검사",
+    "alternateName": [
+      "코 내시경",
+      "비강 내시경 검사",
+      "Nasal endoscopy"
+    ],
+    "description": "가는 내시경을 콧구멍으로 넣어 비강, 비갑개, 부비동 입구, 비인두를 직접 관찰하는 검사.",
+    "usesDevice": "비내시경"
+  },
+  "conditions": [
+    "chronic-sinusitis",
+    "nasal-polyps",
+    "deviated-septum",
+    "turbinate-hypertrophy",
+    "odontogenic-sinusitis",
+    "postnasal-drip",
+    "nosebleed"
+  ],
+  "body": [
+    {
+      "p": "비내시경 검사는 굵기 3~4mm 정도의 가는 내시경을 콧구멍으로 넣어 코 안을 직접 보는 검사입니다. 이비인후과 진료실에서 가장 자주 하는 검사입니다.",
+      "class": "definition"
+    },
+    {
+      "p": "콧구멍으로 불빛만 비춰서는 코 앞쪽 일부만 보입니다. 내시경을 쓰면 코 깊은 곳의 비갑개 사이, 부비동이 열리는 입구, 코 맨 뒤쪽(비인두)까지 볼 수 있습니다. 화면으로 함께 보면서 설명을 들을 수 있습니다."
+    },
+    {
+      "figure": {
+        "fig": "nose-side",
+        "hl": [
+          "mt",
+          "it",
+          "np",
+          "scope-nose"
+        ],
+        "caption": "<strong>비내시경이 지나가는 길.</strong> 콧구멍으로 들어가 비갑개 사이와 부비동 입구, 코 뒤쪽까지 봅니다.",
+        "kind": "exam"
+      }
+    },
+    {
+      "h2": "이럴 때 합니다"
+    },
+    {
+      "ul": [
+        "코막힘, 누런 콧물, 후비루가 오래갈 때",
+        "코피가 반복될 때 출혈 위치를 찾으려고",
+        "냄새를 잘 못 맡을 때",
+        "물혹(비용종)이나 비중격만곡이 의심될 때",
+        "수술 뒤 상처가 잘 낫는지 확인할 때"
+      ]
+    },
+    {
+      "h2": "어떻게 하나요"
+    },
+    {
+      "steps": [
+        {
+          "title": "코 안에 약을 뿌립니다",
+          "text": "혈관을 수축시키는 약과 표면 마취제를 뿌리거나 솜에 적셔 잠깐 넣어 둡니다. 코 안이 넓어지고 감각이 무뎌집니다."
+        },
+        {
+          "title": "내시경으로 봅니다",
+          "text": "앉은 자세에서 내시경을 천천히 넣어 양쪽 코를 차례로 봅니다. 대개 1~2분이면 끝납니다."
+        },
+        {
+          "title": "바로 설명을 듣습니다",
+          "text": "결과를 기다릴 필요 없이 화면이나 사진을 보면서 그 자리에서 설명을 듣습니다."
+        }
+      ]
+    },
+    {
+      "h2": "알아 둘 점"
+    },
+    {
+      "ul": [
+        "코 안이 눌리는 느낌이나 재채기가 날 수 있지만 통증은 대개 가볍습니다.",
+        "마취제가 목으로 넘어가면 20~30분쯤 목이 얼얼할 수 있습니다. 그동안은 뜨거운 음식을 피합니다.",
+        "금식이나 특별한 준비는 필요 없습니다."
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "비내시경 검사는 아픈가요?",
+      "a": "대부분 견딜 만합니다. 표면 마취를 하고 가는 내시경을 쓰기 때문에 코가 눌리는 느낌 정도입니다. 비중격이 심하게 휘어 통로가 좁으면 불편할 수 있어 더 가는 내시경을 쓰거나 넓은 쪽으로 봅니다."
+    },
+    {
+      "q": "아이도 받을 수 있나요?",
+      "a": "받을 수 있습니다. 아이에게는 더 가늘고 부드러운 내시경을 씁니다. 협조가 어려운 나이면 꼭 필요한 경우에만 합니다."
+    },
+    {
+      "q": "내시경을 하면 CT는 안 찍어도 되나요?",
+      "a": "내시경은 코 안과 부비동 입구까지 보는 검사이고, 부비동 속과 뼈 구조는 CT로 봅니다. 대부분은 내시경으로 충분하고, 약에 반응이 없거나 수술을 계획할 때 CT를 더합니다."
+    }
+  ],
+  "references": [
+    {
+      "short": "유럽 비과 진단 도구 입장문 (2019)",
+      "citation": "Rimmer J, et al. Rhinology. 2019;57(Suppl S28):1-41.",
+      "name": "European position paper on diagnostic tools in rhinology",
+      "doi": "10.4193/Rhin19.410",
+      "pubmed": "31376816",
+      "year": 2019
+    },
+    {
+      "short": "European Position Paper on Rhinosinusitis and Nasal Polyps 2020 (EPOS 2020)",
+      "citation": "Fokkens WJ, et al. Rhinology. 2020;58(Suppl S29):1-464.",
+      "name": "European Position Paper on Rhinosinusitis and Nasal Polyps 2020",
+      "doi": "10.4193/Rhin20.600",
+      "pubmed": "32077450",
+      "year": 2020
+    }
+  ]
+}

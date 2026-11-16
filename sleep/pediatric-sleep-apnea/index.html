@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261116a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -192,7 +192,9 @@
           },
           {
             "@type": "MedicalTest",
-            "name": "수면다원검사"
+            "@id": "https://entrg.net/care/polysomnography/#entity",
+            "name": "수면다원검사",
+            "url": "https://entrg.net/care/polysomnography/"
           }
         ],
         "possibleTreatment": [
@@ -210,7 +212,9 @@
           },
           {
             "@type": "MedicalTherapy",
-            "name": "양압기"
+            "@id": "https://entrg.net/care/cpap/#entity",
+            "name": "양압기 치료",
+            "url": "https://entrg.net/care/cpap/"
           }
         ],
         "possibleComplication": [
@@ -288,6 +292,7 @@
       <a href="/ear/">귀</a>
       <a href="/nose/">코</a>
       <a href="/throat/" aria-current="page">목</a>
+      <a href="/care/">검사·치료</a>
       <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
@@ -427,6 +432,15 @@
         <li>건강한 체중을 유지하도록 돕습니다.</li>
         <li>아이의 자는 모습을 동영상으로 찍어 진료 때 보여 주면 진단에 도움이 됩니다.</li>
       </ul>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+          <li><a href="/care/polysomnography/">수면다원검사</a><span>검사 · 하룻밤 자면서 호흡, 산소, 뇌파를 기록합니다. 수면무호흡의 유무와 심한 정도를 숫자로 확인합니다.</span></li>
+          <li><a href="/care/cpap/">양압기</a><span>치료 · 자는 동안 공기 압력으로 숨길을 열어 둡니다. 수면무호흡의 표준 치료이고, 처음 몇 주의 적응이 관건입니다.</span></li>
+          <li><a href="/care/myofunctional-therapy/">구인두 근기능 훈련</a><span>치료 · 혀와 입천장, 목 근육을 매일 운동해 잘 때 숨길이 덜 막히게 합니다. 양압기를 대신하기보다 보태는 치료입니다.</span></li>
+        </ul>
+      </section>
 
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>

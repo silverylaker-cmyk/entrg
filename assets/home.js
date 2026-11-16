@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var REGION = { ear: "귀", nose: "코", throat: "목" };
-  var TYPE = { d: "질환", s: "증상", f: "상식", h: "부위" };
+  var TYPE = { d: "질환", s: "증상", f: "상식", h: "부위", c: "검사·치료" };
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function esc(s) {
@@ -85,7 +85,7 @@
         } else {
           if (seen[it.url]) return;
           seen[it.url] = 1; n++;
-          var meta = it.t === "d" ? REGION[it.r] + " · 질환" : TYPE[it.t];
+          var meta = it.t === "d" ? REGION[it.r] + " · 질환" : it.t === "c" ? REGION[it.r] + " · " + it.k : TYPE[it.t];
           var desc = it.t === "f" ? it.desc.split(". ")[0] + "." : it.desc;
           html += row(it.url, it.name, meta, desc, it.r, raw);
         }

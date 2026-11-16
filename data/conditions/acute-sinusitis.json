@@ -41,7 +41,8 @@
     "tests": [
       {
         "name": "비내시경 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-endoscopy"
       },
       {
         "name": "부비동 CT",
@@ -55,7 +56,8 @@
       },
       {
         "name": "식염수 코 세척",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "nasal-irrigation"
       },
       {
         "name": "비강 스테로이드",

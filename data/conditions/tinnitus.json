@@ -42,7 +42,8 @@
       },
       {
         "name": "순음청력검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "이명 검사",
@@ -64,11 +65,13 @@
       },
       {
         "name": "보청기",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "hearing-aid"
       },
       {
         "name": "인지행동치료",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "tinnitus-cbt"
       }
     ],
     "complications": [

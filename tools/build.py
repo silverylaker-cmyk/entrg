@@ -6,11 +6,14 @@
   - data/conditions/<slug>.json    발행한 질환 한 편의 본문·구조화 데이터 (질환당 한 파일)
   - data/symptoms.json             대문 "증상으로 찾기" (증상 → 관련 질환)
   - data/facts.json                "알고 보면 신기한 귀·코·목" 상식
+  - data/care.json                 검사·치료 목록과 묶음 순서
+  - data/care/<slug>.json          검사·치료 한 편의 본문·구조화 데이터 (MedicalTest / TherapeuticProcedure 등)
 
 이 스크립트가 다시 만드는 것
   - 대문(index.html)의 탐험로 목록과 JSON-LD (build: 마커 사이)
   - 귀/코/목 허브 페이지, 상식 페이지(/facts/)
   - 질환 페이지 (data/conditions/<slug>.json 이 있는 발행 질환)
+  - 검사·치료 허브(/care/)와 검사·치료 페이지(/care/<slug>/)
   - sitemap.xml, llms.txt
 마지막에 tools/check.py 로 구조화 데이터를 점검한다.
 
@@ -30,11 +33,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://entrg.net"
-CSS_V = "20261110a"
+CSS_V = "20261116a"
 DATA = json.loads((ROOT / "data" / "diseases.json").read_text(encoding="utf-8"))
 SYMPTOMS = json.loads((ROOT / "data" / "symptoms.json").read_text(encoding="utf-8"))
 FACTS = json.loads((ROOT / "data" / "facts.json").read_text(encoding="utf-8"))
 COND_DIR = ROOT / "data" / "conditions"
+CARE_DIR = ROOT / "data" / "care"
+CARE_INDEX = json.loads((ROOT / "data" / "care.json").read_text(encoding="utf-8"))
+CARE = {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in sorted(CARE_DIR.glob("*.json"))}
+KIND_KO = {"test": "검사", "treatment": "치료"}
+# schema.org 에서 contraindication 을 쓸 수 있는 유형 (MedicalTherapy 계열)
+THERAPY_TYPES = {"MedicalTherapy", "PhysicalTherapy", "OccupationalTherapy", "RadiationTherapy", "RespiratoryTherapy"}
 FIG_DIR = ROOT / "data" / "figures"
 OG_DIR = ROOT / "assets" / "og"
 
@@ -103,7 +112,7 @@ FOOT = """
 """
 
 NAV = [("ear", "/ear/", "귀"), ("nose", "/nose/", "코"), ("throat", "/throat/", "목"),
-       ("facts", "/facts/", "상식"), ("about", "/about/", "소개")]
+       ("care", "/care/", "검사·치료"), ("facts", "/facts/", "상식"), ("about", "/about/", "소개")]
 
 
 def nav(current=None):
@@ -200,6 +209,73 @@ def load_condition(slug):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
+# ---------- 검사·치료 연결 ----------
+def care_path(slug):
+    return f"/care/{slug}/"
+
+
+def care_id(slug):
+    return f"{SITE}{care_path(slug)}#entity"
+
+
+def care_slugs(item):
+    """질환의 검사·치료 항목에 적힌 care 값(문자열 또는 목록) → 실제로 있는 검사·치료 slug 목록."""
+    v = item.get("care")
+    v = [v] if isinstance(v, str) else (v or [])
+    missing = [x for x in v if x not in CARE]
+    if missing:
+        raise ValueError(f"data/care 에 없는 항목: {missing} ({item['name']})")
+    return v
+
+
+def care_order():
+    return [slug for g in CARE_INDEX["groups"] for slug in g["slugs"]]
+
+
+def related_care(cslug, c):
+    """질환 페이지에 보여 줄 검사·치료: 질환 데이터에 연결한 것 + 검사·치료 쪽에서 이 질환을 가리킨 것."""
+    found = []
+    for item in c["condition"]["tests"] + c["condition"]["treatments"]:
+        found += care_slugs(item)
+    found += [slug for slug, e in CARE.items() if cslug in e["conditions"]]
+    order = care_order()
+    return sorted(dict.fromkeys(found), key=order.index)
+
+
+def linked_items(items, typed_extra=False):
+    """질환 JSON-LD 의 typicalTest / possibleTreatment. 연결된 항목은 검사·치료 페이지의 @id 로 잇는다."""
+    out, used = [], set()
+    for t in items:
+        slugs = care_slugs(t)
+        if isinstance(t.get("care"), str) and slugs[0] not in used:
+            e = CARE[slugs[0]]
+            used.add(slugs[0])
+            out.append({"@type": e["entity"]["type"], "@id": care_id(slugs[0]), "name": e["entity"]["name"],
+                        "url": SITE + care_path(slugs[0])})
+        else:
+            out.append({"@type": t["type"], "name": t["name"],
+                        **({"alternateName": t["alternateName"]} if t.get("alternateName") else {})})
+    return out
+
+
+def citation_nodes(refs):
+    cites = []
+    for ref in refs:
+        node = {"@type": "ScholarlyArticle", "name": ref["name"], "description": ref["citation"]}
+        if ref.get("year"):
+            node["datePublished"] = str(ref["year"])
+        same = []
+        if ref.get("doi"):
+            same.append(f"https://doi.org/{ref['doi']}")
+            node["identifier"] = {"@type": "PropertyValue", "propertyID": "DOI", "value": ref["doi"]}
+        if ref.get("pubmed"):
+            same.append(f"https://pubmed.ncbi.nlm.nih.gov/{ref['pubmed']}/")
+        if same:
+            node["sameAs"] = same
+        cites.append(node)
+    return cites
+
+
 # ---------- 공용 노드 ----------
 def website_node():
     return {"@type": "WebSite", "@id": WEBSITE, "url": f"{SITE}/", "name": SITE_NAME,
@@ -251,7 +327,8 @@ def home_jsonld(page_title, page_desc):
         "description": page_desc, "inLanguage": "ko-KR", "isPartOf": {"@id": WEBSITE},
         "about": [anatomy_node(r) for r in DATA["regions"]],
         "author": {"@id": PHYSICIAN},
-        "hasPart": [{"@id": u + "#webpage"} for _, u in hubs] + [{"@id": f"{SITE}/facts/#webpage"}],
+        "hasPart": [{"@id": u + "#webpage"} for _, u in hubs]
+                   + [{"@id": f"{SITE}/care/#webpage"}, {"@id": f"{SITE}/facts/#webpage"}],
         "mainEntity": {"@type": "ItemList", "name": "귀코목 탐험로", "numberOfItems": len(hubs),
                        "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "url": u}
                                            for i, (n, u) in enumerate(hubs)]},
@@ -425,6 +502,10 @@ def build_search_index():
                     sym = list(dict.fromkeys(sym + c["condition"]["symptoms"]))
                 items.append({"t": "d", "name": st["name"], "alt": alt + [s["name"]], "sym": sym,
                               "desc": st.get("easy", ""), "url": href, "r": r["id"]})
+    for slug in care_order():
+        e = CARE[slug]
+        items.append({"t": "c", "k": KIND_KO[e["kind"]], "name": e["title"], "alt": e["entity"].get("alternateName", []),
+                      "desc": e["ogDescription"], "url": care_path(slug), "r": e["region"]})
     for it in SYMPTOMS["items"]:
         links = []
         for slug in it["slugs"]:
@@ -556,6 +637,7 @@ def render_figure(spec, ind):
 
 def render_blocks(blocks, ind="      "):
     out = []
+    alerts = 0
     for b in blocks:
         if "h2" in b:
             out.append(f"\n{ind}<h2>{b['h2']}</h2>")
@@ -574,11 +656,15 @@ def render_blocks(blocks, ind="      "):
             out.append(f"{ind}</ol>")
         elif "alert" in b:
             a = b["alert"]
-            out.append(f'\n{ind}<section class="alert" aria-labelledby="alert-title">')
-            out.append(f'{ind}  <h2 id="alert-title">{a["title"]}</h2>')
-            out.append(f"{ind}  <ul>")
-            out += [f"{ind}    <li>{li}</li>" for li in a["ul"]]
-            out.append(f"{ind}  </ul>")
+            alerts += 1
+            aid = "alert-title" if alerts == 1 else f"alert-title-{alerts}"
+            cls = "alert note" if a.get("kind") == "note" else "alert"
+            out.append(f'\n{ind}<section class="{cls}" aria-labelledby="{aid}">')
+            out.append(f'{ind}  <h2 id="{aid}">{a["title"]}</h2>')
+            if a.get("ul"):
+                out.append(f"{ind}  <ul>")
+                out += [f"{ind}    <li>{li}</li>" for li in a["ul"]]
+                out.append(f"{ind}  </ul>")
             if a.get("p"):
                 out.append(f"{ind}  <p>{a['p']}</p>")
             out.append(f"{ind}</section>")
@@ -603,20 +689,7 @@ def condition_jsonld(c, r, seg, st, url):
         "author": {"@id": PHYSICIAN}, "reviewedBy": {"@id": PHYSICIAN},
         "datePublished": st["published"], "lastReviewed": c["lastReviewed"], "dateModified": c["dateModified"],
     }
-    cites = []
-    for ref in c.get("references", []):
-        node = {"@type": "ScholarlyArticle", "name": ref["name"], "description": ref["citation"]}
-        if ref.get("year"):
-            node["datePublished"] = str(ref["year"])
-        same = []
-        if ref.get("doi"):
-            same.append(f"https://doi.org/{ref['doi']}")
-            node["identifier"] = {"@type": "PropertyValue", "propertyID": "DOI", "value": ref["doi"]}
-        if ref.get("pubmed"):
-            same.append(f"https://pubmed.ncbi.nlm.nih.gov/{ref['pubmed']}/")
-        if same:
-            node["sameAs"] = same
-        cites.append(node)
+    cites = citation_nodes(c.get("references", []))
     if cites:
         page["citation"] = cites
     condition = {
@@ -627,10 +700,8 @@ def condition_jsonld(c, r, seg, st, url):
         "associatedAnatomy": {"@type": "AnatomicalStructure", **cond["anatomy"]},
         "signOrSymptom": [{"@type": "MedicalSymptom", "name": n} for n in cond["symptoms"]],
         "riskFactor": [{"@type": "MedicalRiskFactor", "name": n} for n in cond["riskFactors"]],
-        "typicalTest": [{"@type": t["type"], "name": t["name"]} for t in cond["tests"]],
-        "possibleTreatment": [{"@type": t["type"], "name": t["name"],
-                               **({"alternateName": t["alternateName"]} if t.get("alternateName") else {})}
-                              for t in cond["treatments"]],
+        "typicalTest": linked_items(cond["tests"]),
+        "possibleTreatment": linked_items(cond["treatments"]),
         "possibleComplication": cond["complications"],
     }
     condition = {k: v for k, v in condition.items() if v not in ([], None, "")}
@@ -653,6 +724,19 @@ def build_condition(r, seg, st, c):
         </details>""" for f in c["faq"])
     refs = " · ".join(ref["short"] for ref in c.get("references", []))
     ref_line = f"<br>\n        <strong>참고</strong> {refs}" if refs else ""
+    rel = related_care(st["slug"], c)
+    rel_html = ""
+    if rel:
+        lis = "\n".join(f'          <li><a href="{care_path(x)}">{escape(CARE[x]["title"])}</a>'
+                        f'<span>{KIND_KO[CARE[x]["kind"]]} · {escape(CARE[x]["ogDescription"])}</span></li>' for x in rel)
+        rel_html = f"""
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+{lis}
+        </ul>
+      </section>
+"""
     body = f"""
   <main id="main" class="wrap c-{r['id']}">
     <div class="page-head">
@@ -662,7 +746,7 @@ def build_condition(r, seg, st, c):
 
     <article class="article prose">
 {render_blocks(c['body'])}
-
+{rel_html}
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>
 {faq}
@@ -680,6 +764,163 @@ def build_condition(r, seg, st, c):
     out.write_text(h + body + FOOT, encoding="utf-8")
 
 
+# ---------- 검사·치료 ----------
+def care_conditions(e):
+    """검사·치료와 이어진 발행 질환: (이름, 주소, 쉬운 설명, 질환 @id)."""
+    out = []
+    for slug in e["conditions"]:
+        r, s, st = STOPS[slug]
+        if st.get("published"):
+            path = stop_path(r, s, st)
+            out.append((st["name"], path, st.get("easy", st["symptom"]), SITE + path + "#condition"))
+    return out
+
+
+def care_jsonld(e, url):
+    ent = e["entity"]
+    eid = url + "#entity"
+    conds = care_conditions(e)
+    page = {
+        "@type": "MedicalWebPage", "@id": url + "#webpage", "url": url, "name": e["seoTitle"],
+        "description": e["metaDescription"], "inLanguage": "ko-KR",
+        "isPartOf": {"@id": WEBSITE}, "breadcrumb": {"@id": url + "#breadcrumb"},
+        "about": {"@id": eid}, "mainEntity": {"@id": eid},
+        "specialty": SPECIALTY,
+        "audience": {"@type": "PeopleAudience", "audienceType": "환자"},
+        "medicalAudience": {"@type": "MedicalAudience", "audienceType": "Patient"},
+        "author": {"@id": PHYSICIAN}, "reviewedBy": {"@id": PHYSICIAN},
+        "datePublished": e["published"], "lastReviewed": e["lastReviewed"], "dateModified": e["dateModified"],
+    }
+    if conds:
+        page["mentions"] = [{"@id": cid} for _, _, _, cid in conds]
+    cites = citation_nodes(e.get("references", []))
+    if cites:
+        page["citation"] = cites
+    node = {"@type": ent["type"], "@id": eid, "name": ent["name"], "alternateName": ent.get("alternateName"),
+            "url": url, "description": ent["description"], "relevantSpecialty": SPECIALTY}
+    if e["kind"] == "test":
+        node["usedToDiagnose"] = [{"@id": cid} for _, _, _, cid in conds]
+        if ent.get("usesDevice"):
+            node["usesDevice"] = {"@type": "MedicalDevice", "name": ent["usesDevice"]}
+    else:
+        for k in ("bodyLocation", "howPerformed", "preparation", "followup"):
+            node[k] = ent.get(k)
+        node["adverseOutcome"] = [{"@type": "MedicalEntity", "name": n} for n in ent.get("adverseOutcomes", [])]
+        if ent.get("contraindications"):
+            if ent["type"] not in THERAPY_TYPES:
+                raise ValueError(f"{e['slug']}: contraindications 는 MedicalTherapy 계열 유형에만 쓸 수 있음")
+            node["contraindication"] = ent["contraindications"]
+    node = {k: v for k, v in node.items() if v not in ([], None, "")}
+    faq = {"@type": "FAQPage", "@id": url + "#faq", "isPartOf": {"@id": url + "#webpage"},
+           "mainEntity": [{"@type": "Question", "name": strip_tags(f["q"]),
+                           "acceptedAnswer": {"@type": "Answer", "text": strip_tags(f["a"])}} for f in e["faq"]]}
+    crumbs = breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (CARE_INDEX["title"], f"{SITE}/care/"), (e["title"], url)])
+    return [with_image(page, f"care-{e['slug']}"), person_stub(), node, faq, crumbs]
+
+
+def build_care_page(e):
+    path = care_path(e["slug"])
+    url = SITE + path
+    h = head(title=f"{e['seoTitle']} | 귀코목 알지", og_title=e["seoTitle"], og_type="article",
+             desc=e["metaDescription"], og_desc=e.get("ogDescription"), url=url,
+             jsonld=ld(care_jsonld(e, url)), nav_current="care", og_key=f"care-{e['slug']}")
+    faq = "\n".join(f"""        <details>
+          <summary>{f['q']}</summary>
+          <p>{f['a']}</p>
+        </details>""" for f in e["faq"])
+    refs = " · ".join(ref["short"] for ref in e.get("references", []))
+    ref_line = f"<br>\n        <strong>참고</strong> {refs}" if refs else ""
+    conds = care_conditions(e)
+    rel_html = ""
+    if conds:
+        lis = "\n".join(f'          <li><a href="{p}">{escape(n)}</a><span>{escape(easy)}</span></li>' for n, p, easy, _ in conds)
+        rel_html = f"""
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 질환</h2>
+        <ul class="related-list">
+{lis}
+        </ul>
+      </section>
+"""
+    body = f"""
+  <main id="main" class="wrap c-{e['region']}">
+    <div class="page-head">
+      <p class="crumbs"><a href="/">귀코목 알지</a><span aria-hidden="true">/</span><a href="/care/">{CARE_INDEX['title']}</a><span aria-hidden="true">/</span>{KIND_KO[e['kind']]}</p>
+      <h1><span class="dot" aria-hidden="true"></span>{e['title']}</h1>
+    </div>
+
+    <article class="article prose">
+{render_blocks(e['body'])}
+{rel_html}
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">자주 묻는 질문</h2>
+{faq}
+      </section>
+
+      <div class="reviewed">
+        <p><strong>작성·검수</strong> 이비인후과 전문의 <a href="/about/">박종원</a><br>
+        <strong>최종 검수일</strong> <time datetime="{e['lastReviewed']}">{ko_date(e['lastReviewed'])}</time>{ref_line}</p>
+      </div>
+    </article>
+  </main>
+"""
+    out = ROOT / path.strip("/") / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(h + body + FOOT, encoding="utf-8")
+
+
+def build_care_hub():
+    url = f"{SITE}/care/"
+    title = CARE_INDEX["title"]
+    n_test = sum(1 for e in CARE.values() if e["kind"] == "test")
+    n_tx = len(CARE) - n_test
+    desc = (f"이비인후과에서 하는 검사 {n_test}가지와 치료 {n_tx}가지. 무엇을 알아보는 검사인지, 어떻게 진행하는지, "
+            "치료 뒤에는 무엇을 조심해야 하는지 이비인후과 전문의가 설명합니다.")
+    order = care_order()
+    items = [{"@type": "ListItem", "position": i + 1, "url": SITE + care_path(slug), "name": CARE[slug]["title"]}
+             for i, slug in enumerate(order)]
+    page = {"@type": "CollectionPage", "@id": url + "#webpage", "url": url, "name": f"이비인후과 {title} 안내",
+            "description": desc, "inLanguage": "ko-KR", "isPartOf": {"@id": WEBSITE},
+            "breadcrumb": {"@id": url + "#breadcrumb"}, "specialty": SPECIALTY,
+            "author": {"@id": PHYSICIAN}, "reviewedBy": {"@id": PHYSICIAN},
+            "hasPart": [{"@id": it["url"] + "#webpage"} for it in items],
+            "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": items}}
+    graph = [with_image(page, "care"), person_stub(), breadcrumb(url, [(SITE_NAME, f"{SITE}/"), (title, url)])]
+    h = head(title=f"이비인후과 {title} 안내 | 귀코목 알지", desc=desc, url=url, jsonld=ld(graph),
+             nav_current="care", og_key="care")
+    groups = []
+    for gi, g in enumerate(CARE_INDEX["groups"]):
+        cards = []
+        for slug in g["slugs"]:
+            e = CARE[slug]
+            conds = " · ".join(escape(n) for n, _, _, _ in care_conditions(e)[:4])
+            tag = '<em class="care-tag">근거가 쌓이는 중</em>' if e.get("status") == "emerging" else ""
+            cards.append(f"""        <li class="care-card c-{e['region']}">
+          <a href="{care_path(slug)}">{escape(e['title'])}</a>{tag}
+          <p>{escape(e['ogDescription'])}</p>
+          {f'<p class="care-for">관련 질환 · {conds}</p>' if conds else ''}
+        </li>""")
+        groups.append(f"""    <section class="care-group" aria-labelledby="cg-{gi}">
+      <h2 id="cg-{gi}"><small>{KIND_KO[g['kind']]}</small>{escape(g['name'])}</h2>
+      <ul class="care-grid">
+{chr(10).join(cards)}
+      </ul>
+    </section>""")
+    body = f"""
+  <main id="main" class="wrap">
+    <div class="page-head">
+      <p class="crumbs"><a href="/">귀코목 알지</a><span aria-hidden="true">/</span>{title}</p>
+      <h1>이비인후과 {title}</h1>
+      <p class="lede">{escape(CARE_INDEX['intro'])}</p>
+    </div>
+{chr(10).join(groups)}
+  </main>
+"""
+    out = ROOT / "care" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(h + body + FOOT, encoding="utf-8")
+
+
 # ---------- sitemap, llms.txt ----------
 def build_about_og():
     p = ROOT / "about" / "index.html"
@@ -690,11 +931,13 @@ def build_about_og():
 
 
 def build_sitemap():
-    urls = [(f"{SITE}/", None), (f"{SITE}/facts/", None), (f"{SITE}/about/", None)]
+    urls = [(f"{SITE}/", None), (f"{SITE}/facts/", None), (f"{SITE}/about/", None), (f"{SITE}/care/", None)]
     urls += [(f"{SITE}/{r['id']}/", None) for r in DATA["regions"]]
     for r, s, st in published_stops():
         c = load_condition(st["slug"])
         urls.append((SITE + stop_path(r, s, st), (c or {}).get("dateModified", st["published"])))
+    for slug in care_order():
+        urls.append((SITE + care_path(slug), CARE[slug]["dateModified"]))
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for loc, mod in urls:
@@ -708,7 +951,8 @@ def build_llms():
     out = [f"# {SITE_NAME}", "",
            f"> {SITE_DESC} 작성·검수: 이비인후과 전문의 박종원.", "",
            "모든 질환 페이지는 증상, 바로 진료가 필요한 신호, 원인, 검사, 단계별 치료, 생활 관리, 자주 묻는 질문 순서로 구성되며 "
-           "MedicalWebPage·MedicalCondition·FAQPage 구조화 데이터를 함께 제공합니다.", "",
+           "MedicalWebPage·MedicalCondition·FAQPage 구조화 데이터를 함께 제공합니다. "
+           "검사·치료 페이지는 MedicalTest·TherapeuticProcedure 구조화 데이터로 관련 질환과 서로 이어져 있습니다.", "",
            "## 부위별 안내", ""]
     for r in DATA["regions"]:
         n = sum(len(s["stops"]) for s in r["segments"])
@@ -718,12 +962,19 @@ def build_llms():
         c = load_condition(st["slug"])
         desc = c["metaDescription"] if c else st["symptom"]
         out.append(f"- [{st['name']}]({SITE}{stop_path(r, s, st)}): {desc}")
-    out += ["", "## 질환 30가지 쉬운 설명", ""]
+    total = sum(len(s["stops"]) for r in DATA["regions"] for s in r["segments"])
+    out += ["", f"## 질환 {total}가지 쉬운 설명", ""]
     for r in DATA["regions"]:
         for s in r["segments"]:
             for st in s["stops"]:
                 href, _, _ = stop_link(st["slug"])
                 out.append(f"- [{st['name']}]({SITE}{href}) ({r['name']} · {s['name']}): {st.get('easy', st['symptom'])}")
+    out += ["", f"## {CARE_INDEX['title']}", ""]
+    for g in CARE_INDEX["groups"]:
+        for slug in g["slugs"]:
+            e = CARE[slug]
+            note = " (아직 근거가 쌓이는 중인 치료)" if e.get("status") == "emerging" else ""
+            out.append(f"- [{e['title']}]({SITE}{care_path(slug)}) ({KIND_KO[e['kind']]} · {g['name']}){note}: {e['metaDescription']}")
     out += ["", f"## {FACTS['title']}", ""]
     for f in FACTS["items"]:
         out.append(f"- [{f['title']}]({SITE}/facts/#{f['id']}): {f['body']}")
@@ -745,7 +996,13 @@ if __name__ == "__main__":
         if c:
             build_condition(r, s, st, c)
             built.append(st["slug"])
+    unknown = set(care_order()) ^ set(CARE)
+    if unknown:
+        sys.exit(f"data/care.json 목록과 data/care/*.json 파일이 다름: {sorted(unknown)}")
+    build_care_hub()
+    for slug in care_order():
+        build_care_page(CARE[slug])
     build_sitemap()
     build_llms()
-    print("built: index, hubs", [r["id"] for r in DATA["regions"]], "conditions", built, "sitemap, llms.txt")
+    print("built: index, hubs", [r["id"] for r in DATA["regions"]], "conditions", built, "care", care_order(), "sitemap, llms.txt")
     sys.exit(subprocess.call([sys.executable, str(ROOT / "tools" / "check.py")]))

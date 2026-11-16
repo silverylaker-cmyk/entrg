@@ -7,6 +7,8 @@
   - url / item 으로 적힌 entrg.net 주소에 실제 파일이 있는지
   - 날짜가 YYYY-MM-DD 형식인지 (자리표시자 금지)
   - MedicalWebPage 필수 항목 (작성자, 검수자, 발행일, 검수일, 수정일, 주제)
+  - 검사(MedicalTest 계열)·치료(TherapeuticProcedure 계열) 노드의 필수 항목
+  - 같은 @id 가 여러 페이지에서 서로 다른 유형·이름으로 적히지 않았는지
   - FAQ 질문·답이 화면 본문에 그대로 보이는지 (구글 요건)
   - canonical 과 JSON-LD url 일치
   - sitemap.xml 이 실제 공개 페이지와 일치하는지
@@ -23,6 +25,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://entrg.net"
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 DATE_KEYS = {"datePublished", "dateModified", "lastReviewed", "dateCreated"}
+TEST_TYPES = {"MedicalTest", "BloodTest", "ImagingTest", "PathologyTest", "MedicalTestPanel"}
+PROCEDURE_TYPES = {"TherapeuticProcedure", "MedicalTherapy", "PhysicalTherapy", "PsychologicalTreatment",
+                   "OccupationalTherapy", "SurgicalProcedure", "DiagnosticProcedure"}
 
 errors, warns = [], []
 
@@ -64,6 +69,7 @@ def norm(s):
 
 
 defined, refs, per_page = {}, [], {}
+identity = {}  # @id -> {(유형, 이름)} : 페이지마다 같은지 확인
 for rel, f in pages():
     html = f.read_text(encoding="utf-8")
     blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
@@ -83,6 +89,8 @@ for rel, f in pages():
     def collect(n, key):
         if "@id" in n and "@type" in n:
             defined.setdefault(n["@id"], rel)
+            if n["@type"] in TEST_TYPES | PROCEDURE_TYPES and n.get("name"):
+                identity.setdefault(n["@id"], set()).add((n["@type"], n["name"]))
         elif set(n) == {"@id"}:
             refs.append((rel, n["@id"]))
         for k in DATE_KEYS & set(n):
@@ -114,6 +122,14 @@ for rel, f in pages():
                     errors.append(f"{rel}: MedicalCondition 에 {k} 없음")
             if not n.get("code"):
                 warns.append(f"{rel}: MedicalCondition 질병코드 없음")
+        if (t in TEST_TYPES or t in PROCEDURE_TYPES) and str(n.get("@id", "")).endswith("#entity"):
+            for k in ("name", "description", "url", "relevantSpecialty"):
+                if k not in n:
+                    errors.append(f"{rel}: {t} 에 {k} 없음")
+            if t in TEST_TYPES and not n.get("usedToDiagnose"):
+                errors.append(f"{rel}: {t} 에 usedToDiagnose(관련 질환) 없음")
+            if t in PROCEDURE_TYPES and not n.get("howPerformed"):
+                errors.append(f"{rel}: {t} 에 howPerformed 없음")
         if t == "FAQPage":
             text = visible_text(html)
             for q in n.get("mainEntity", []):
@@ -125,6 +141,10 @@ for rel, f in pages():
 for rel, i in refs:
     if i not in defined:
         errors.append(f"{rel}: 참조 {i} 를 정의한 노드가 사이트에 없음")
+
+for i, seen in identity.items():
+    if len(seen) > 1:
+        errors.append(f"{i} 가 페이지마다 다르게 적힘: {sorted(seen)}")
 
 # sitemap
 sm = (ROOT / "sitemap.xml").read_text(encoding="utf-8")

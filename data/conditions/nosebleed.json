@@ -40,7 +40,8 @@
     "tests": [
       {
         "name": "비내시경 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-endoscopy"
       },
       {
         "name": "혈액검사",

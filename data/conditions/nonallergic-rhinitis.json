@@ -40,15 +40,21 @@
     "tests": [
       {
         "name": "알레르기 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": [
+          "skin-prick-test",
+          "specific-ige-test"
+        ]
       },
       {
         "name": "비내시경 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-endoscopy"
       },
       {
         "name": "비강 분비물 도말 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-cytology"
       }
     ],
     "treatments": [
@@ -66,7 +72,8 @@
       },
       {
         "name": "식염수 코 세척",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "nasal-irrigation"
       }
     ],
     "complications": [

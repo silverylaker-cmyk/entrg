@@ -38,15 +38,18 @@
     "tests": [
       {
         "name": "순음청력검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "어음청력검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "고막운동성 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "내이도 MRI",
@@ -60,7 +63,8 @@
       },
       {
         "name": "고막 안 스테로이드 주사",
-        "type": "TherapeuticProcedure"
+        "type": "TherapeuticProcedure",
+        "care": "intratympanic-steroid-injection"
       },
       {
         "name": "고압산소치료",

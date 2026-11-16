@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261116a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -157,7 +157,9 @@
         "typicalTest": [
           {
             "@type": "MedicalTest",
-            "name": "비내시경 검사"
+            "@id": "https://entrg.net/care/nasal-endoscopy/#entity",
+            "name": "비내시경 검사",
+            "url": "https://entrg.net/care/nasal-endoscopy/"
           },
           {
             "@type": "ImagingTest",
@@ -175,7 +177,9 @@
           },
           {
             "@type": "TherapeuticProcedure",
-            "name": "내시경 부비동 수술(ESS)"
+            "@id": "https://entrg.net/care/endoscopic-sinus-surgery/#entity",
+            "name": "내시경 부비동 수술",
+            "url": "https://entrg.net/care/endoscopic-sinus-surgery/"
           },
           {
             "@type": "DrugClass",
@@ -256,6 +260,7 @@
       <a href="/ear/">귀</a>
       <a href="/nose/" aria-current="page">코</a>
       <a href="/throat/">목</a>
+      <a href="/care/">검사·치료</a>
       <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
@@ -367,6 +372,15 @@
         <li>치과 정기 검진으로 위쪽 어금니의 충치와 잇몸 염증을 일찍 치료합니다.</li>
         <li>임플란트나 발치 뒤 한쪽 코 증상이 생기면 치과와 이비인후과에 알립니다.</li>
       </ul>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+          <li><a href="/care/nasal-endoscopy/">비내시경 검사</a><span>검사 · 가는 내시경으로 코 안과 부비동 입구, 코 뒤쪽을 직접 봅니다. 1~2분이면 끝납니다.</span></li>
+          <li><a href="/care/endoscopic-sinus-surgery/">내시경 부비동 수술</a><span>치료 · 콧구멍으로 내시경을 넣어 막힌 부비동 통로를 넓힙니다. 얼굴에 흉터가 없고, 수술 뒤 코 세척이 중요합니다.</span></li>
+          <li><a href="/care/nasal-irrigation/">식염수 코 세척</a><span>치료 · 식염수로 코 안의 분비물과 원인 물질을 씻어 냅니다. 끓였다 식힌 물과 올바른 자세가 중요합니다.</span></li>
+        </ul>
+      </section>
 
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>

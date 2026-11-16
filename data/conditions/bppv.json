@@ -38,21 +38,25 @@
     "tests": [
       {
         "name": "체위 안진 검사(딕스-홀파이크 검사)",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "videonystagmography"
       },
       {
         "name": "비디오 안진 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "videonystagmography"
       }
     ],
     "treatments": [
       {
         "name": "이석 치환술",
-        "type": "TherapeuticProcedure"
+        "type": "TherapeuticProcedure",
+        "care": "canalith-repositioning"
       },
       {
         "name": "전정재활운동",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "vestibular-rehabilitation"
       }
     ],
     "complications": [

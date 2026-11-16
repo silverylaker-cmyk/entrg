@@ -49,7 +49,8 @@
       },
       {
         "name": "수면다원검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "polysomnography"
       }
     ],
     "treatments": [

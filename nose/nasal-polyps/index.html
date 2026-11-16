@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261116a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -153,7 +153,9 @@
         "typicalTest": [
           {
             "@type": "MedicalTest",
-            "name": "비내시경 검사"
+            "@id": "https://entrg.net/care/nasal-endoscopy/#entity",
+            "name": "비내시경 검사",
+            "url": "https://entrg.net/care/nasal-endoscopy/"
           },
           {
             "@type": "ImagingTest",
@@ -161,7 +163,9 @@
           },
           {
             "@type": "MedicalTest",
-            "name": "후각검사"
+            "@id": "https://entrg.net/care/smell-test/#entity",
+            "name": "후각검사",
+            "url": "https://entrg.net/care/smell-test/"
           },
           {
             "@type": "MedicalTest",
@@ -179,7 +183,9 @@
           },
           {
             "@type": "TherapeuticProcedure",
-            "name": "내시경 부비동 수술(ESS)"
+            "@id": "https://entrg.net/care/endoscopic-sinus-surgery/#entity",
+            "name": "내시경 부비동 수술",
+            "url": "https://entrg.net/care/endoscopic-sinus-surgery/"
           },
           {
             "@type": "MedicalTherapy",
@@ -261,6 +267,7 @@
       <a href="/ear/">귀</a>
       <a href="/nose/" aria-current="page">코</a>
       <a href="/throat/">목</a>
+      <a href="/care/">검사·치료</a>
       <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
@@ -435,6 +442,17 @@
         <li>천식이 있다면 함께 치료합니다.</li>
         <li>진통제를 먹고 숨이 찼던 적이 있다면 진료 때 꼭 알립니다.</li>
       </ul>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+          <li><a href="/care/nasal-endoscopy/">비내시경 검사</a><span>검사 · 가는 내시경으로 코 안과 부비동 입구, 코 뒤쪽을 직접 봅니다. 1~2분이면 끝납니다.</span></li>
+          <li><a href="/care/nasal-nitric-oxide/">비강 산화질소 검사</a><span>검사 · 코에 측정기를 대고 숨을 참는 몇십 초면 끝납니다. 부비동 통로와 섬모 기능을 짐작하는 보조 검사입니다.</span></li>
+          <li><a href="/care/smell-test/">후각검사</a><span>검사 · 냄새를 맡는 능력을 점수로 잽니다. 후각 저하의 정도를 알고, 치료 전후를 비교하는 기준이 됩니다.</span></li>
+          <li><a href="/care/endoscopic-sinus-surgery/">내시경 부비동 수술</a><span>치료 · 콧구멍으로 내시경을 넣어 막힌 부비동 통로를 넓힙니다. 얼굴에 흉터가 없고, 수술 뒤 코 세척이 중요합니다.</span></li>
+          <li><a href="/care/nasal-irrigation/">식염수 코 세척</a><span>치료 · 식염수로 코 안의 분비물과 원인 물질을 씻어 냅니다. 끓였다 식힌 물과 올바른 자세가 중요합니다.</span></li>
+        </ul>
+      </section>
 
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>

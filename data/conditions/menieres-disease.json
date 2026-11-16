@@ -40,7 +40,8 @@
     "tests": [
       {
         "name": "순음청력검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "전정기능검사",

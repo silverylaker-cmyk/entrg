@@ -48,7 +48,8 @@
     "tests": [
       {
         "name": "수면다원검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "polysomnography"
       },
       {
         "name": "가정용 수면검사",
@@ -66,7 +67,8 @@
     "treatments": [
       {
         "name": "양압기(CPAP)",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "cpap"
       },
       {
         "name": "구강 내 장치",
