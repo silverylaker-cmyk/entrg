@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261116a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -145,7 +145,9 @@
         "typicalTest": [
           {
             "@type": "MedicalTest",
-            "name": "안진 검사"
+            "@id": "https://entrg.net/care/videonystagmography/#entity",
+            "name": "비디오 안진검사",
+            "url": "https://entrg.net/care/videonystagmography/"
           },
           {
             "@type": "MedicalTest",
@@ -157,7 +159,9 @@
           },
           {
             "@type": "MedicalTest",
-            "name": "청력검사"
+            "@id": "https://entrg.net/care/hearing-test/#entity",
+            "name": "청력검사",
+            "url": "https://entrg.net/care/hearing-test/"
           },
           {
             "@type": "ImagingTest",
@@ -174,8 +178,10 @@
             "name": "스테로이드"
           },
           {
-            "@type": "MedicalTherapy",
-            "name": "전정재활운동"
+            "@type": "PhysicalTherapy",
+            "@id": "https://entrg.net/care/vestibular-rehabilitation/#entity",
+            "name": "전정재활운동",
+            "url": "https://entrg.net/care/vestibular-rehabilitation/"
           }
         ],
         "possibleComplication": [
@@ -252,6 +258,7 @@
       <a href="/ear/" aria-current="page">귀</a>
       <a href="/nose/">코</a>
       <a href="/throat/">목</a>
+      <a href="/care/">검사·치료</a>
       <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
@@ -383,6 +390,15 @@
         <li>시선을 한 점에 두고 고개를 좌우로 돌리는 연습을 하루 여러 번 합니다.</li>
         <li>회복 중에는 운전과 높은 곳 작업을 피합니다.</li>
       </ul>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+          <li><a href="/care/hearing-test/">청력검사 (순음·어음·고막운동성 검사)</a><span>검사 · 얼마나 작은 소리까지 듣는지, 말을 얼마나 알아듣는지, 고막이 잘 움직이는지 잽니다. 결과표 읽는 법을 정리했습니다.</span></li>
+          <li><a href="/care/videonystagmography/">비디오 안진검사</a><span>검사 · 카메라가 달린 고글을 쓰고 눈의 떨림을 기록합니다. 어지럼이 귀에서 오는지, 어느 쪽인지 찾습니다.</span></li>
+          <li><a href="/care/vestibular-rehabilitation/">전정재활운동</a><span>치료 · 눈·머리·몸을 움직이는 운동으로 뇌가 균형을 다시 맞추게 합니다. 어지럼을 피하지 않고 조금씩 익숙해지는 것이 핵심입니다.</span></li>
+        </ul>
+      </section>
 
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>

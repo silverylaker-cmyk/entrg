@@ -42,7 +42,8 @@
       },
       {
         "name": "청력검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "분비물 배양 검사",

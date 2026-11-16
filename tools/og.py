@@ -4,6 +4,7 @@
 페이지마다 1200x630 JPG를 assets/og/<key>.jpg 로 만든다.
   - 질환 페이지: 질환 이름, 쉬운 설명, 해당 부위를 강조한 해부 그림
   - 허브: 부위 이름, 탐험로 설명, 부위 그림
+  - 검사·치료(care, care-<slug>): 이름, 한 줄 설명, 본문 첫 그림(없으면 머리 지도)
   - 대문·상식·소개: 대문의 머리 지도
 
 이미지가 있으면 build.py가 og:image 메타와 JSON-LD primaryImageOfPage를 자동으로 붙인다.
@@ -46,6 +47,7 @@ html, body { margin: 0; }
 .og-main { margin: auto 0; }
 .og-kicker { margin: 0 0 16px; font-size: 26px; font-weight: 700; color: var(--c, var(--ink-soft)); }
 .og h1 { margin: 0; font-weight: 900; letter-spacing: -0.045em; line-height: 1.12; text-wrap: balance; }
+.og h1 small { display: block; margin-top: 10px; font-size: .5em; font-weight: 800; letter-spacing: -0.03em; }
 .og-sub { margin: 22px 0 0; font-size: 27px; line-height: 1.5; color: var(--ink-soft); word-break: keep-all;
           display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .og-foot { margin: 0; font-size: 21px; color: var(--ink-soft); }
@@ -61,7 +63,8 @@ html, body { margin: 0; }
 def pages():
     """(key, region, kicker, title, sub, figure_html)"""
     map_svg = f'<div class="map">{(ROOT / "data" / "figures" / "head-map.svg").read_text(encoding="utf-8")}</div>'
-    lede = "증상이나 병 이름으로 찾는 귀·코·목 질환 30가지와 알고 보면 신기한 상식. 이비인후과 전문의가 쓰고 검수했습니다."
+    total = sum(len(s["stops"]) for r in build.DATA["regions"] for s in r["segments"])
+    lede = f"증상이나 병 이름으로 찾는 귀·코·목 질환 {total}가지와 알고 보면 신기한 상식. 이비인후과 전문의가 쓰고 검수했습니다."
     yield "home", None, "귀·코·목 의학정보", "어디가<br>불편하세요?", lede, map_svg
     yield "facts", None, "상식", escape(build.FACTS["title"]), build.FACTS["intro"], map_svg
     yield "about", None, "이 지도를 그린 사람", "이비인후과 전문의<br>박종원", \
@@ -78,10 +81,18 @@ def pages():
                 fig = next((b["figure"] for b in c["body"] if "figure" in b and b["figure"].get("kind") == "anat"), None)
                 fig_html = build.render_figure(fig, "") if fig else map_svg
                 yield st["slug"], r["id"], f"{r['name']} · {s['name']}", escape(c["title"]), st.get("easy", c["condition"]["description"]), fig_html
+    yield "care", None, "이비인후과 진료실에서", "검사와 치료,<br>미리 알고 가기", build.CARE_INDEX["intro"], map_svg
+    for g in build.CARE_INDEX["groups"]:
+        for slug in g["slugs"]:
+            e = build.CARE[slug]
+            fig = next((b["figure"] for b in e["body"] if "figure" in b), None)
+            fig_html = build.render_figure(fig, "") if fig else map_svg
+            title = escape(e["title"]).replace(" (", "<br><small>(").replace(")", ")</small>") if " (" in e["title"] else escape(e["title"])
+            yield f"care-{slug}", e["region"], f"{build.KIND_KO[e['kind']]} · {g['name']}", title, e["ogDescription"], fig_html
 
 
 def title_size(title):
-    n = len(re.sub(r"<br>|<[^>]+>", "", title))
+    n = len(re.sub(r"<small>.*?</small>|<br>|<[^>]+>", "", title))
     return 76 if n <= 8 else 64 if n <= 14 else 54
 
 

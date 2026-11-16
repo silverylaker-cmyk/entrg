@@ -41,15 +41,18 @@
     "tests": [
       {
         "name": "비내시경 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-endoscopy"
       },
       {
         "name": "피부단자검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "skin-prick-test"
       },
       {
         "name": "혈액 특이 IgE 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "specific-ige-test"
       }
     ],
     "treatments": [
@@ -71,11 +74,13 @@
       },
       {
         "name": "면역치료",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "allergen-immunotherapy"
       },
       {
         "name": "하비갑개 축소술",
-        "type": "TherapeuticProcedure"
+        "type": "TherapeuticProcedure",
+        "care": "turbinate-reduction"
       }
     ],
     "complications": [

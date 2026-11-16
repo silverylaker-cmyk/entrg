@@ -36,7 +36,8 @@
     "tests": [
       {
         "name": "안진 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "videonystagmography"
       },
       {
         "name": "머리 충동 검사",
@@ -48,7 +49,8 @@
       },
       {
         "name": "청력검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "뇌 MRI",
@@ -66,7 +68,8 @@
       },
       {
         "name": "전정재활운동",
-        "type": "MedicalTherapy"
+        "type": "MedicalTherapy",
+        "care": "vestibular-rehabilitation"
       }
     ],
     "complications": [

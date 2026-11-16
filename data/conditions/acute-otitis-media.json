@@ -44,7 +44,8 @@
       },
       {
         "name": "고막운동성 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       }
     ],
     "treatments": [

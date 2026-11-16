@@ -40,15 +40,21 @@
     "tests": [
       {
         "name": "비내시경 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-endoscopy"
       },
       {
         "name": "비강통기도 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-airflow-test"
       },
       {
         "name": "알레르기 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": [
+          "skin-prick-test",
+          "specific-ige-test"
+        ]
       }
     ],
     "treatments": [
@@ -62,7 +68,8 @@
       },
       {
         "name": "하비갑개 축소술",
-        "type": "TherapeuticProcedure"
+        "type": "TherapeuticProcedure",
+        "care": "turbinate-reduction"
       }
     ],
     "complications": [

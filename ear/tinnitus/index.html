@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261116a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -160,7 +160,9 @@
           },
           {
             "@type": "MedicalTest",
-            "name": "순음청력검사"
+            "@id": "https://entrg.net/care/hearing-test/#entity",
+            "name": "청력검사",
+            "url": "https://entrg.net/care/hearing-test/"
           },
           {
             "@type": "MedicalTest",
@@ -182,11 +184,15 @@
           },
           {
             "@type": "MedicalTherapy",
-            "name": "보청기"
+            "@id": "https://entrg.net/care/hearing-aid/#entity",
+            "name": "보청기",
+            "url": "https://entrg.net/care/hearing-aid/"
           },
           {
-            "@type": "MedicalTherapy",
-            "name": "인지행동치료"
+            "@type": "PsychologicalTreatment",
+            "@id": "https://entrg.net/care/tinnitus-cbt/#entity",
+            "name": "이명 인지행동치료",
+            "url": "https://entrg.net/care/tinnitus-cbt/"
           }
         ],
         "possibleComplication": [
@@ -263,6 +269,7 @@
       <a href="/ear/" aria-current="page">귀</a>
       <a href="/nose/">코</a>
       <a href="/throat/">목</a>
+      <a href="/care/">검사·치료</a>
       <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
@@ -394,6 +401,15 @@
         <li>규칙적으로 자고 충분히 쉽니다.</li>
         <li>카페인과 술의 영향은 사람마다 달라서, 이명이 심해지는지 살펴보고 조절합니다.</li>
       </ul>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+          <li><a href="/care/hearing-test/">청력검사 (순음·어음·고막운동성 검사)</a><span>검사 · 얼마나 작은 소리까지 듣는지, 말을 얼마나 알아듣는지, 고막이 잘 움직이는지 잽니다. 결과표 읽는 법을 정리했습니다.</span></li>
+          <li><a href="/care/tinnitus-cbt/">이명 인지행동치료</a><span>치료 · 이명 소리를 없애는 것이 아니라, 이명에 대한 뇌의 반응을 바꿔 괴로움을 줄입니다. 근거가 가장 탄탄한 이명 치료입니다.</span></li>
+          <li><a href="/care/hearing-aid/">보청기</a><span>치료 · 청력검사 결과에 맞춰 필요한 소리만 키워 줍니다. 처음 몇 주의 적응과 조절이 성공을 좌우합니다.</span></li>
+        </ul>
+      </section>
 
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>

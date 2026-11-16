@@ -1,0 +1,82 @@
+{
+  "title": "검사·치료",
+  "intro": "이비인후과 진료실에서 실제로 하는 검사와 치료를 하나씩 설명합니다. 무엇을 알아보는 검사인지, 어떻게 진행하는지, 아픈지, 치료 뒤에는 무엇을 조심해야 하는지 미리 알고 오시면 진료가 한결 편해집니다.",
+  "groups": [
+    {
+      "kind": "test",
+      "name": "코·알레르기 검사",
+      "slugs": [
+        "nasal-endoscopy",
+        "skin-prick-test",
+        "specific-ige-test",
+        "nasal-cytology",
+        "nasal-provocation-test",
+        "nasal-airflow-test",
+        "nasal-nitric-oxide",
+        "smell-test"
+      ]
+    },
+    {
+      "kind": "test",
+      "name": "귀·어지럼 검사",
+      "slugs": [
+        "hearing-test",
+        "videonystagmography"
+      ]
+    },
+    {
+      "kind": "test",
+      "name": "수면 검사",
+      "slugs": [
+        "polysomnography"
+      ]
+    },
+    {
+      "kind": "treatment",
+      "name": "코 수술·시술",
+      "slugs": [
+        "endoscopic-sinus-surgery",
+        "septoplasty",
+        "turbinate-reduction",
+        "posterior-nasal-nerve-ablation"
+      ]
+    },
+    {
+      "kind": "treatment",
+      "name": "알레르기 치료",
+      "slugs": [
+        "allergen-immunotherapy",
+        "intralymphatic-immunotherapy"
+      ]
+    },
+    {
+      "kind": "treatment",
+      "name": "코 관리·재활",
+      "slugs": [
+        "nasal-irrigation",
+        "olfactory-training"
+      ]
+    },
+    {
+      "kind": "treatment",
+      "name": "귀·어지럼 치료",
+      "slugs": [
+        "canalith-repositioning",
+        "vestibular-rehabilitation",
+        "tinnitus-cbt",
+        "intratympanic-steroid-injection",
+        "hearing-aid",
+        "eustachian-tube-balloon-dilation",
+        "eardrum-patch"
+      ]
+    },
+    {
+      "kind": "treatment",
+      "name": "수면 치료",
+      "slugs": [
+        "cpap",
+        "myofunctional-therapy"
+      ]
+    }
+  ]
+}

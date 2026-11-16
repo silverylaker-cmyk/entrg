@@ -38,7 +38,8 @@
     "tests": [
       {
         "name": "비내시경 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "nasal-endoscopy"
       },
       {
         "name": "부비동 CT",
@@ -46,7 +47,8 @@
       },
       {
         "name": "후각검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "smell-test"
       },
       {
         "name": "조직검사",
@@ -64,7 +66,8 @@
       },
       {
         "name": "내시경 부비동 수술(ESS)",
-        "type": "TherapeuticProcedure"
+        "type": "TherapeuticProcedure",
+        "care": "endoscopic-sinus-surgery"
       },
       {
         "name": "생물학적 제제",

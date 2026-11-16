@@ -44,11 +44,13 @@
       },
       {
         "name": "고막운동성 검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "청력검사",
-        "type": "MedicalTest"
+        "type": "MedicalTest",
+        "care": "hearing-test"
       },
       {
         "name": "비인두 내시경 검사",

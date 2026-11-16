@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261116a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -165,11 +165,15 @@
           },
           {
             "@type": "MedicalTest",
-            "name": "비내시경 검사"
+            "@id": "https://entrg.net/care/nasal-endoscopy/#entity",
+            "name": "비내시경 검사",
+            "url": "https://entrg.net/care/nasal-endoscopy/"
           },
           {
-            "@type": "MedicalTest",
-            "name": "비강 분비물 도말 검사"
+            "@type": "PathologyTest",
+            "@id": "https://entrg.net/care/nasal-cytology/#entity",
+            "name": "비강 도말검사",
+            "url": "https://entrg.net/care/nasal-cytology/"
           }
         ],
         "possibleTreatment": [
@@ -187,7 +191,9 @@
           },
           {
             "@type": "MedicalTherapy",
-            "name": "식염수 코 세척"
+            "@id": "https://entrg.net/care/nasal-irrigation/#entity",
+            "name": "식염수 코 세척",
+            "url": "https://entrg.net/care/nasal-irrigation/"
           }
         ],
         "possibleComplication": [
@@ -264,6 +270,7 @@
       <a href="/ear/">귀</a>
       <a href="/nose/" aria-current="page">코</a>
       <a href="/throat/">목</a>
+      <a href="/care/">검사·치료</a>
       <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
@@ -381,6 +388,20 @@
         <li>담배 연기와 강한 향을 피합니다.</li>
         <li>식염수 코 세척을 꾸준히 합니다.</li>
       </ul>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+          <li><a href="/care/nasal-endoscopy/">비내시경 검사</a><span>검사 · 가는 내시경으로 코 안과 부비동 입구, 코 뒤쪽을 직접 봅니다. 1~2분이면 끝납니다.</span></li>
+          <li><a href="/care/skin-prick-test/">피부단자검사</a><span>검사 · 원인 물질을 피부에 묻혀 15~20분 뒤 부푼 정도를 봅니다. 검사 전 항히스타민제를 끊어야 합니다.</span></li>
+          <li><a href="/care/specific-ige-test/">혈액 알레르기 검사 (MAST·ImmunoCAP)</a><span>검사 · 피 한 번으로 알레르기 원인을 찾습니다. 약을 끊지 않아도 됩니다. MAST와 ImmunoCAP의 차이를 정리했습니다.</span></li>
+          <li><a href="/care/nasal-cytology/">비강 도말검사</a><span>검사 · 코 점막을 면봉으로 문질러 현미경으로 봅니다. 어떤 염증 세포가 많은지로 비염의 종류를 가립니다.</span></li>
+          <li><a href="/care/nasal-provocation-test/">비유발검사</a><span>검사 · 의심되는 원인 물질을 코에 소량 뿌려 실제로 증상이 생기는지 확인합니다. 원인을 확정하는 검사입니다.</span></li>
+          <li><a href="/care/turbinate-reduction/">하비갑개 축소술</a><span>치료 · 부어서 숨길을 막는 하비갑개를 줄입니다. 점막 표면은 살리고 속을 줄이는 방법을 씁니다.</span></li>
+          <li><a href="/care/posterior-nasal-nerve-ablation/">후비신경 차단 시술</a><span>치료 · 콧물을 지시하는 코 뒤쪽 신경을 냉동·고주파로 약하게 만듭니다. 약으로 조절되지 않는 만성 비염에서 고려합니다.</span></li>
+          <li><a href="/care/nasal-irrigation/">식염수 코 세척</a><span>치료 · 식염수로 코 안의 분비물과 원인 물질을 씻어 냅니다. 끓였다 식힌 물과 올바른 자세가 중요합니다.</span></li>
+        </ul>
+      </section>
 
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>

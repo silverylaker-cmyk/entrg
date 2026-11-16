@@ -3,15 +3,20 @@
   <url><loc>https://entrg.net/</loc></url>
   <url><loc>https://entrg.net/facts/</loc></url>
   <url><loc>https://entrg.net/about/</loc></url>
+  <url><loc>https://entrg.net/care/</loc></url>
   <url><loc>https://entrg.net/ear/</loc></url>
   <url><loc>https://entrg.net/nose/</loc></url>
   <url><loc>https://entrg.net/throat/</loc></url>
   <url><loc>https://entrg.net/ear/otitis-externa/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/earwax/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/acute-otitis-media/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/otitis-media-effusion/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/chronic-otitis-media/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/eardrum-perforation/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/eustachian-tube-dysfunction/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/sudden-hearing-loss/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/tinnitus/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/ear/age-related-hearing-loss/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/bppv/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/vestibular-neuritis/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/ear/menieres-disease/</loc><lastmod>2026-11-09</lastmod></url>
@@ -35,5 +40,34 @@
   <url><loc>https://entrg.net/throat/laryngopharyngeal-reflux/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/throat/globus/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/throat/vocal-nodules/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/throat/stuttering/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://entrg.net/throat/neck-lump/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/nasal-endoscopy/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/skin-prick-test/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/specific-ige-test/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/nasal-cytology/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/nasal-provocation-test/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/nasal-airflow-test/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/nasal-nitric-oxide/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/smell-test/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/hearing-test/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/videonystagmography/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/polysomnography/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/endoscopic-sinus-surgery/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/septoplasty/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/turbinate-reduction/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/posterior-nasal-nerve-ablation/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/allergen-immunotherapy/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/intralymphatic-immunotherapy/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/nasal-irrigation/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/olfactory-training/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/canalith-repositioning/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/vestibular-rehabilitation/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/tinnitus-cbt/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/intratympanic-steroid-injection/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/hearing-aid/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/eustachian-tube-balloon-dilation/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/eardrum-patch/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/cpap/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://entrg.net/care/myofunctional-therapy/</loc><lastmod>2026-11-09</lastmod></url>
 </urlset>

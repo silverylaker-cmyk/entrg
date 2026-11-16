@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#edf1ee">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/assets/site.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/site.css?v=20261116a">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
   {
@@ -153,11 +153,15 @@
         "typicalTest": [
           {
             "@type": "MedicalTest",
-            "name": "비내시경 검사"
+            "@id": "https://entrg.net/care/nasal-endoscopy/#entity",
+            "name": "비내시경 검사",
+            "url": "https://entrg.net/care/nasal-endoscopy/"
           },
           {
             "@type": "MedicalTest",
-            "name": "비강통기도 검사"
+            "@id": "https://entrg.net/care/nasal-airflow-test/#entity",
+            "name": "비강통기도검사",
+            "url": "https://entrg.net/care/nasal-airflow-test/"
           },
           {
             "@type": "ImagingTest",
@@ -171,11 +175,15 @@
           },
           {
             "@type": "TherapeuticProcedure",
-            "name": "비중격 성형술"
+            "@id": "https://entrg.net/care/septoplasty/#entity",
+            "name": "비중격 성형술",
+            "url": "https://entrg.net/care/septoplasty/"
           },
           {
             "@type": "TherapeuticProcedure",
-            "name": "하비갑개 축소술"
+            "@id": "https://entrg.net/care/turbinate-reduction/#entity",
+            "name": "하비갑개 축소술",
+            "url": "https://entrg.net/care/turbinate-reduction/"
           }
         ],
         "possibleComplication": [
@@ -253,6 +261,7 @@
       <a href="/ear/">귀</a>
       <a href="/nose/" aria-current="page">코</a>
       <a href="/throat/">목</a>
+      <a href="/care/">검사·치료</a>
       <a href="/facts/">상식</a>
       <a href="/about/">소개</a>
     </nav>
@@ -361,6 +370,16 @@
         <li>식염수 코 세척으로 딱지와 분비물을 씻어 냅니다.</li>
         <li>정해진 날 외래에서 코 안을 정리받습니다.</li>
       </ul>
+
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title">관련 검사와 치료</h2>
+        <ul class="related-list">
+          <li><a href="/care/nasal-endoscopy/">비내시경 검사</a><span>검사 · 가는 내시경으로 코 안과 부비동 입구, 코 뒤쪽을 직접 봅니다. 1~2분이면 끝납니다.</span></li>
+          <li><a href="/care/nasal-airflow-test/">코 숨길 검사 (비강통기도검사·최대 비흡기 유량)</a><span>검사 · 코막힘을 느낌이 아닌 숫자로 잽니다. 치료 전후를 비교하고 수술 결정을 돕습니다.</span></li>
+          <li><a href="/care/septoplasty/">비중격 성형술</a><span>치료 · 휘어진 코 가운데 칸막이를 바로잡아 숨길을 넓힙니다. 코 안쪽으로 수술해 겉모양은 바뀌지 않습니다.</span></li>
+          <li><a href="/care/turbinate-reduction/">하비갑개 축소술</a><span>치료 · 부어서 숨길을 막는 하비갑개를 줄입니다. 점막 표면은 살리고 속을 줄이는 방법을 씁니다.</span></li>
+        </ul>
+      </section>
 
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">자주 묻는 질문</h2>
